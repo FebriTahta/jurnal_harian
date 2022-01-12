@@ -169,7 +169,7 @@
                     </div>
                     <!-- #END# Textarea --> 
                 </div>
-                <div class="col-md-12 col-lg-4" @auth style="margin-top: 15px; text-align: right" @else style="margin-top: 58px; text-align: right;" @endauth >
+                <div class="col-md-12 col-lg-4" style="margin-top: 58px; text-align: right;">
                     {{-- @auth
                         <a class="btn btn-round btn-sm btn-primary waves-effect" style="margin-bottom: 10px" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
