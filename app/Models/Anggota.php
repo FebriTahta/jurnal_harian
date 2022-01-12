@@ -13,4 +13,9 @@ class Anggota extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function joblist()
+    {
+        return $this->hasMany(Joblist::class);
+    }
 }

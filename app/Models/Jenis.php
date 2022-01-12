@@ -11,4 +11,9 @@ class Jenis extends Model
     protected $fillable = [
         'jenis'
     ];
+
+    public function joblist()
+    {
+        return $this->hasMany(Joblist::class);
+    }
 }

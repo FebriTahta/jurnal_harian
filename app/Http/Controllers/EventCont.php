@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Jenis;
 use App\Models\Joblist;
+use App\Models\Anggota;
 use Illuminate\Http\Request;
+use Validator;
 use Redirect,Response;
 use Auth;
 
@@ -42,11 +44,16 @@ class EventCont extends Controller
   
         if($request->ajax()) {
        
-             $data = Event::whereDate('start', '>=', $request->start)
-                       ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'title', 'start', 'end']);
+            // $data = Event::whereDate('start', '>=', $request->start)
+            //              ->whereDate('end',   '<=', $request->end)->select('id','title','start','end')
+            //              ->get();
+
+            $data = Joblist::whereDate('start', '>=', $request->start)
+                       ->whereDate('end',   '<=', $request->end)->select('id','jenis_id','anggota_id','title','start','end')
+                    //    ->groupBy('title')
+                       ->get();
   
-             return response()->json($data);
+            return response()->json($data);
         }
   
         return view('fullcalender');
@@ -92,70 +99,118 @@ class EventCont extends Controller
     {
         $sekarang = date("d/m/Y");
         $tgl = $request->tanggal;
-        $request->validate([
-            'jenis' => 'required',
+
+        $validator = Validator::make($request->all(), [            
+            'jenis'         => 'required',
         ]);
 
-        foreach ($request->jenis as $key => $value) {
-            $cek_jenis  = Jenis::where('jenis', $value)->first();
-            if ($cek_jenis == null) {
-                # code jika belum ada jenis pekerjaan serupa...
-                $jenis      =   Jenis::updateOrCreate(['id'=> $request->id],[
-                    'jenis' =>  $value
-                ]);
+        if ($validator->fails()) {
 
-                if ($request->has('status')) {
-                    # code...
-                    $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
-                        'anggota_id'    => Auth::id(),
-                        'jenis_id'      => $jenis->id,
-                        'deskripsi'     => $request->deskripsi[$key],
-                        'status'        => $request->status[$key],
-                        'start'         => $tgl,
-                        'end'           => $tgl,
-                        // 'tanggal'       => $request->tanggal[$key],
+            return response()->json([
+                'status'    => 400,
+                'message'   => 'Ada Kesalahan',
+                'errors'    => $validator->messages(),
+            ]);
+        }
+        else {
+            foreach ($request->jenis as $key => $value) {
+                $cek_jenis  = Jenis::where('jenis', $value)->first();
+                $anggota    = Anggota::where('id', Auth::user()->anggota_id)->first();
+                $nama       = $anggota->nama;
+                if ($cek_jenis == null) {
+                    # code jika belum ada jenis pekerjaan serupa...
+                    $jenis      =   Jenis::updateOrCreate(['id'=> $request->id],[
+                        'jenis' =>  $value
                     ]);
+    
+                    if ($request->has('status')) {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $jenis->id,
+                            'title'         => $nama,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }else {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $jenis->id,
+                            'title'         => $nama,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            // 'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }  
                 }else {
                     # code...
-                    $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
-                        'anggota_id'    => Auth::id(),
-                        'jenis_id'      => $jenis->id,
-                        'deskripsi'     => $request->deskripsi[$key],
-                        // 'status'        => $request->status[$key],
-                        'start'         => $tgl,
-                        'end'           => $tgl,
-                        // 'tanggal'       => $request->tanggal[$key],
-                    ]);
-                }  
-            }else {
-                # code...
-                if ($request->has('status')) {
-                    # code...
-                    $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
-                        'anggota_id'    => Auth::id(),
-                        'jenis_id'      => $cek_jenis->id,
-                        'deskripsi'     => $request->deskripsi[$key],
-                        'status'        => $request->status[$key],
-                        'start'         => $tgl,
-                        'end'           => $tgl,
-                        // 'tanggal'       => $request->tanggal[$key],
-                    ]);
-                }else {
-                    # code...
-                    $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
-                        'anggota_id'    => Auth::id(),
-                        'jenis_id'      => $cek_jenis->id,
-                        'deskripsi'     => $request->deskripsi[$key],
-                        // 'status'        => $request->status[$key],
-                        'start'         => $tgl,
-                        'end'           => $tgl,
-                        // 'tanggal'       => $request->tanggal[$key],
-                    ]);
+                    if ($request->has('status')) {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $cek_jenis->id,
+                            'title'         => $nama,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }else {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $cek_jenis->id,
+                            'title'         => $nama,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            // 'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }
                 }
             }
         }
+    }
+
+    public function jurnalku(Request $request)
+    {
+        if (Auth::user()) {
+            # code...
+            if(request()->ajax())
+            {
+                $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
+                where('start',date('d/m/Y'))->get();
+                return response()->json($datas,200);
+            }
+        }
         
-        
-        return response()->json();
     }
 }

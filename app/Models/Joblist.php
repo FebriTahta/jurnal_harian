@@ -9,7 +9,17 @@ class Joblist extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'jenis_id','anggota_id','status','deskripsi','start','end'
+        'jenis_id','anggota_id','status','deskripsi','start','end','title'
         // ,'tanggal'
     ];
+
+    public function jenis()
+    {
+        return $this->belongsTo(Jenis::class);
+    }
+
+    public function anggota()
+    {
+        return $this->belongsTo(Anggota::class);
+    }
 }

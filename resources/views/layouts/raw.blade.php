@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4">
+            {{-- <div class="col-md-12 col-lg-4">
                 <div class="card">
                     <div class="body m-b-20">
                         <div class="event-name b-lightred row">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>        
     </div>
 
@@ -88,7 +88,7 @@
     @endauth
 </section>
 
-<div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+{{-- <div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -117,7 +117,35 @@
             </div>
         </form>
     </div>
+</div> --}}
+
+<div class="modal fade" id="user1" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title" id="defaultModalLabel">FITUR KALENDER & DOKUMENTASI</h4>
+                </div>
+                <div class="modal-body clearfix" >
+                    <div class="form-group" id="dynamicTable">
+                        <div class="form-group">
+                            <p>Sedang dalam pengembangan</p>
+
+                            <input type="password" value="adm" name="password" style="display: none">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="/jurnal-harian" class="btn modal-col-pink btn-round waves-effect"> Mengisi Jurnal!</a>
+                    {{-- <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit"> --}}
+                    {{-- <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button> --}}
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+
 @endsection
 
 @section('script')
@@ -133,7 +161,7 @@
         
         if (stat !== 'masuk') {
             console.log(stat);
-            $("#user").modal('show');       
+            $("#user1").modal('show');       
         }else{
             console.log(stat);
         }
@@ -152,103 +180,93 @@
     });
       
     var calendar = $('#calendar').fullCalendar({
-                        eventColor: '#63a4ff',
-                        // editable: true,
-                        events: SITEURL + "/fullcalender",
-                        displayEventTime: false,
-                        // editable: true,
-                        eventTextColor: '#fff',
-                        eventRender: function (event, element, view) {
-                            if (event.allDay === 'true') {
-                                    event.allDay = true;
-                            } else {
-                                    event.allDay = false;
-                            }
-                        },
-                        selectable: true,
-                        selectHelper: true,
-                        select: function (start, end, allDay) {
-                            var oke = confirm("Mengisi Jurnal ?");
-                            if (oke) {
-                                // var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                                // var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                                $('#addevent').modal('show');
-                            }
-
-                            
-                            // var title = prompt('Event Title:');
-                            // if (title) {
-                            //     var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                            //     var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                            //     $.ajax({
-                            //         url: SITEURL + "/fullcalenderAjax",
-                            //         data: {
-                            //             title: title,
-                            //             start: start,
-                            //             end: end,
-                            //             type: 'add',
-                            //             eventColor: '#63a4ff',
-                            //         },
-                            //         type: "POST",
-                            //         success: function (data) {
-                            //             displayMessage("Event Created Successfully");
-      
-                            //             calendar.fullCalendar('renderEvent',
-                            //                 {
-                            //                     id: data.id,
-                            //                     title: title,
-                            //                     start: start,
-                            //                     end: end,
-                            //                     allDay: allDay,
-                            //                     eventColor: '#63a4ff',
-                            //                 },true);
-      
-                            //             calendar.fullCalendar('unselect');
-                            //         }
-                            //     });
-                            // }
-                        },
-                        eventDrop: function (event, delta) {
-                            var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-                            var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
-      
+                    eventColor: '#63a4ff',
+                    editable: true,
+                    events: SITEURL + "/fullcalender",
+                    displayEventTime: false,
+                    editable: true,
+                    eventTextColor: '#fff',
+                    eventBorderColor: 'red',
+                    eventRender: function (event, element, view) {
+                        if (event.allDay === 'true') {
+                                event.allDay = true;
+                        } else {
+                                event.allDay = false;
+                        }
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    select: function (start, end, allDay) {
+                        var title = prompt('Event Title:');
+                        if (title) {
+                            var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
+                            var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
                             $.ajax({
-                                url: SITEURL + '/fullcalenderAjax',
+                                url: SITEURL + "/fullcalenderAjax",
                                 data: {
-                                    title: event.title,
+                                    title: title,
                                     start: start,
                                     end: end,
-                                    id: event.id,
-                                    type: 'update',
-                                    eventColor: '#63a4ff',
+                                    type: 'add'
                                 },
                                 type: "POST",
-                                success: function (response) {
-                                    displayMessage("Event Updated Successfully");
+                                success: function (data) {
+                                    displayMessage("Event Created Successfully");
+  
+                                    calendar.fullCalendar('renderEvent',
+                                        {
+                                            id: data.id,
+                                            title: title,
+                                            start: start,
+                                            end: end,
+                                            allDay: allDay
+                                        },true);
+  
+                                    calendar.fullCalendar('unselect');
                                 }
                             });
-                        },
-                        eventClick: function (event) {
-                            var deleteMsg = confirm("Do you really want to delete?");
-                            if (deleteMsg) {
-                                $.ajax({
-                                    type: "POST",
-                                    url: SITEURL + '/fullcalenderAjax',
-                                    data: {
-                                            id: event.id,
-                                            type: 'delete'
-                                    },
-                                    success: function (response) {
-                                        calendar.fullCalendar('removeEvents', event.id);
-                                        displayMessage("Event Deleted Successfully");
-                                    }
-                                });
-                            }
                         }
-     
-                    });
-     
-    });
+                    },
+                    eventDrop: function (event, delta) {
+                        var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
+                        var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+  
+                        $.ajax({
+                            url: SITEURL + '/fullcalenderAjax',
+                            data: {
+                                title: event.title,
+                                start: start,
+                                end: end,
+                                id: event.id,
+                                type: 'update'
+                            },
+                            type: "POST",
+                            success: function (response) {
+                                displayMessage("Event Updated Successfully");
+                            }
+                        });
+                    },
+                    eventClick: function (event) {
+                        var deleteMsg = confirm("Do you really want to delete?");
+                        if (deleteMsg) {
+                            $.ajax({
+                                type: "POST",
+                                url: SITEURL + '/fullcalenderAjax',
+                                data: {
+                                        id: event.id,
+                                        type: 'delete'
+                                },
+                                success: function (response) {
+                                    calendar.fullCalendar('removeEvents', event.id);
+                                    displayMessage("Event Deleted Successfully");
+                                }
+                            });
+                        }
+                    }
+ 
+                });
+ 
+});
      
     function displayMessage(message) {
         toastr.success(message, 'Event');

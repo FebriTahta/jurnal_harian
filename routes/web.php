@@ -29,7 +29,9 @@ Route::post('fullcalendar/delete',[EventCont::class, 'delete']);
 // new
 Route::get('fullcalender', [EventCont::class, 'index']);
 Route::post('fullcalenderAjax', [EventCont::class, 'ajax']);
+
 Route::post('/new_input', [EventCont::class,'new_input']);
+Route::get('/jurnalku-data',[EventCont::class,'jurnalku']);
 
 Route::get('/jurnal-harian',[IndexCont::class,'jurnal_harian']);
 Route::post('/autocomplete',[IndexCOnt::class,'fetch'])->name('autocomplete.fetch');

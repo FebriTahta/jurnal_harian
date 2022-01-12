@@ -1,6 +1,18 @@
 @extends('layouts.master')
 @section('head')
 <style>
+    @media(max-width: 800px){
+        #card_jurnal{
+            margin-top: 0;
+            text-align: right;
+        }
+    }
+    @media(min-width: 801px){
+        #card_jurnal{
+            margin-top: 58px;
+            text-align: right;
+        }
+    }
     /* The container */
     .container {
       display: block;
@@ -83,9 +95,13 @@
                             <li class="breadcrumb-item"><a href="javascript:void(0);">App</a></li>
                             <li class="breadcrumb-item active">Jurnal-harian</li>
                             @auth
+                            <li class="breadcrumb-item">{{auth()->user()->anggota->nama}}</li>
+                                @if ($joblist->count() == 0)
+                                <li class="breadcrumb-item text-danger" id="belum_mengisi"> Anda belum mengisi jurnal hari ini</li>
+                                @endif
                             <input type="hidden" id="stat" value="masuk">
-                            <li class="breadcrumb-item active">{{auth()->user()->anggota->nama}}</li>
                             @else
+                            <li class="breadcrumb-item text-danger">Masuk untuk mengisi jurnal harian</li>
                             <input type="hidden" id="stat" value="non">
                             @endauth
                         </ul>
@@ -101,6 +117,7 @@
                         <div class="col-lg-12">
                             
                                 <div class="card" id="dynamic">
+                                    <div id="errList" class="text-uppercase"></div>
                                     <div class="header">
                                         <h2><strong>Pekerjaan </strong></h2>
                                         <ul class="header-dropdown">
@@ -131,7 +148,12 @@
                                                         @auth
                                                             <input type="hidden" name="tanggal" id="tgl" value="{{$sekarang}}" required>
                                                         @endauth
-                                                        <input type="text" name="jenis[]" class="form-control" placeholder="..." required>
+                                                        <input list="listjenis" type="text" name="jenis[]" class="form-control" placeholder="..." required>
+                                                        <datalist id="listjenis">
+                                                        @foreach ($jenis as $item)
+                                                            <option value="{{$item->jenis}}">{{$item->jenis}}</option>
+                                                        @endforeach
+                                                        </datalist>
                                                         <label class="container" style="margin-top: 10px;">Selesai
                                                             <input type="checkbox" value="selesai" name="status[]" style="margin-top: 10px;" >
                                                             <span class="checkmark"></span>
@@ -169,33 +191,70 @@
                     </div>
                     <!-- #END# Textarea --> 
                 </div>
-                <div class="col-md-12 col-lg-4" style="margin-top: 58px; text-align: right;">
-                    {{-- @auth
-                        <a class="btn btn-round btn-sm btn-primary waves-effect" style="margin-bottom: 10px" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @endauth --}}
-                    
-                    <div class="card">
-                        <div class="body m-b-20">
-                            <div class="event-name b-lightred row">
-                                <div class="col-3 text-center">
-                                    <h4>09<span>Dec</span><span>2017</span></h4>
+                <div class="col-md-12 col-lg-4" id="card_jurnal">
+                    <div id="isi_jurnal">
+                        @auth
+                            @if ($joblist->count() > 0)
+                                @foreach ($joblist as $jlist)
+                                <a href="#">
+                                <div class="card">
+                                    <div class="body m-b-10">
+                                        <div class="event-name b-lightred row">
+                                            <div class="col-3 text-center">
+                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                            </div>
+                                            <div class="col-9">
+                                                <h6>{{$jlist->jenis->jenis}}</h6>
+                                                <span>{{$jlist->deskripsi}}</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        @if ($jlist->status !== null)
+                                        <span style="text-align: right">{{$jlist->status}}</span>
+                                        @else
+                                        <span style="text-align: right" class="text-danger"> - belum</span>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="col-9">
-                                    <h6>Repeating Event</h6>
-                                    <p>It is a long established fact that a reader will be distracted</p>
-                                    <address><i class="zmdi zmdi-pin"></i> 123 6th St. Melbourne, FL 32904</address>
+                                </a>
+                                @endforeach
+                            @else
+                            <a href="#">
+                                <div class="card">
+                                    <div class="body m-b-10">
+                                        <div class="event-name b-lightred row">
+                                            <div class="col-3 text-center">
+                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                            </div>
+                                            <div class="col-9 text-danger">
+                                                <h6>Jurnal Hari Ini KOSONG</h6>
+                                                <span>Anda belum mengisi jurnal hari ini</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </a>
+                            @endif
+                            
+                        @else
+                        <a href="#">
+                            <div class="card">
+                                <div class="body m-b-10">
+                                    <div class="event-name b-lightred row">
+                                        <div class="col-3 text-center">
+                                            <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                        </div>
+                                        <div class="col-9 text-danger">
+                                            <h6>Daftar Jurnal Hari Ini</h6>
+                                            <span>masuk untuk mengisi jurnal harian anda</span>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
-                            <hr>
-                        </div>
+                        </a>
+                        @endauth
                     </div>
                 </div>
             </div>        
@@ -319,6 +378,7 @@
     $('#formaddjob').submit(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
+        var card_jurnalku = '';
         $.ajax({
             type:'POST',
             url: "/new_input",
@@ -330,12 +390,45 @@
                 $('#btnadd').attr('disabled','disabled');
                 $('#btnadd').val('Process');
             },
-            success: function(data){
-                console.log(data);
-                $('#btnadd').val('SUBMIT');
-                $('#btnadd').attr('disabled',false);
-                $("#formaddjob")[0].reset();
-                toastr.success('Success', 'Mengisi Jurnal');
+            success: function(response){
+                if(response.status == 200)
+                {
+                    $('#btnadd').val('SUBMIT');
+                    $('#btnadd').attr('disabled',false);
+                    $("#formaddjob")[0].reset();
+                    // toastr.success('Success', 'Mengisi Jurnal');
+                    toastr.success(response.message);
+                    $('#errList').removeClass('alert alert-danger');
+                    $('#isi_jurnal a').remove();
+
+                    $.ajax({
+                        url:"jurnalku-data",
+                        type: 'get',
+                        dataType: 'json',
+                            success:function(datas) {
+                                for (let index = 0; index < datas.length; index++) {
+                                    card_jurnalku = '<a href="#">'
+                                                    +'<div class="card">'
+                                                        +'<div class="body m-b-10">'
+                                                            +'<div class="event-name b-lightred row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>09<span>Dec</span><span>2017</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'<hr>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>';
+                                    $('#isi_jurnal').append(card_jurnalku);
+                                    $('#belum_mengisi').remove();
+                                }
+                            }
+                    });
+                }
             },
             error: function(data)
             {   

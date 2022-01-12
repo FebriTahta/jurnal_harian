@@ -7,6 +7,7 @@ use App\Models\Bidang;
 use App\Models\Jenis;
 use App\Models\Joblist;
 use Redirect,Response;
+use Auth;
 use Illuminate\Http\Request;
 
 class IndexCont extends Controller
@@ -18,7 +19,8 @@ class IndexCont extends Controller
             $start  = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
             $end    = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
     
-            $data   = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            // $data   = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            $data   = Joblist::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get();
             return Response::json($data);
         }
 
@@ -50,9 +52,22 @@ class IndexCont extends Controller
 
     public function jurnal_harian()
     {
-        $anggota = Anggota::all();
-        $bidang  = Bidang::all();
-        return view('layouts.absen',compact('anggota','bidang'));
+        
+        if (Auth::user()) {
+            # code...
+            $anggota    = Anggota::all();
+            $bidang     = Bidang::all();
+            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)
+                                 ->where('start', date("d/m/Y"))->get();
+            $jenis      = Jenis::all();
+            return view('layouts.absen',compact('anggota','bidang','joblist','jenis'));
+        }else{
+            $anggota    = Anggota::all();
+            $bidang     = Bidang::all();
+            $jenis      = Jenis::all();
+            return view('layouts.absen',compact('anggota','bidang','jenis'));
+        }
+            
     }
 
 }
