@@ -99,7 +99,7 @@
                 <div class="col-md-12 col-lg-8">
                     <div class="row clearfix">
                         <div class="col-lg-12">
-                            <form id="formaddjob">@csrf
+                            
                                 <div class="card" id="dynamic">
                                     <div class="header">
                                         <h2><strong>Pekerjaan </strong></h2>
@@ -121,7 +121,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    
+                                    <form id="formaddjob">@csrf
                                     <div class="body" style="margin-bottom: 20px">
                                         <h2 class="card-inside-title">Jenis Pekerjaan ..</h2>
                                         <div class="row clearfix">
@@ -153,13 +153,15 @@
                                             </div>
                                         </div> 
                                     </div>
-                                </div>
-                                @auth
+                                    @auth
                                     <input type="submit" class="btn btn-info btn-round waves-effect" id="btnadd" value="SUBMIT">
                                         @else
                                     <button type="button" data-toggle="modal" data-target="#user" class="btn btn-danger btn-round waves-effect">MASUK UNTUK MENGISI JURNAL</button>
-                                @endauth
-                            </form>
+                                    @endauth
+                                    </form>
+                                </div>
+                                
+                            
                             <div class="card">
                                 
                             </div>
@@ -272,7 +274,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var i = 0;
-        console.log(tgl);
         $("#tambah").click(function(e){
             e.preventDefault();
             i++;
