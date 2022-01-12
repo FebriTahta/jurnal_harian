@@ -261,7 +261,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var i = 0;
-        var tgl = $("#tgl").val();
         console.log(tgl);
         $("#tambah").click(function(e){
             e.preventDefault();
@@ -296,16 +295,13 @@
                                                     +'</div>'
                                                     +'</div>'
                                                     +'</a>');
-                                    
-                                
-            // $("#dynamic").append('<ul><button class="btn btn-primary btn-sm remove-tr"></button> <p>aaaaaaaaaaaaaaa</p></ul>');
             
             
         });
     });
     $(document).on('click', '.remove-tr', function(e){ 
         e.preventDefault();
-        --i;
+        // --i;
         $(this).parents('a').remove();
     });  
     $('#formaddjob').submit(function(e) {

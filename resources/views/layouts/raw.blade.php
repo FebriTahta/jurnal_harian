@@ -88,64 +88,6 @@
     @endauth
 </section>
 
-<!-- Default Size -->
-{{-- <div class="modal fade" id="addevent" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-center" role="document">
-        <form id="formaddevent" method="POST">@csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="title" id="defaultModalLabel">MENGISI JURNAL</h4>
-                </div>
-                <div class="modal-body clearfix" >
-                    <div class="form-group" id="dynamicTable">
-                        <div class="row">
-                            <div class="col-12 col-md-6" style=" margin-bottom: 40px">
-                                <label for="">Nama</label>
-                                <input list="listanggota" name="anggota_id" class="form-control" placeholder="..." id="anggota_id" required>
-                                <datalist id="listanggota" style="text-transform: uppercase">
-                                    @foreach ($anggota as $agt)
-                                        <option style="text-transform: uppercase" value="{{$agt->nama}}">
-                                    @endforeach
-                                </datalist>    
-                            </div>
-                            <div class="col-12 col-md-6" style="margin-bottom: 40px">
-                                <label for="">Bidang</label>
-                                <input list="listbidang" name="bidang_id" class="form-control" placeholder="..." id="bidang_id" required>
-                                <datalist id="listbidang">
-                                    @foreach ($bidang as $bdg)
-                                        <option value="{{$bdg->namabidang}}">
-                                    @endforeach
-                                </datalist>    
-                            </div>
-                            <div class="col-12 col-md-2" style="text-align: left;">
-                                <button type="button" class="btn btn-round btn-sm btn-purple waves-effect" id="tambah">Tambah</button>
-                            </div>
-                            <div class="col-12 col-md-8" style="margin-bottom: 10px">
-                                <input list="listjenis" name="jenis_id" class="form-control" placeholder="Pekerjaan ..." id="jenis_id" required>
-                                <datalist id="listjenis">
-                                    @foreach ($jenis as $jns)
-                                        <option value="{{$jns->jenis}}">
-                                    @endforeach
-                                </datalist>
-                            </div>
-                            <div class="col-12 col-md-2" style="text-align: right; ">
-                                <div class="checkbox">
-                                    <input id="checkbox" type="checkbox">
-                                    <label for="checkbox">SELESAI</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" id="btnhapus" class="btn btn-primary btn-round waves-effect" value="Submit">
-                    <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div> --}}
-
 <div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <form method="POST" action="{{ route('login') }}">
@@ -370,23 +312,4 @@
         });
     });
     </script>
-
-    {{-- <script type="text/javascript">
-        
-        var i = 0;
-        
-        $("#tambah").click(function(e){
-            e.preventDefault();
-            ++i;
-
-            $("#dynamicTable").append('');
-            
-        });
-
-        $(document).on('click', '.remove-tr', function(e){ 
-            e.preventDefault(); 
-            $(this).parents('tr').remove();
-        });  
-
-    </script> --}}
 @endsection
