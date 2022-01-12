@@ -170,7 +170,7 @@
                     <!-- #END# Textarea --> 
                 </div>
                 <div class="col-md-12 col-lg-4" @auth style="margin-top: 15px; text-align: right" @else style="margin-top: 58px; text-align: right;" @endauth >
-                    @auth
+                    {{-- @auth
                         <a class="btn btn-round btn-sm btn-primary waves-effect" style="margin-bottom: 10px" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -180,7 +180,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                    @endauth
+                    @endauth --}}
                     
                     <div class="card">
                         <div class="body m-b-20">
