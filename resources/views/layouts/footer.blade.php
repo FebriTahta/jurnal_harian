@@ -5,7 +5,7 @@
 
 <script src="{{asset('assets/bundles/knob.bundle.js')}}"></script> <!-- Jquery Knob-->
 
-<script src="{{asset('assets/bundles/fullcalendarscripts.bundle.js')}}"></script><!--/ calender javascripts --> 
+{{-- <script src="{{asset('assets/bundles/fullcalendarscripts.bundle.js')}}"></script><!--/ calender javascripts -->  --}}
 
 <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js --> 
 <script src="{{asset('assets/js/pages/calendar/calendar.js')}}"></script>
