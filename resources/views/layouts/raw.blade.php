@@ -89,7 +89,7 @@
 </section>
 
 <!-- Default Size -->
-<div class="modal fade" id="addevent" tabindex="-1" role="dialog">
+{{-- <div class="modal fade" id="addevent" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-center" role="document">
         <form id="formaddevent" method="POST">@csrf
             <div class="modal-content">
@@ -144,7 +144,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 <div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog" role="document">
@@ -371,7 +371,7 @@
     });
     </script>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         
         var i = 0;
         
@@ -388,5 +388,5 @@
             $(this).parents('tr').remove();
         });  
 
-    </script>
+    </script> --}}
 @endsection
