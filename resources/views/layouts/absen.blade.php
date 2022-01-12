@@ -105,7 +105,18 @@
                                         <h2><strong>Pekerjaan </strong></h2>
                                         <ul class="header-dropdown">
                                             <li class="dropdown"> 
-                                                <button type="button" @auth id="tambah" @else data-target="#user" data-toggle="modal" @endauth data-toggle="dropdown" class=" dropdown-toggle btn btn-round btn-sm btn-info waves-effect" aria-haspopup="true" aria-expanded="false" >Tambah</button>
+                                                {{-- <button type="button" @auth id="tambah" @else data-target="#user" data-toggle="modal" @endauth data-toggle="dropdown" class=" dropdown-toggle btn btn-round btn-sm btn-info waves-effect" aria-haspopup="true" aria-expanded="false" >Tambah</button> --}}
+                                                @auth
+                                                    <a class="btn btn-round btn-sm btn-primary waves-effect" style="margin-bottom: 10px" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                    </a>
+
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                @endauth
                                                 <?php $sekarang = date("d/m/Y");?>
                                             </li>
                                         </ul>
