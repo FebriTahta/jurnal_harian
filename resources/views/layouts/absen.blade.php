@@ -412,7 +412,7 @@
                                                         +'<div class="body m-b-10">'
                                                             +'<div class="event-name b-lightred row">'
                                                                 +'<div class="col-3 text-center">'
-                                                                    +'<h4>09<span>Dec</span><span>2017</span></h4>'
+                                                                    +'<h4>12<span>Jan</span><span>2021</span></h4>'
                                                                     +'</div>'
                                                                     +'<div class="col-9">'
                                                                         +'<h6>'+datas[index].jenis.jenis+'</h6>'
