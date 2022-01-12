@@ -265,7 +265,7 @@
         $("#tambah").click(function(e){
             e.preventDefault();
             i++;
-            $("#dynamic").append('    <a><button class="btn btn-sm btn-danger remove-tr">Hapus '+i+'</button><div class="body" style="margin-bottom: 20px">'
+            $("#dynamic").append('    <a><button class="btn btn-sm btn-danger remove-tr">Hapus</button><div class="body" style="margin-bottom: 20px">'
                                         +'<h2 class="card-inside-title">Jenis Pekerjaan ..</h2>'
                                         +'<div class="row clearfix">'
                                             +'<div class="col-sm-12">'
