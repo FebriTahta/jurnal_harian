@@ -4,13 +4,13 @@
     @media(max-width: 800px){
         #card_jurnal{
             margin-top: 0;
-            text-align: right;
+            /* text-align: right; */
         }
     }
     @media(min-width: 801px){
         #card_jurnal{
             margin-top: 58px;
-            text-align: right;
+            /* text-align: right; */
         }
     }
     /* The container */
@@ -89,11 +89,15 @@
             <div class="block-header">
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h2>JURNAL HARIAN ADM & IT</h2>
+                        <h2>JURNAL HARIAN ADM & IT</h2><?php $a = date_create("Y-MM-DD")?>
                         <ul class="breadcrumb padding-0">
                             <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">App</a></li>
-                            <li class="breadcrumb-item active">Jurnal-harian</li>
+                            <li class="breadcrumb-item active">Jurnal-harian 
+                            {{-- @foreach ($joblist as $item)
+                                {{Carbon\Carbon::parse($item->start)->isoFormat('Y-m-d')}}
+                            @endforeach     --}}
+                            </li> 
                             @auth
                             <li class="breadcrumb-item">{{auth()->user()->anggota->nama}}</li>
                                 @if ($joblist->count() == 0)
@@ -155,7 +159,7 @@
                                                         @endforeach
                                                         </datalist>
                                                         <label class="container" style="margin-top: 10px;">Selesai
-                                                            <input type="checkbox" value="selesai" name="status[]" style="margin-top: 10px;" >
+                                                            <input type="checkbox" value="selesai" name="status[]" id="status" style="margin-top: 10px;" >
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </div>
@@ -196,7 +200,7 @@
                         @auth
                             @if ($joblist->count() > 0)
                                 @foreach ($joblist as $jlist)
-                                <a href="#">
+                                <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-status="{{$jlist->status}}">
                                 <div class="card">
                                     <div class="body m-b-10">
                                         <div class="event-name b-lightred row">
@@ -205,15 +209,17 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6>{{$jlist->jenis->jenis}}</h6>
-                                                <span>{{$jlist->deskripsi}}</span>
+                                                <span>
+                                                    @if ($jlist->deskripsi == null)
+                                                        -
+                                                    @else
+                                                        {{$jlist->deskripsi}}
+                                                    @endif
+                                                </span>
+                                                <address><i class="zmdi zmdi-check"></i> {{$jlist->status}}</address>
                                             </div>
                                         </div>
                                         <hr>
-                                        @if ($jlist->status !== null)
-                                        <span style="text-align: right">{{$jlist->status}}</span>
-                                        @else
-                                        <span style="text-align: right" class="text-danger"> - belum</span>
-                                        @endif
                                     </div>
                                 </div>
                                 </a>
@@ -285,6 +291,64 @@
                     <div class="modal-footer">
                         <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit">
                         <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalupdate" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="formupdatejob">@csrf    
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title" id="defaultModalLabel">UPDATE JOB</h4>
+                    </div>
+                    <div class="modal-body clearfix" >
+                            <div class="body" style="margin-bottom: 20px">
+                                <h4 class="title">Jenis Pekerjaan ..</h4>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" name="id" id="id" required>
+                                                @auth
+                                                    <input type="hidden" name="tanggal" id="tgl" value="{{$sekarang}}" required>
+                                                @endauth
+                                                <input list="listjenis" id="jenis" type="text" name="jenis" class="form-control" placeholder="..." required>
+                                                <datalist id="listjenis">
+                                                @foreach ($jenis as $item)
+                                                    <option value="{{$item->jenis}}">{{$item->jenis}}</option>
+                                                @endforeach
+                                                </datalist>
+                                                <label class="container" style="margin-top: 10px;">Selesai
+                                                    <input type="checkbox" value="selesai" name="status" style="margin-top: 10px;" >
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <hr>
+                            <div class="body" style="margin-bottom: 20px">
+                                <h4 class="title">Deskripsi ..</h4>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" id="deskripsi" name="deskripsi" class="form-control no-resize" placeholder="Tulis kendala / proses yang perlu menjadi catatan..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info btn-round waves-effect" id="btnadd1" value="UPDATE">
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                        <button type="button" class="btn btn-danger btn-round waves-effect" data-dismiss="modal" disabled>HAPUS</button>
                     </div>
                 </div>
             </form>
@@ -400,25 +464,109 @@
                     toastr.success(response.message);
                     $('#errList').removeClass('alert alert-danger');
                     $('#isi_jurnal a').remove();
-
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
                     $.ajax({
                         url:"jurnalku-data",
                         type: 'get',
                         dataType: 'json',
                             success:function(datas) {
                                 for (let index = 0; index < datas.length; index++) {
-                                    card_jurnalku = '<a href="#">'
+                                    var tgl = new Date(datas[index].start);
+                                    card_jurnalku = '<a href="#" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
                                                     +'<div class="card">'
                                                         +'<div class="body m-b-10">'
-                                                            +'<div class="event-name b-lightred row">'
+                                                            +'<div class="event-name  row">'
                                                                 +'<div class="col-3 text-center">'
-                                                                    +'<h4>12<span>Jan</span><span>2021</span></h4>'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
                                                                     +'</div>'
                                                                     +'<div class="col-9">'
                                                                         +'<h6>'+datas[index].jenis.jenis+'</h6>'
                                                                         +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'<address style="text-align: right">'+datas[index].status+'</address>'
+                                                                        +'<hr>'
                                                                         +'</div>'
                                                                         +'</div>'
+                                                                        +'</a>';
+                                    $(this).parents('a').remove();
+                                    $('#isi_jurnal').append(card_jurnalku);
+                                    $('#belum_mengisi').remove();
+                                }
+                            }
+                    });
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
+</script>
+
+<script>
+$('#modalupdate').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('id')
+                var jenis = button.data('jenis')
+                var deskripsi = button.data('deskripsi')
+                var status = button.data('status')
+                var modal = $(this)
+                $('#id').val(id);
+                $('#jenis').val(jenis);
+                $('#deskripsi').text(deskripsi);
+            })
+</script>
+
+<script>
+    $('#formupdatejob').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_update",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnadd1').attr('disabled','disabled');
+                $('#btnadd1').val('Process');
+            },
+            success: function(response){
+                if(response.status == 200)
+                {
+                    $('#btnadd1').val('UPDATE');
+                    $('#btnadd1').attr('disabled',false);
+                    $("#formupdatejob")[0].reset();
+                    $("#modalupdate").hide();
+                    // toastr.success('Success', 'Mengisi Jurnal');
+                    toastr.success(response.message);
+                    // $('#errList').removeClass('alert alert-danger');
+                    $('#isi_jurnal a').remove();
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                    $.ajax({
+                        url:"jurnalku-data",
+                        type: 'get',
+                        dataType: 'json',
+                            success:function(datas) {
+                                for (let index = 0; index < datas.length; index++) {
+                                    var tgl = new Date(datas[index].start);
+                                    card_jurnalku = '<a style="text-black" href="#" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
+                                                    +'<div class="card">'
+                                                        +'<div class="body m-b-10">'
+                                                            +'<div class="event-name row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
                                                                         +'<hr>'
                                                                         +'</div>'
                                                                         +'</div>'
@@ -437,5 +585,4 @@
         });
     });
 </script>
-
 @endsection

@@ -12,6 +12,9 @@
                         <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">App</a></li>
                         <li class="breadcrumb-item active">Calendar</li>
+                        @auth
+                        <li class="breadcrumb-item active">{{auth()->user()->anggota->nama}}</li>
+                        @endauth
                     </ul>
                 </div>            
             </div>
@@ -39,45 +42,31 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-md-12 col-lg-4">
+            
+            <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
+                
+                @foreach ($anggota as $items)
+                <a href="#">
                 <div class="card">
                     <div class="body m-b-20">
-                        <div class="event-name b-lightred row">
-                            <div class="col-3 text-center">
-                                <h4>09<span>Dec</span><span>2017</span></h4>
+                        @foreach ($items->joblist as $item)
+                            <div class="event-name b-lightred row">
+                                <div class="col-3 text-center">
+                                    <h4>{{date('d')}}<span>{{date('m')}}</span><span>{{date('Y')}}</span></h4>
+                                </div>
+                                <div class="col-9">
+                                    <h6>{{strtoupper($item->anggota->nama).' - '.$item->jenis->jenis}}</h6>
+                                    <span>{{$item->deskripsi}}</span>
+                                    <address><i class="zmdi zmdi-check"></i> {{$item->status}}</address>
+                                </div>
                             </div>
-                            <div class="col-9">
-                                <h6>Repeating Event</h6>
-                                <p>It is a long established fact that a reader will be distracted</p>
-                                <address><i class="zmdi zmdi-pin"></i> 123 6th St. Melbourne, FL 32904</address>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="event-name b-greensea row">
-                            <div class="col-3 text-center">
-                                <h4>16<span>Dec</span><span>2017</span></h4>
-                            </div>
-                            <div class="col-9">
-                                <h6>Repeating Event</h6>
-                                <p>It is a long established fact that a reader will be distracted</p>
-                                <address><i class="zmdi zmdi-pin"></i> 123 6th St. Melbourne, FL 32904</address>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="body m-b-20 l-blue">
-                        <div class="event-name row">
-                            <div class="col-3 text-center">
-                                <h4>28<span>Dec</span><span>2017</span></h4>
-                            </div>
-                            <div class="col-9">
-                                <h6>Google</h6>
-                                <p>It is a long established fact that a reader will be distracted</p>
-                                <address><i class="zmdi zmdi-pin"></i> 123 6th St. Melbourne, FL 32904</address>
-                            </div>
-                        </div>
+                            <hr>
+                        @endforeach
                     </div>
                 </div>
-            </div> --}}
+                </a>
+                @endforeach
+            </div>
         </div>        
     </div>
 
@@ -196,37 +185,37 @@
                     },
                     selectable: true,
                     selectHelper: true,
-                    select: function (start, end, allDay) {
-                        var title = prompt('Event Title:');
-                        if (title) {
-                            var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                            var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                            $.ajax({
-                                url: SITEURL + "/fullcalenderAjax",
-                                data: {
-                                    title: title,
-                                    start: start,
-                                    end: end,
-                                    type: 'add'
-                                },
-                                type: "POST",
-                                success: function (data) {
-                                    displayMessage("Event Created Successfully");
+                    // select: function (start, end, allDay) {
+                    //     var title = prompt('Event Title:');
+                    //     if (title) {
+                    //         var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
+                    //         var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
+                    //         $.ajax({
+                    //             url: SITEURL + "/fullcalenderAjax",
+                    //             data: {
+                    //                 title: title,
+                    //                 start: start,
+                    //                 end: end,
+                    //                 type: 'add'
+                    //             },
+                    //             type: "POST",
+                    //             success: function (data) {
+                    //                 displayMessage("Event Created Successfully");
   
-                                    calendar.fullCalendar('renderEvent',
-                                        {
-                                            id: data.id,
-                                            title: title,
-                                            start: start,
-                                            end: end,
-                                            allDay: allDay
-                                        },true);
+                    //                 calendar.fullCalendar('renderEvent',
+                    //                     {
+                    //                         id: data.id,
+                    //                         title: title,
+                    //                         start: start,
+                    //                         end: end,
+                    //                         allDay: allDay
+                    //                     },true);
   
-                                    calendar.fullCalendar('unselect');
-                                }
-                            });
-                        }
-                    },
+                    //                 calendar.fullCalendar('unselect');
+                    //             }
+                    //         });
+                    //     }
+                    // },
                     eventDrop: function (event, delta) {
                         var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
                         var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
@@ -247,21 +236,21 @@
                         });
                     },
                     eventClick: function (event) {
-                        var deleteMsg = confirm("Do you really want to delete?");
-                        if (deleteMsg) {
-                            $.ajax({
-                                type: "POST",
-                                url: SITEURL + '/fullcalenderAjax',
-                                data: {
-                                        id: event.id,
-                                        type: 'delete'
-                                },
-                                success: function (response) {
-                                    calendar.fullCalendar('removeEvents', event.id);
-                                    displayMessage("Event Deleted Successfully");
-                                }
-                            });
-                        }
+                        // var deleteMsg = confirm("Do you really want to delete?");
+                        // if (deleteMsg) {
+                        //     $.ajax({
+                        //         type: "POST",
+                        //         url: SITEURL + '/fullcalenderAjax',
+                        //         data: {
+                        //                 id: event.id,
+                        //                 type: 'delete'
+                        //         },
+                        //         success: function (response) {
+                        //             calendar.fullCalendar('removeEvents', event.id);
+                        //             displayMessage("Event Deleted Successfully");
+                        //         }
+                        //     });
+                        // }
                     }
  
                 });

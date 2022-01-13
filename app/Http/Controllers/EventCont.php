@@ -5,6 +5,7 @@ use App\Models\Event;
 use App\Models\Jenis;
 use App\Models\Joblist;
 use App\Models\Anggota;
+use App\Models\Isijurnal;
 use Illuminate\Http\Request;
 use Validator;
 use Redirect,Response;
@@ -45,62 +46,146 @@ class EventCont extends Controller
         if($request->ajax()) {
        
             // $data = Event::whereDate('start', '>=', $request->start)
-            //              ->whereDate('end',   '<=', $request->end)->select('id','title','start','end')
-            //              ->get();
-
-            $data = Joblist::whereDate('start', '>=', $request->start)
-                       ->whereDate('end',   '<=', $request->end)->select('id','jenis_id','anggota_id','title','start','end')
-                    //    ->groupBy('title')
-                       ->get();
-  
+            //           ->whereDate('end',   '<=', $request->end)
+            //           ->get(['id', 'title', 'start', 'end']);
+            $data  = Isijurnal::whereDate('start', '>=', $request->start)
+                      ->whereDate('end',   '<=', $request->end)
+                      ->get();
+            // $data = Event::whereDate('start', '>=', $request->start)
+            //           ->whereDate('end',   '<=', $request->end)
+            //           ->get(['id', 'title', 'start', 'end']);
             return response()->json($data);
-        }
-  
-        return view('fullcalender');
+            // if ($data->count() > 0) {
+            //     # code...
+            //     // $datas = Joblist::where('id',$data->id)->get(['id', 'title', 'start', 'end']);
+            //     // $data  = Joblist::whereDate('start', '>=', $request->start)
+            //     //       ->whereDate('end',   '<=', $request->end)
+            //     //       ->get();
+            //     return response()->json($datas);
+            // }else {
+            //     # code...
+            //     $datas = 'tidak ada jurnal';
+            //     return response()->json($datas);
+            // }
+       }
+ 
+       return view('fullcalender');
     }
 
     public function ajax(Request $request)
     {
  
         switch ($request->type) {
-           case 'add':
-              $event = Event::create([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
- 
-              return response()->json($event);
-             break;
+            case 'add':
+               $event = Event::create([
+                   'title' => $request->title,
+                   'start' => $request->start,
+                   'end' => $request->end,
+               ]);
   
-           case 'update':
-              $event = Event::find($request->id)->update([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
- 
-              return response()->json($event);
-             break;
+               return response()->json($event);
+              break;
+   
+            case 'update':
+               $event = Event::find($request->id)->update([
+                   'title' => $request->title,
+                   'start' => $request->start,
+                   'end' => $request->end,
+               ]);
   
-           case 'delete':
-              $event = Event::find($request->id)->delete();
-  
-              return response()->json($event);
-             break;
-             
-           default:
-             # code...
-             break;
+               return response()->json($event);
+              break;
+   
+            case 'delete':
+               $event = Event::find($request->id)->delete();
+   
+               return response()->json($event);
+              break;
+              
+            default:
+              # code...
+              break;
+         }
+    }
+
+    public function new_update(Request $request)
+    {
+        $cek_jenis      = Jenis::where('jenis', $request->jenis)->first();
+        if ($cek_jenis == null) {
+            # code...
+            $jenis      =   Jenis::updateOrCreate(['id'=> $request->id],[
+                'jenis' =>  $request->jenis
+            ]);
+
+            if ($request->has('status')) {
+                $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                    'anggota_id'    => Auth::id(),
+                    'jenis_id'      => $jenis->id,
+                    'title'         => "@ jurnal",
+                    'deskripsi'     => $request->deskripsi,
+                    'status'        => $request->status,
+                ]);
+                return response()->json([
+                    'datas'   => $joblist,
+                    'status'  => 200,
+                    'message' => 'Jurnal berhasil di tambahkan'
+                ]);
+            }else {
+                # code...
+                $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                    'anggota_id'    => Auth::id(),
+                    'jenis_id'      => $jenis->id,
+                    'title'         => "@ jurnal",
+                    'deskripsi'     => $request->deskripsi,
+                ]);
+                return response()->json([
+                    'datas'   => $joblist,
+                    'status'  => 200,
+                    'message' => 'Jurnal berhasil di tambahkan'
+                ]);
+            }
+
+        }else {
+            # code...
+            if ($request->has('status')) {
+                $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                    'anggota_id'    => Auth::id(),
+                    'jenis_id'      => $cek_jenis->id,
+                    'title'         => "@ jurnal",
+                    'deskripsi'     => $request->deskripsi,
+                    'status'        => $request->status,
+                ]);
+                return response()->json([
+                    'datas'   => $joblist,
+                    'status'  => 200,
+                    'message' => 'Jurnal berhasil di tambahkan'
+                ]);
+            }else {
+                # code...
+                $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                    'anggota_id'    => Auth::id(),
+                    'jenis_id'      => $cek_jenis->id,
+                    'title'         => "@ jurnal",
+                    'deskripsi'     => $request->deskripsi,
+                ]);
+                return response()->json([
+                    'datas'   => $joblist,
+                    'status'  => 200,
+                    'message' => 'Jurnal berhasil di tambahkan'
+                ]);
+            }
+
         }
     }
 
     public function new_input(Request $request)
     {
-        $sekarang = date("d/m/Y");
-        $tgl = $request->tanggal;
+        $sekarang   = date("Y-m-d H:i:s");
+        $tgl        = $sekarang;
+        $jurnal     = "@ jurnal";
+        
 
-        $validator = Validator::make($request->all(), [            
+        $validator  = Validator::make($request->all(), [            
             'jenis'         => 'required',
         ]);
 
@@ -113,10 +198,26 @@ class EventCont extends Controller
             ]);
         }
         else {
+            $isijurnal  =  Isijurnal::whereDate('start', date("Y-m-d"))->first();
+            $isijurnal_id = '';
+            
+            if ($isijurnal == null) {
+                # code...
+                $jurnals        =   Isijurnal::updateOrCreate(['id'=> $request->id],[
+                    'title'     =>  $jurnal,
+                    'start'     =>  $tgl,
+                    'end'       =>  $tgl
+                ]);
+
+                $isijurnal_id = $jurnals->id;
+            } else {
+                # code...
+                $isijurnal_id = $isijurnal->id;
+            }
+
+            
             foreach ($request->jenis as $key => $value) {
                 $cek_jenis  = Jenis::where('jenis', $value)->first();
-                $anggota    = Anggota::where('id', Auth::user()->anggota_id)->first();
-                $nama       = $anggota->nama;
                 if ($cek_jenis == null) {
                     # code jika belum ada jenis pekerjaan serupa...
                     $jenis      =   Jenis::updateOrCreate(['id'=> $request->id],[
@@ -128,7 +229,8 @@ class EventCont extends Controller
                         $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
                             'anggota_id'    => Auth::id(),
                             'jenis_id'      => $jenis->id,
-                            'title'         => $nama,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
                             'deskripsi'     => $request->deskripsi[$key],
                             'status'        => $request->status[$key],
                             'start'         => $tgl,
@@ -145,9 +247,10 @@ class EventCont extends Controller
                         $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
                             'anggota_id'    => Auth::id(),
                             'jenis_id'      => $jenis->id,
-                            'title'         => $nama,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
                             'deskripsi'     => $request->deskripsi[$key],
-                            // 'status'        => $request->status[$key],
+                            'status'        => "belum",
                             'start'         => $tgl,
                             'end'           => $tgl,
                             // 'tanggal'       => $request->tanggal[$key],
@@ -165,7 +268,8 @@ class EventCont extends Controller
                         $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
                             'anggota_id'    => Auth::id(),
                             'jenis_id'      => $cek_jenis->id,
-                            'title'         => $nama,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
                             'deskripsi'     => $request->deskripsi[$key],
                             'status'        => $request->status[$key],
                             'start'         => $tgl,
@@ -182,9 +286,10 @@ class EventCont extends Controller
                         $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
                             'anggota_id'    => Auth::id(),
                             'jenis_id'      => $cek_jenis->id,
-                            'title'         => $nama,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
                             'deskripsi'     => $request->deskripsi[$key],
-                            // 'status'        => $request->status[$key],
+                            'status'        => "belum",
                             'start'         => $tgl,
                             'end'           => $tgl,
                             // 'tanggal'       => $request->tanggal[$key],
@@ -204,10 +309,11 @@ class EventCont extends Controller
     {
         if (Auth::user()) {
             # code...
+            $sekarang   = date("Y-m-d");
             if(request()->ajax())
             {
                 $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
-                where('start',date('d/m/Y'))->get();
+                whereDate('start', $sekarang)->get();
                 return response()->json($datas,200);
             }
         }

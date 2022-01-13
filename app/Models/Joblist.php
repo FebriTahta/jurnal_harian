@@ -9,7 +9,7 @@ class Joblist extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'jenis_id','anggota_id','status','deskripsi','start','end','title'
+        'jenis_id','anggota_id','status','deskripsi','start','end','title','isijurnal_id'
         // ,'tanggal'
     ];
 

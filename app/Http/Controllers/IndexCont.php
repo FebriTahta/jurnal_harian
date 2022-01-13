@@ -6,7 +6,9 @@ use App\Models\Anggota;
 use App\Models\Bidang;
 use App\Models\Jenis;
 use App\Models\Joblist;
+use App\Models\Isijurnal;
 use Redirect,Response;
+use Carbon;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -24,11 +26,13 @@ class IndexCont extends Controller
             return Response::json($data);
         }
 
-        $anggota    = Anggota::all();
+        $anggota    = Anggota::whereHas('joblist')->get();
         $bidang     = Bidang::all();
         $jenis      = Jenis::all();
+        $joblist    = Joblist::whereDate('start',date("Y-m-d"))->get();
+        $isijurnal  =  Isijurnal::whereDate('start', date("Y-m-d"))->first();
 
-        return view('layouts.raw',compact('anggota','bidang','jenis'));
+        return view('layouts.raw',compact('anggota','bidang','jenis','joblist','isijurnal'));
     }
 
     public function fetch(Request $request)
@@ -52,13 +56,13 @@ class IndexCont extends Controller
 
     public function jurnal_harian()
     {
-        
+        $sekarang = date("Y-m-d");
         if (Auth::user()) {
             # code...
             $anggota    = Anggota::all();
             $bidang     = Bidang::all();
-            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)
-                                 ->where('start', date("d/m/Y"))->get();
+            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)->orderBy('id','desc')
+                                 ->whereDate('start', $sekarang )->get();
             $jenis      = Jenis::all();
             return view('layouts.absen',compact('anggota','bidang','joblist','jenis'));
         }else{
