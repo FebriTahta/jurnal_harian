@@ -52,7 +52,7 @@
                         @foreach ($items->joblist as $item)
                             <div class="event-name b-lightred row">
                                 <div class="col-3 text-center">
-                                    <h4>{{Carbon\Carbon::parse($item->start)->isoFormat('DD')}}<span>{{Carbon\Carbon::parse($item->start)->isoFormat('m')}}</span><span>{{Carbon\Carbon::parse($item->start)->isoFormat('Y')}}</span></h4>
+                                    <h4>{{Carbon\Carbon::parse($item->start)->isoFormat('d')}}<span>{{Carbon\Carbon::parse($item->start)->isoFormat('M')}}</span><span>{{Carbon\Carbon::parse($item->start)->isoFormat('Y')}}</span></h4>
                                 </div>
                                 <div class="col-9">
                                     <h6>{{strtoupper($item->anggota->nama).' - '.$item->jenis->jenis}}</h6>
