@@ -42,9 +42,27 @@
                     </div>
                 </div>
             </div>
-            
+            @foreach ($anggota as $item)
             <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
-                
+                <div class="card">
+                    <div class="body m-b-20 l-blue">
+                        <div class="event-name row">
+                            <div class="col-3 text-center">
+                                <h4>{{date("d",strtotime($isijurnal->start))}}<span>{{date("M",strtotime($isijurnal->start))}}</span><span>{{date("Y",strtotime($isijurnal->start))}}</span></h4>
+                            </div>
+                            <div class="col-9">
+                                <h6>{{$item->nama}}</h6>
+                                <p>Selesai mengisi Jurnal harian</p>
+                                <address><i class="zmdi zmdi-check"></i> {{$item->joblist->count()}} pekerjaan</address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            
+
+            <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
                 @foreach ($anggota as $items)
                 <a href="#">
                 <div class="card">
@@ -94,11 +112,10 @@
                         <div class="form-group">
                             <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
                                 <option value="">Nama ..</option>
-                                @foreach ($anggota as $item)
+                                @foreach ($anggota1 as $item)
                                     <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->nama}}</option>
                                 @endforeach
                             </select>
-
                             <input type="password" value="adm" name="password" style="display: none">
                         </div>
                     </div>

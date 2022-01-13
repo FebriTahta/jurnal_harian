@@ -280,7 +280,7 @@
                             <div class="form-group">
                                 <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
                                     <option value="">Nama ..</option>
-                                    @foreach ($anggota as $item)
+                                    @foreach ($anggota1 as $item)
                                         <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->nama}}</option>
                                     @endforeach
                                 </select>
