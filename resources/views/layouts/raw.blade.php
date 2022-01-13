@@ -81,7 +81,7 @@
     @endauth
 </section>
 
-{{-- <div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+<div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -110,9 +110,9 @@
             </div>
         </form>
     </div>
-</div> --}}
+</div>
 
-<div class="modal fade" id="user1" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+{{-- <div class="modal fade" id="user1" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -137,7 +137,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 @endsection
 
@@ -154,7 +154,7 @@
         
         if (stat !== 'masuk') {
             console.log(stat);
-            $("#user1").modal('show');       
+            $("#user").modal('show');       
         }else{
             console.log(stat);
         }
