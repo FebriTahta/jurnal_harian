@@ -57,7 +57,11 @@
                                 <div class="col-9">
                                     <h6>{{strtoupper($item->anggota->nama).' - '.$item->jenis->jenis}}</h6>
                                     <span>{{$item->deskripsi}}</span>
+                                    @if ($item->status == 'selesai')
                                     <address><i class="zmdi zmdi-check"></i> {{$item->status}}</address>
+                                    @else
+                                    <address>* {{$item->status}}</address>
+                                    @endif
                                 </div>
                             </div>
                             <hr>
