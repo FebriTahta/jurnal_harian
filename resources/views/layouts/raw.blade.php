@@ -43,7 +43,7 @@
                 </div>
             </div>
             @foreach ($anggota as $item)
-            <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
+            <div class="col-lg-4" id="card_jurnal_kalender">
                 <div class="card">
                     <div class="body m-b-20 l-blue">
                         <div class="event-name row">
