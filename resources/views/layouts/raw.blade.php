@@ -62,7 +62,7 @@
             @endforeach
             
 
-            <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
+            {{-- <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
                 @foreach ($anggota as $items)
                 <a href="#">
                 <div class="card">
@@ -88,7 +88,7 @@
                 </div>
                 </a>
                 @endforeach
-            </div>
+            </div> --}}
         </div>        
     </div>
 
