@@ -52,7 +52,7 @@
                         @foreach ($items->joblist as $item)
                             <div class="event-name b-lightred row">
                                 <div class="col-3 text-center">
-                                    <h4>{{date("d",strtotime($item->start))}}<span>{{date("MM",strtotime($item->start))}}</span><span>{{date("Y",strtotime($item->start))}}</span></h4>
+                                    <h4>{{date("d",strtotime($item->start))}}<span>{{date("M",strtotime($item->start))}}</span><span>{{date("Y",strtotime($item->start))}}</span></h4>
                                 </div>
                                 <div class="col-9">
                                     <h6>{{strtoupper($item->anggota->nama).' - '.$item->jenis->jenis}}</h6>
