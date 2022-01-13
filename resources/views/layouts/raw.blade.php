@@ -45,7 +45,7 @@
             @foreach ($anggota as $item)
             <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
                 <div class="card">
-                    <div class="body m-b-20 l-blue">
+                    <div class="body l-blue">
                         <div class="event-name row">
                             <div class="col-3 text-center">
                                 <h4>{{date("d",strtotime($isijurnal->start))}}<span>{{date("M",strtotime($isijurnal->start))}}</span><span>{{date("Y",strtotime($isijurnal->start))}}</span></h4>
