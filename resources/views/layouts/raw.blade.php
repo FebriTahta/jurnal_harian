@@ -20,9 +20,14 @@
             </div>
         </div>
         <div class="row">
+            
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
                 @auth
-                    <a class="btn btn-round btn-primary waves-effect" href="{{ route('logout') }}"
+                    <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
+                    {{ __('Mengisi Jurnal ?') }}
+                    </a>
+                    
+                    <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
@@ -32,8 +37,11 @@
                         @csrf
                     </form>
                     @else
-                    <button type="button" class="btn btn-round btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal ?</button>
+                    <button type="button" class="btn btn-round btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal ?</button>
                 @endauth
+            </div>
+            <div class="header col-md-12 col-12 m-b-10" >
+                <h5><strong>Pekerjaan </strong></h5>
             </div>
             <div class="col-md-12 col-lg-8">
                 <div class="card">
@@ -134,25 +142,11 @@
                 <div class="modal-body clearfix" >
                     <div class="form-group" id="joblist">
                         <div class="form-group">
-                            {{-- <a href="#">
-                                <div class="card">
-                                    <div class="body l-red">
-                                        <div class="event-name row">
-                                            
-                                            <div class="col-12">
-                                                <h6>Jurnal Hari Ini Kosong</h6>
-                                                <p>Belum ada satupun anggota yang mengisi jurnal</p>
-                                                <address><i class="zmdi zmdi-check"></i> - selesai</address>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a> --}}
+                            {{-- konten --}}
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {{-- <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit"> --}}
                     <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
                 </div>
             </div>
