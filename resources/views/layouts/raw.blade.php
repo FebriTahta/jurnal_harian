@@ -42,8 +42,10 @@
                     </div>
                 </div>
             </div>
-            @foreach ($anggota as $item)
+            
             <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
+                @if ($anggota->count() > 0)
+                @foreach ($anggota as $item)
                 <div class="card">
                     <div class="body l-blue">
                         <div class="event-name row">
@@ -58,8 +60,28 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                @else
+
+                <div class="card">
+                    <div class="body l-blue">
+                        <div class="event-name row">
+                            <div class="col-3 text-center">
+                                <h4>{{date("d")}}<span>{{date("M")}}</span><span>{{date("Y")}}</span></h4>
+                            </div>
+                            <div class="col-9">
+                                <h6>Jurnal Hari Ini Kosong</h6>
+                                <p>Belum ada satupun anggota yang mengisi jurnal</p>
+                                <address><i class="zmdi zmdi-check"></i> - pekerjaan</address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                @endif
+                
             </div>
-            @endforeach
+            
             
 
             {{-- <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
@@ -112,7 +134,7 @@
                         <div class="form-group">
                             <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
                                 <option value="">Nama ..</option>
-                                @foreach ($anggota1 as $item)
+                                @foreach ($semuaanggota as $item)
                                     <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->nama}}</option>
                                 @endforeach
                             </select>
@@ -128,33 +150,6 @@
         </form>
     </div>
 </div>
-
-{{-- <div class="modal fade" id="user1" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
-    <div class="modal-dialog" role="document">
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="title" id="defaultModalLabel">FITUR KALENDER & DOKUMENTASI</h4>
-                </div>
-                <div class="modal-body clearfix" >
-                    <div class="form-group" id="dynamicTable">
-                        <div class="form-group">
-                            <p>Sedang dalam pengembangan</p>
-
-                            <input type="password" value="adm" name="password" style="display: none">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="/jurnal-harian" class="btn modal-col-pink btn-round waves-effect"> Mengisi Jurnal!</a>
-                    {{-- <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit"> --}}
-                    {{-- <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button> --}}
-                </div>
-            </div>
-        </form>
-    </div>
-</div> --}}
 
 @endsection
 

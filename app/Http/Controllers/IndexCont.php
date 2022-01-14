@@ -27,13 +27,13 @@ class IndexCont extends Controller
         }
 
         $anggota    = Anggota::whereHas('joblist')->get();
-        $anggota1   = Anggota::all();
+        $semuaanggota   = Anggota::all();
         $bidang     = Bidang::all();
         $jenis      = Jenis::all();
         $joblist    = Joblist::whereDate('start',date("Y-m-d"))->get();
         $isijurnal  =  Isijurnal::whereDate('start', date("Y-m-d"))->first();
 
-        return view('layouts.raw',compact('anggota','anggota1','bidang','jenis','joblist','isijurnal'));
+        return view('layouts.raw',compact('anggota','semuaanggota','bidang','jenis','joblist','isijurnal'));
     }
 
     public function fetch(Request $request)

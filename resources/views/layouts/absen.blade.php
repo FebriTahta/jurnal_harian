@@ -280,7 +280,7 @@
                             <div class="form-group">
                                 <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
                                     <option value="">Nama ..</option>
-                                    @foreach ($anggota1 as $item)
+                                    @foreach ($anggota as $item)
                                         <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->nama}}</option>
                                     @endforeach
                                 </select>
@@ -474,22 +474,21 @@
                             success:function(datas) {
                                 for (let index = 0; index < datas.length; index++) {
                                     var tgl = new Date(datas[index].start);
-                                    card_jurnalku = '<a href="#" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
-                                                    +'<div class="card">'
+                                    card_jurnalku = '<a type="button" style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
+                                                    +'<div class="card wewewe">'
                                                         +'<div class="body m-b-10">'
-                                                            +'<div class="event-name  row">'
+                                                            +'<div class="event-name row">'
                                                                 +'<div class="col-3 text-center">'
                                                                     +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
                                                                     +'</div>'
                                                                     +'<div class="col-9">'
                                                                         +'<h6>'+datas[index].jenis.jenis+'</h6>'
                                                                         +'<p>'+datas[index].deskripsi+'</p>'
-                                                                        +'<address style="text-align: right">'+datas[index].status+'</address>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
                                                                         +'<hr>'
                                                                         +'</div>'
                                                                         +'</div>'
                                                                         +'</a>';
-                                    $(this).parents('a').remove();
                                     $('#isi_jurnal').append(card_jurnalku);
                                     $('#belum_mengisi').remove();
                                 }
@@ -545,7 +544,7 @@ $('#modalupdate').on('show.bs.modal', function(event) {
                     // toastr.success('Success', 'Mengisi Jurnal');
                     toastr.success(response.message);
                     // $('#errList').removeClass('alert alert-danger');
-                    $('#isi_jurnal a').remove();
+                    $('#isi_jurnal div').remove();
                     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "July", "Aug", "Sep", "Oct", "Nov", "Dec"
                         ];
@@ -556,7 +555,8 @@ $('#modalupdate').on('show.bs.modal', function(event) {
                             success:function(datas) {
                                 for (let index = 0; index < datas.length; index++) {
                                     var tgl = new Date(datas[index].start);
-                                    card_jurnalku = '<a style="text-black" href="#" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
+                                    $('.wewewe').remove();
+                                    card_jurnalku = '<a style="text-black;" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
                                                     +'<div class="card">'
                                                         +'<div class="body m-b-10">'
                                                             +'<div class="event-name row">'
