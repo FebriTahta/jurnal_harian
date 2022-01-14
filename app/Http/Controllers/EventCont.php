@@ -319,4 +319,12 @@ class EventCont extends Controller
         }
         
     }
+
+    public function show(Request $request, $start)
+    {
+        $datas = Anggota::with('bidang')->whereHas('joblist',function ($e) use ($start){
+            $e->whereDate('start', $start);
+        })->orderBy('id','desc')->get();
+        return response()->json($datas,200);
+    }
 }

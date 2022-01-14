@@ -9,8 +9,8 @@ class Bidang extends Model
 {
     use HasFactory;
 
-    public function bidang()
+    public function anggota()
     {
-        return $this->hasMany(Bidang::class);
+        return $this->hasMany(Anggota::class);
     }
 }

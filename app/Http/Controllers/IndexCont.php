@@ -26,7 +26,9 @@ class IndexCont extends Controller
             return Response::json($data);
         }
 
-        $anggota    = Anggota::whereHas('joblist')->get();
+        $anggota = Anggota::whereHas('joblist',function ($e){
+            $e->whereDate('start', date("Y-m-d"));
+        })->orderBy('id','desc')->get();
         $semuaanggota   = Anggota::all();
         $bidang     = Bidang::all();
         $jenis      = Jenis::all();

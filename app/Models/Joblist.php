@@ -22,4 +22,9 @@ class Joblist extends Model
     {
         return $this->belongsTo(Anggota::class);
     }
+
+    public function isijurnal()
+    {
+        return $this->belognsTo(Isijurnal::class);
+    }
 }

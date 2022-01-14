@@ -18,4 +18,9 @@ class Anggota extends Model
     {
         return $this->hasMany(Joblist::class);
     }
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
 }

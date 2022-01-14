@@ -474,7 +474,7 @@
                             success:function(datas) {
                                 for (let index = 0; index < datas.length; index++) {
                                     var tgl = new Date(datas[index].start);
-                                    card_jurnalku = '<a type="button" style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
+                                    card_jurnalku = '<a style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'">'
                                                     +'<div class="card wewewe">'
                                                         +'<div class="body m-b-10">'
                                                             +'<div class="event-name row">'

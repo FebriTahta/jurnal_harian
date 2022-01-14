@@ -46,23 +46,25 @@
             <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
                 @if ($joblist->count() > 0)
                 @foreach ($anggota as $item)
-                <div class="card">
-                    <div class="body l-blue">
-                        <div class="event-name row">
-                            <div class="col-3 text-center">
-                                <h4>{{date("d",strtotime($isijurnal->start))}}<span>{{date("M",strtotime($isijurnal->start))}}</span><span>{{date("Y",strtotime($isijurnal->start))}}</span></h4>
-                            </div>
-                            <div class="col-9">
-                                <h6>{{$item->nama}}</h6>
-                                <p>Selesai mengisi Jurnal harian</p>
-                                <address><i class="zmdi zmdi-check"></i> {{$item->joblist->count()}} pekerjaan</address>
+                <a href="#">
+                    <div class="card">
+                        <div class="body l-blue">
+                            <div class="event-name row">
+                                <div class="col-3 text-center">
+                                    <h4>{{date("d",strtotime($isijurnal->start))}}<span>{{date("M",strtotime($isijurnal->start))}}</span><span>{{date("Y",strtotime($isijurnal->start))}}</span></h4>
+                                </div>
+                                <div class="col-9">
+                                    <h6>{{$item->nama}}</h6>
+                                    <p>Selesai mengisi Jurnal harian</p>
+                                    <address><i class="zmdi zmdi-pin"></i>{{$item->bidang->namabidang}}</address>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
                 @endforeach
                 @else
-
+                <a href="#">
                 <div class="card">
                     <div class="body l-red">
                         <div class="event-name row">
@@ -77,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                
+                </a>
                 @endif
                 
             </div>
@@ -252,23 +254,48 @@
                         });
                     },
                     eventClick: function (event) {
-                        // var deleteMsg = confirm("Do you really want to delete?");
-                        // if (deleteMsg) {
-                        //     $.ajax({
-                        //         type: "POST",
-                        //         url: SITEURL + '/fullcalenderAjax',
-                        //         data: {
-                        //                 id: event.id,
-                        //                 type: 'delete'
-                        //         },
-                        //         success: function (response) {
-                        //             calendar.fullCalendar('removeEvents', event.id);
-                        //             displayMessage("Event Deleted Successfully");
-                        //         }
-                        //     });
-                        // }
+                        var start   = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
+                        var show    = confirm("Menampilkan jurnal pada tanggal " + start + " ?");
+                        var card_jurnal = "";
+                        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                        if (show) {
+                            $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: SITEURL + '/show/' + start,
+                                data: {
+                                    start: start,
+                                },
+                                type: "GET",
+                                success: function (response) {
+                                    $('#card_jurnal_kalender a').remove();
+                                    var tgl = new Date(start);
+                                    for (let index = 0; index < response.length; index++) {
+                                    card_jurnal='<a href="#">'
+                                                    +'<div class="card">'
+                                                        +'<div class="body l-blue">'
+                                                            +'<div class="event-name row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+response[index].nama+'</h6>'
+                                                                        +'<p>Selesai mengisi Jurnal harian</p>'
+                                                                        +'<address><i class="zmdi zmdi-pin"></i>'+response[index].bidang.namabidang+'</address>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>'
+                                        console.log(response[index].id);
+                                        $('#card_jurnal_kalender').append(card_jurnal);
+                                    }
+                                }
+                            });
+                        }
                     }
- 
                 });
  
 });

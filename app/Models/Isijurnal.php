@@ -11,4 +11,9 @@ class Isijurnal extends Model
     protected $fillable = [
         'title','start','end',
     ];
+
+    public function joblist()
+    {
+        return $this->hasMany(Joblist::class);
+    }
 }

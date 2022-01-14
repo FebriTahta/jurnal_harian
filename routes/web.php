@@ -33,7 +33,7 @@ Route::post('fullcalenderAjax', [EventCont::class, 'ajax']);
 Route::post('/new_input', [EventCont::class,'new_input']);
 Route::get('/jurnalku-data',[EventCont::class,'jurnalku']);
 Route::post('/new_update', [EventCont::class,'new_update']);
-
+Route::get('/show/{start}', [EventCont::class,'show']);
 
 Route::get('/jurnal-harian',[IndexCont::class,'jurnal_harian']);
 Route::post('/autocomplete',[IndexCOnt::class,'fetch'])->name('autocomplete.fetch');
