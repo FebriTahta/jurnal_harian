@@ -44,7 +44,7 @@
             </div>
             
             <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
-                @if ($anggota->count() > 0)
+                @if ($joblist->count() > 0)
                 @foreach ($anggota as $item)
                 <div class="card">
                     <div class="body l-blue">
@@ -72,7 +72,7 @@
                             <div class="col-9">
                                 <h6>Jurnal Hari Ini Kosong</h6>
                                 <p>Belum ada satupun anggota yang mengisi jurnal</p>
-                                <address><i class="zmdi zmdi-check"></i> - pekerjaan</address>
+                                <address><i class="zmdi zmdi-check"></i> -</address>
                             </div>
                         </div>
                     </div>
