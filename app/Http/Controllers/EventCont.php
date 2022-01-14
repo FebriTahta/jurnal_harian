@@ -327,4 +327,12 @@ class EventCont extends Controller
         })->orderBy('id','desc')->get();
         return response()->json($datas,200);
     }
+
+    public function show_my_job(Request $request, $anggota_id, $tanggal)
+    {
+        $tgl = date("Y-m-d", strtotime($tanggal));
+        $joblist1 = Joblist::whereDate('start', '>=', $tgl)
+        ->whereDate('end',   '<=', $tgl)->where('anggota_id', $anggota_id)->with('jenis')->get();
+        return response()->json($joblist1,200);
+    }
 }

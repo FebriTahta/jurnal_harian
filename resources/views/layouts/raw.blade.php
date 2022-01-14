@@ -46,7 +46,7 @@
             <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
                 @if ($joblist->count() > 0)
                 @foreach ($anggota as $item)
-                <a href="#">
+                <a href="#" data-toggle="modal" data-target="#modalmyjob" data-anggota_id="{{$item->id}}" data-tanggal="{{$isijurnal->start}}">
                     <div class="card">
                         <div class="body l-blue">
                             <div class="event-name row">
@@ -81,43 +81,13 @@
                 </div>
                 </a>
                 @endif
-                
             </div>
-            
-            
-
-            {{-- <div class="col-md-12 col-lg-4" id="card_jurnal_kalender">
-                @foreach ($anggota as $items)
-                <a href="#">
-                <div class="card">
-                    <div class="body m-b-20">
-                        @foreach ($items->joblist as $item)
-                            <div class="event-name b-lightred row">
-                                <div class="col-3 text-center">
-                                    <h4>{{date("d",strtotime($item->start))}}<span>{{date("M",strtotime($item->start))}}</span><span>{{date("Y",strtotime($item->start))}}</span></h4>
-                                </div>
-                                <div class="col-9">
-                                    <h6>{{strtoupper($item->anggota->nama).' - '.$item->jenis->jenis}}</h6>
-                                    <span>{{$item->deskripsi}}</span>
-                                    @if ($item->status == 'selesai')
-                                    <address><i class="zmdi zmdi-check"></i> {{$item->status}}</address>
-                                    @else
-                                    <address>* {{$item->status}}</address>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr>
-                        @endforeach
-                    </div>
-                </div>
-                </a>
-                @endforeach
-            </div> --}}
         </div>        
     </div>
 
     @auth
         <input type="hidden" id="stat" value="masuk">
+        <input type="hidden" id="user_id" value="{{auth()->user()->anggota_id}}">        
             @else
         <input type="hidden" id="stat" value="non">
     @endauth
@@ -150,6 +120,43 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modalmyjob" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        {{-- <form method="POST" action="{{ route('login') }}"> --}}
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header" >
+                    <h4 class="title" id="modallabel">PEKERJAAN</h4>
+                </div>
+                <div class="modal-body clearfix" >
+                    <div class="form-group" id="joblist">
+                        <div class="form-group">
+                            {{-- <a href="#">
+                                <div class="card">
+                                    <div class="body l-red">
+                                        <div class="event-name row">
+                                            
+                                            <div class="col-12">
+                                                <h6>Jurnal Hari Ini Kosong</h6>
+                                                <p>Belum ada satupun anggota yang mengisi jurnal</p>
+                                                <address><i class="zmdi zmdi-check"></i> - selesai</address>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a> --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{-- <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit"> --}}
+                    <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        {{-- </form> --}}
     </div>
 </div>
 
@@ -271,9 +278,10 @@
                                 type: "GET",
                                 success: function (response) {
                                     $('#card_jurnal_kalender a').remove();
+                                    
                                     var tgl = new Date(start);
                                     for (let index = 0; index < response.length; index++) {
-                                    card_jurnal='<a href="#">'
+                                    card_jurnal='<a href="#" data-toggle="modal" data-target="#modalmyjob" data-anggota_id="'+response[index].id+'" data-tanggal="'+tgl+'">'
                                                     +'<div class="card">'
                                                         +'<div class="body l-blue">'
                                                             +'<div class="event-name row">'
@@ -361,5 +369,47 @@
             }
         });
     });
+    </script>
+
+    <script>
+        $('#modalmyjob').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var anggota_id = button.data('anggota_id')
+                var tanggal = button.data('tanggal')
+                var modal = $(this)
+                console.log(tanggal);
+                // modal.find('.modal-body #id').val(id);
+                $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: '/show-my-job/'+anggota_id+'/'+tanggal,
+                                data: {
+                                    anggota_id: anggota_id,
+                                    tanggal: tanggal,
+                                },
+                                type: "GET",
+                                success: function (response) {
+                                    // $('#joblist a').remove();
+                                    for (let index = 0; index < response.length; index++) {
+                                    console.log(response[index].id);
+                                    var card_jurnal='<a href="#">'
+                                                        +'<div class="card">'
+                                                            +'  <div class="body l-red">'
+                                                                +'  <div class="event-name row">'
+                                                                    
+                                                                    +'  <div class="col-12">'
+                                                                        +'  <h6>'+response[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+response[index].deskripsi+'</p>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i>'+response[index].status+'</address>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>'
+                                    $('#joblist').append(card_jurnal);
+                                    }
+                                }
+                            });
+            })
     </script>
 @endsection
