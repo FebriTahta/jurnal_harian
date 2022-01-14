@@ -393,13 +393,14 @@
                                     $('#joblist a').remove();
                                     for (let index = 0; index < response.length; index++) {
                                     console.log(response[index].id);
+                                    var nomor = index+1;
                                     var card_jurnal='<a href="#">'
                                                         +'<div class="card">'
                                                             +'  <div class="body l-red">'
                                                                 +'  <div class="event-name row">'
                                                                     
                                                                     +'  <div class="col-12">'
-                                                                        +'  <h6>'+response[index].jenis.jenis+'</h6>'
+                                                                        +'  <h6>'+nomor+'. '+response[index].jenis.jenis+'</h6>'
                                                                         +'<p>'+response[index].deskripsi+'</p>'
                                                                         +'<address><i class="zmdi zmdi-check"></i>'+response[index].status+'</address>'
                                                                         +'</div>'
