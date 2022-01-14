@@ -64,7 +64,7 @@
                 @else
 
                 <div class="card">
-                    <div class="body l-blue">
+                    <div class="body l-red">
                         <div class="event-name row">
                             <div class="col-3 text-center">
                                 <h4>{{date("d")}}<span>{{date("M")}}</span><span>{{date("Y")}}</span></h4>
