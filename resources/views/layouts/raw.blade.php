@@ -281,7 +281,8 @@
                                     
                                     var tgl = new Date(start);
                                     for (let index = 0; index < response.length; index++) {
-                                    card_jurnal='<a href="#" data-toggle="modal" data-target="#modalmyjob" data-anggota_id="'+response[index].id+'" data-tanggal="'+tgl+'">'
+                                    var tanggal = tgl.getDate()+'-'+monthNames[tgl.getMonth()]+'-'+tgl.getFullYear();
+                                    card_jurnal='<a href="#" data-toggle="modal" data-target="#modalmyjob" data-anggota_id="'+response[index].id+'" data-tanggal="'+tanggal+'">'
                                                     +'<div class="card">'
                                                         +'<div class="body l-blue">'
                                                             +'<div class="event-name row">'
@@ -389,7 +390,7 @@
                                 },
                                 type: "GET",
                                 success: function (response) {
-                                    // $('#joblist a').remove();
+                                    $('#joblist a').remove();
                                     for (let index = 0; index < response.length; index++) {
                                     console.log(response[index].id);
                                     var card_jurnal='<a href="#">'
