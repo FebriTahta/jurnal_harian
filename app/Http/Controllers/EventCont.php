@@ -372,7 +372,12 @@ class EventCont extends Controller
                             $x = Anggota::where('id', $value->anggota_id)->first();
                             foreach ($x->joblist as $key => $job) {
                                 # code...
-                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. ' <span style="color: blue">( '.$job->deskripsi.' )</span>';
+                                $desk = '';
+                                if ($job->deskripsi !== null) {
+                                    # code...
+                                    $desk = '( <span style="color: blue">'.$job->deskripsi.'</span> )';
+                                }
+                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk;
                             }
                             $y[] = $x->nama;
                         }
