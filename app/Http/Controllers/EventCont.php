@@ -9,6 +9,8 @@ use App\Models\Isijurnal;
 use Illuminate\Http\Request;
 use Validator;
 use Redirect,Response;
+use DataTables;
+use Carbon\Carbon;
 use Auth;
 
 class EventCont extends Controller
@@ -18,7 +20,7 @@ class EventCont extends Controller
         $insertArr = [ 'title' => $request->title,
                        'start' => $request->start,
                        'end' => $request->end
-                    ];
+                     ];
         $event = Event::insert($insertArr);   
         return Response::json($event);
     }
@@ -44,29 +46,11 @@ class EventCont extends Controller
     {
   
         if($request->ajax()) {
-       
-            // $data = Event::whereDate('start', '>=', $request->start)
-            //           ->whereDate('end',   '<=', $request->end)
-            //           ->get(['id', 'title', 'start', 'end']);
             $data  = Isijurnal::whereDate('start', '>=', $request->start)
                       ->whereDate('end',   '<=', $request->end)
                       ->get();
-            // $data = Event::whereDate('start', '>=', $request->start)
-            //           ->whereDate('end',   '<=', $request->end)
-            //           ->get(['id', 'title', 'start', 'end']);
+
             return response()->json($data);
-            // if ($data->count() > 0) {
-            //     # code...
-            //     // $datas = Joblist::where('id',$data->id)->get(['id', 'title', 'start', 'end']);
-            //     // $data  = Joblist::whereDate('start', '>=', $request->start)
-            //     //       ->whereDate('end',   '<=', $request->end)
-            //     //       ->get();
-            //     return response()->json($datas);
-            // }else {
-            //     # code...
-            //     $datas = 'tidak ada jurnal';
-            //     return response()->json($datas);
-            // }
        }
  
        return view('fullcalender');
@@ -335,4 +319,77 @@ class EventCont extends Controller
         ->whereDate('end',   '<=', $tgl)->where('anggota_id', $anggota_id)->with('jenis')->get();
         return response()->json($joblist1,200);
     }
+
+
+
+
+    // RECAP DATA
+    public function recap(Request $request)
+    {
+        // if ($request->ajax()) {
+        //     $data = Joblist::select('*')
+        //             ->with('jenis')
+        //             ->with('anggota');
+        //     return Datatables::of($data)
+        //             ->addIndexColumn()
+        //             ->addColumn('tanggal', function($row){
+        //                 $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
+        //                 return $btn;
+        //             })
+        //             ->rawColumns(['tanggal'])
+        //             ->make(true);
+        // }
+
+        if ($request->ajax()) {
+            $data = Isijurnal::select('*')->with('joblist');
+            return  Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('tanggal', function($row){
+                        $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
+                        return $btn;
+                    })
+                    // ->addColumn('nama', function($row){
+                        
+                    //     $joblist = Joblist::where('isijurnal_id', $row->id)
+                    //             ->select('anggota_id')->distinct()->get();
+                    //     foreach ($joblist as $key => $value) {
+                    //         # code...
+                            
+                    //         $x = Anggota::where('id', $value->anggota_id)->first();
+                    //         $y[] = $x->nama;
+
+                    //     }
+                    //     return implode("<hr>", $y);
+                        
+                    // })
+                    ->addColumn('joblist', function($row){
+                        
+                        $joblist = Joblist::where('isijurnal_id', $row->id)->with('anggota')
+                                ->select('anggota_id')->distinct()->get();
+                        foreach ($joblist as $key => $value) {
+                            # code...
+                            
+                            $x = Anggota::where('id', $value->anggota_id)->first();
+                            foreach ($x->joblist as $key => $job) {
+                                # code...
+                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis;
+                            }
+                            $y[] = $x->nama;
+                        }
+                        $hasil =  implode("<br>", $jobs)."<hr>";
+                        return $hasil;
+                        
+                    })
+                    ->rawColumns(['tanggal','nama','joblist'])
+                    ->make(true);
+        }
+        return view('layouts.recap');
+    }
+
+    public function recap_data(Request $request)
+    {
+
+    }
+
+
 }

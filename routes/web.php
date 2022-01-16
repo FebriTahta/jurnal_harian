@@ -36,6 +36,8 @@ Route::post('/new_update', [EventCont::class,'new_update']);
 Route::get('/show/{start}', [EventCont::class,'show']);
 Route::get('/show-my-job/{anggota_id}/{tanggal}',[EventCont::class,'show_my_job']);
 
+Route::get('/recap-jurnal', [EventCont::class,'recap']);
+
 Route::get('/jurnal-harian',[IndexCont::class,'jurnal_harian']);
 Route::post('/autocomplete',[IndexCOnt::class,'fetch'])->name('autocomplete.fetch');
 Auth::routes();

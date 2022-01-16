@@ -23,6 +23,10 @@
             
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
                 @auth
+                    <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
+                    {{ __('Recap Jurnal') }}
+                    </a>
+
                     <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
                     {{ __('Mengisi Jurnal ?') }}
                     </a>
@@ -40,9 +44,9 @@
                     <button type="button" class="btn btn-round btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal ?</button>
                 @endauth
             </div>
-            <div class="header col-md-12 col-12 m-b-10" >
+            {{-- <div class="header col-md-12 col-12 m-b-10" >
                 <h5><strong>Pekerjaan </strong></h5>
-            </div>
+            </div> --}}
             <div class="col-md-12 col-lg-8">
                 <div class="card">
                     <div class="body">
@@ -51,7 +55,7 @@
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-4" id="card_jurnal_kalender">
+            <div class="col-lg-4 col-md-6" id="card_jurnal_kalender">
                 @if ($joblist->count() > 0)
                 @foreach ($anggota as $item)
                 <a href="#" data-toggle="modal" data-target="#modalmyjob" data-anggota_id="{{$item->id}}" data-tanggal="{{$isijurnal->start}}">
