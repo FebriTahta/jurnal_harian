@@ -69,7 +69,7 @@
                                             <tr>
                                                 <th style="width: 5%">ID</th>
                                                 {{-- <th>Name</th> --}}
-                                                <th>Job</th>
+                                                <th>JOBLIST</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -79,7 +79,7 @@
                                             <tr>
                                                 <th style="width: 5%">ID</th>
                                                 {{-- <th>Name</th> --}}
-                                                <th>Job</th>
+                                                <th>JOBLIST</th>
                                             </tr>
                                         </tfoot>
                                     </table>
