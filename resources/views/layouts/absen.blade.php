@@ -281,7 +281,7 @@
                                 <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
                                     <option value="">Nama ..</option>
                                     @foreach ($anggota as $item)
-                                        <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->nama}}</option>
+                                        <option style="text-transform: uppercase" value="{{$item->nama}}">{{$item->nama}}</option>
                                     @endforeach
                                 </select>
                                 <input type="password" value="adm" name="password" style="display: none">
