@@ -30,7 +30,6 @@
         <div class="row">
             
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
-                @auth
                     <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(186, 134, 255)">
                     {{ __('Kalender') }}
                     </a>
@@ -38,7 +37,7 @@
                     <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
                     {{ __('Mengisi Jurnal ?') }}
                     </a>
-                    
+                @auth
                     <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
