@@ -67,7 +67,7 @@
                                     <table class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%">ID</th>
+                                                <th style="width: 15%">ID</th>
                                                 {{-- <th>Name</th> --}}
                                                 <th>JOBLIST</th>
                                             </tr>
@@ -77,7 +77,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th style="width: 5%">ID</th>
+                                                <th style="width: 15%">ID</th>
                                                 {{-- <th>Name</th> --}}
                                                 <th>JOBLIST</th>
                                             </tr>
