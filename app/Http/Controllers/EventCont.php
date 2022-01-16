@@ -373,9 +373,14 @@ class EventCont extends Controller
                             foreach ($x->joblist as $key => $job) {
                                 # code...
                                 $desk = '';
+                                $stat = '';
                                 if ($job->deskripsi !== null) {
                                     # code...
-                                    $desk = '( <span style="color: blue">'.$job->deskripsi.'</span> )';
+                                    $desk = ' ( <span style="color: blue">'.$job->deskripsi.'</span> ) ';
+                                }
+                                if ($job->status == 'selesai') {
+                                    # code...
+                                    $stat = ' -> <span class="text-success">'.$job->status.'</span>';
                                 }
                                 $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk;
                             }
