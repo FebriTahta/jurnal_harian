@@ -382,7 +382,7 @@ class EventCont extends Controller
                                     # code...
                                     $stat = ' -> <span class="text-success">'.$job->status.'</span>';
                                 }
-                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk;
+                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
                             }
                             $y[] = $x->nama;
                         }
