@@ -376,7 +376,7 @@ class EventCont extends Controller
                             }
                             $y[] = $x->nama;
                         }
-                        $hasil =  implode("<hr>", $jobs);
+                        $hasil =  implode("  ", $jobs);
                         return ucfirst($hasil);
                         
                     })
