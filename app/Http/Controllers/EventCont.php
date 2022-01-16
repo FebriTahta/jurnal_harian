@@ -376,8 +376,8 @@ class EventCont extends Controller
                             }
                             $y[] = $x->nama;
                         }
-                        $hasil =  implode("<hr>", strtoupper($jobs));
-                        return $hasil;
+                        $hasil =  implode("<hr>", $jobs);
+                        return ucfirst($hasil);
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
