@@ -22,10 +22,10 @@
         <div class="row">
             
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
-                @auth
-                    <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
+                <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
                     {{ __('Recap Jurnal') }}
-                    </a>
+                </a>
+                @auth
 
                     <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
                     {{ __('Mengisi Jurnal ?') }}
