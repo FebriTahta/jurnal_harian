@@ -40,5 +40,9 @@ Route::get('/recap-jurnal', [EventCont::class,'recap']);
 
 Route::get('/jurnal-harian',[IndexCont::class,'jurnal_harian']);
 Route::post('/autocomplete',[IndexCOnt::class,'fetch'])->name('autocomplete.fetch');
+
+// login
+Route::get('/fetch_username_from_bidang/{bidang_id}', [EventCont::class,'get_username_from_bidang']);
+
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

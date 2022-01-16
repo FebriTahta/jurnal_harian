@@ -1,4 +1,14 @@
 @extends('layouts.master')
+
+@section('head')
+<link rel="stylesheet" href="{{asset('assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css')}}">
+<style>
+    table.dataTable tbody td {
+  vertical-align: top;
+}
+</style>
+@endsection
+
 @section('content')
 
 
@@ -115,13 +125,55 @@
                 </div>
                 <div class="modal-body clearfix" >
                     <div class="form-group" id="dynamicTable">
-                        <div class="form-group">
-                            <select class="form-control show-tick" name="username" style="text-transform: uppercase" required>
+                        <div class="form-group" style="margin-bottom: 50px">
+                            <select class="form-control show-tick" name="bidang" style="text-transform: uppercase" required>
+                                <option value="">Bidang ..</option>
+                                @foreach ($bidang as $item)
+                                    <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->namabidang}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="display: none" id="block_username">
+                            <div class="body">
+                                {{-- <div class="form-group">
+                                    <div class="radio inlineblock m-r-20">
+                                        <input type="radio" name="gender" id="male" class="with-gap" value="option1">
+                                        <label for="male">Male</label>
+                                    </div>                                
+                                    <div class="radio inlineblock">
+                                        <input type="radio" name="gender" id="Female" class="with-gap" value="option2">
+                                        <label for="Female">Female</label>
+                                    </div>
+                                </div> --}}
+                                <div class="table-responsive">
+                                    <table class="table data-table table-bordered table-stripped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 15%">No</th>
+                                                {{-- <th style="width: 15%">PILIH</th> --}}
+                                                <th>NAMA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="width: 15%">No</th>
+                                                {{-- <th style="width: 15%">PILIH</th> --}}
+                                                <th>NAMA</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            {{-- <select class="form-control show-tick" name="username" id="username" style="text-transform: uppercase;" required>
                                 <option value="">Nama ..</option>
                                 @foreach ($semuaanggota as $item)
                                     <option style="text-transform: uppercase" value="{{$item->nama}}">{{$item->nama}}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                             <input type="password" value="adm" name="password" style="display: none">
                         </div>
                     </div>
@@ -161,6 +213,17 @@
 @endsection
 
 @section('script')
+
+<script src="{{asset('assets/bundles/datatablescripts.bundle.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js')}}"></script>
+
+<script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js --> 
+<script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
+
 <script>
     $(document).keypress(
     function(event){
@@ -412,4 +475,108 @@
                             });
             })
     </script>
+
+
+<script>
+    $('select[name="bidang"]').on('change', function() {
+	var bidang_id = $(this).val();
+	document.getElementById('block_username').style.display="";
+    $('.check').click(function() {
+                $('.check').not(this).prop('checked', false);
+                console.log('yaaa');
+            });
+	if(bidang_id) {
+        console.log(bidang_id);
+		// $.ajax({
+		// 	url: '/fetch_username_from_bidang/' + bidang_id,
+		// 	type: "GET",
+		// 	dataType: "json",
+		// 	success:function(response) {                      
+        //         // $.each(data, function(id, nama) {
+        //         //     console.log(data);
+                    
+		// 		// });
+        //         $('#block_username a').remove();
+        //         for (let index = 0; index < response.length; index++) {
+        //                             console.log(response[index].id);
+        //                             var nomor = index+1;
+        //                             var card_jurnal='<a href="#">'
+        //                                                 +'<div class="card">'
+        //                                                     +'  <div class="body l-red">'
+        //                                                         +'  <div class="event-name row">'
+                                                                    
+        //                                                             +'  <div class="col-12">'
+        //                                                                 +'<div class="checkbox"><input id="remember_me'+nomor+'" name="username" class="check" type="checkbox"><label for="remember_me'+nomor+'">Remember Me</label></div>'
+        //                                                                 +'<p></p>'
+        //                                                                 +'<address><i class="zmdi zmdi-check"></i></address>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</a>'
+        //                             $('#block_username').append(card_jurnal);
+        //                             }
+        //     // $('.check').click(function() {
+        //     //     $('.check').not(this).prop('checked', false);
+        //     //     console.log('yaaa');
+        //     // });
+		// 	}
+		// });
+        
+        $('.data-table').DataTable({
+                //karena memakai yajra dan template maka di destroy dulu biar ga dobel initialization
+                destroy: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url:'/fetch_username_from_bidang/'+bidang_id,
+                },
+                columns: [
+                    {
+                        "data": "id",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                    data:'check',
+                    name:'nama'
+                    },
+                    // {
+                    // data:'nama',
+                    // name:'nama'
+                    // },
+                    
+                ]
+            });
+            $('.check .data-table').click(function() {
+                $('.check').not(this).prop('checked', false);
+                console.log('yaaa');
+            });
+            
+	}else{
+		// $('select[name="username"]').empty().disabled();
+	}
+})
+</script>
+
+<script>
+    // $("input:checkbox").on('click', function() {
+    // // in the handler, 'this' refers to the box clicked on
+    // var $box = $(this);
+    // if ($box.is(":checked")) {
+    //     // the name of the box is retrieved using the .attr() method
+    //     // as it is assumed and expected to be immutable
+    //     var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    //     // the checked state of the group/box on the other hand will change
+    //     // and the current value is retrieved using .prop() method
+    //     $(group).prop("checked", false);
+    //     $box.prop("checked", true);
+    // } else {
+    //     $box.prop("checked", false);
+    // }
+    // });
+    
+</script>
+
 @endsection

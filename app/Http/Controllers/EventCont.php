@@ -399,10 +399,29 @@ class EventCont extends Controller
         return view('layouts.recap');
     }
 
-    public function recap_data(Request $request)
+    public function get_username_from_bidang(Request $request, $bidang_id)
     {
+        // $username = Anggota::where('bidang_id',$bidang_id)->get();
+        // return json_encode($username);
 
+        if ($request->ajax()) {
+            $data = Anggota::where('bidang_id', $bidang_id);
+            return  Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('check', function($row){
+                        $check = '  <div class="radio inlineblock m-r-20">
+                                        <input type="radio" name="username" id="'.$row->id.'" class="with-gap" value="'.$row->id.'">
+                                        <label for="'.$row->id.'"> ' .$row->nama.'</label>
+                                    </div>';
+                        // $check = '<input type="checkbox" name="skill" class="check" value="male">';
+                        return $check;
+                    })
+                    ->rawColumns(['check'])
+                    ->make(true);
+        }
     }
+
+    
 
 
 }
