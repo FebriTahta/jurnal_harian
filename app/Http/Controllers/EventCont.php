@@ -381,6 +381,9 @@ class EventCont extends Controller
                                 if ($job->status == 'selesai') {
                                     # code...
                                     $stat = ' -> <span class="text-success">'.$job->status.'</span>';
+                                }else {
+                                    # code...
+                                    $stat = ' x <span class="text-danger">'.$job->status.'</span>';
                                 }
                                 $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
                             }
