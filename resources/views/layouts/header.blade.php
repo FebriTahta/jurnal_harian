@@ -48,7 +48,7 @@
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="/"><img src="{{asset('assets/images/logo.svg')}}" alt="Alpino"></a>
         </li>
-        <li class="menuapp-btn badgebit"><a href="javascript:void(0);"><i class="zmdi zmdi-apps"></i>
+        <li style="display: none" class="menuapp-btn badgebit"><a href="javascript:void(0);"><i class="zmdi zmdi-apps"></i>
             <div class="notify">
                 <span class="heartbit"></span>
                 <span class="point"></span>
