@@ -465,7 +465,7 @@ class EventCont extends Controller
         // }
 
         if ($request->ajax()) {
-            $data = Isijurnal::select('*')->with('joblist');
+            $data = Isijurnal::select('*')->with('joblist')->orderBy('id','desc');
             return  Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('tanggal', function($row){
