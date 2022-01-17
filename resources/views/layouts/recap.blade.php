@@ -139,7 +139,7 @@
                                     </div>
                                     <div id="isi_jurnal">
                                         @auth
-                                            @if ($joblist->count() > 0)
+                                            @if ($jobhariini > 0)
                                                 @foreach ($joblist as $jlist)
                                                 <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-tanggal="{{$jlist->start}}" data-status="{{$jlist->status}}">
                                                 <div class="card">
@@ -171,7 +171,7 @@
                                                     <div class="body m-b-10">
                                                         <div class="event-name b-lightred row">
                                                             <div class="col-3 text-center">
-                                                                <h4>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('D')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
                                                             </div>
                                                             <div class="col-9 text-danger">
                                                                 <h6>Jurnal Hari Ini KOSONG</h6>
@@ -183,23 +183,30 @@
                                                 </div>
                                             </a>
                                             
-                                            @foreach ($joblist as $item)
-                                            <a href="#">
+                                            @foreach ($joblist as $jlist)
+                                                <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-tanggal="{{$jlist->start}}" data-status="{{$jlist->status}}">
                                                 <div class="card">
                                                     <div class="body m-b-10">
                                                         <div class="event-name b-lightred row">
                                                             <div class="col-3 text-center">
-                                                                <h4>{{Carbon::parse($item->start)->isoFormat('D')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                                                <h4>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('D')}}<span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('MMM')}}</span><span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('Y')}}</span></h4>
                                                             </div>
-                                                            <div class="col-9 text-danger">
-                                                                <h6>{{$item->jenis->jenis}}</h6>
-                                                                <p>{{$item->deskripsi}}</p>
+                                                            <div class="col-9">
+                                                                <h6>{{$jlist->jenis->jenis}}</h6>
+                                                                <span>
+                                                                    @if ($jlist->deskripsi == null)
+                                                                        -
+                                                                    @else
+                                                                        {{$jlist->deskripsi}}
+                                                                    @endif
+                                                                </span>
+                                                                <address><i class="zmdi zmdi-check"></i> {{$jlist->status}}</address>
                                                             </div>
                                                         </div>
                                                         <hr>
                                                     </div>
                                                 </div>
-                                            </a>
+                                                </a>
                                             @endforeach
                                             {{ $joblist->links() }}
                                             @endif

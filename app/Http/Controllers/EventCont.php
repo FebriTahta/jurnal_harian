@@ -556,7 +556,9 @@ class EventCont extends Controller
             # code...
             $joblist    = Joblist::where('anggota_id', Auth::user()->anggota_id)->orderBy('start','desc')
                                  ->paginate(5);
-            return view('layouts.recap',compact('bidang','jenis','joblist'));
+            $jobhariini = Joblist::where('anggota_id', Auth::user()->anggota_id)
+                                 ->whereDate('start',$sekarang)->get()->count();
+            return view('layouts.recap',compact('bidang','jenis','joblist','jobhariini'));
         } else {
             # code...
             return view('layouts.recap',compact('bidang','jenis'));
