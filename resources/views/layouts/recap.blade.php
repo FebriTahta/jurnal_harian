@@ -146,7 +146,7 @@
                                                     <div class="body m-b-10">
                                                         <div class="event-name b-lightred row">
                                                             <div class="col-3 text-center">
-                                                                <h4>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('D')}}<span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('MM')}}</span><span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('Y')}}</span></h4>
+                                                                <h4>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('D')}}<span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('MMM')}}</span><span>{{\Carbon\Carbon::parse($jlist->start)->isoFormat('Y')}}</span></h4>
                                                             </div>
                                                             <div class="col-9">
                                                                 <h6>{{$jlist->jenis->jenis}}</h6>
@@ -721,7 +721,7 @@
                     // toastr.success('Success', 'Mengisi Jurnal');
                     toastr.success(response.message);
                     // $('#errList').removeClass('alert alert-danger');
-                    $('#isi_jurnal div').remove();
+                    $('#isi_jurnal a').remove();
                     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "July", "Aug", "Sep", "Oct", "Nov", "Dec"
                         ];
@@ -749,7 +749,7 @@
                                                                         +'</div>'
                                                                         +'</a>';
                                     $('#isi_jurnal').append(card_jurnalku);
-                                    $('#belum_mengisi').remove();
+                                    // $('#belum_mengisi').remove();
                                 }
                             }
                     });
@@ -816,7 +816,7 @@
                                                                         +'</div>'
                                                                         +'</a>';
                                     $('#isi_jurnal').append(card_jurnalku);
-                                    $('#belum_mengisi').remove();
+                                    // $('#belum_mengisi').remove();
                                 }
                             }
                     });
