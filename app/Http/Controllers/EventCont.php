@@ -514,6 +514,7 @@ class EventCont extends Controller
                         //     $y[] = $x->nama;
                         // }
                         // $hasil =  implode(" <br> ", $jobs);
+                        $result= '';
                         $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->get();
                         foreach ($hasil as $key => $value) {
                             # code...
