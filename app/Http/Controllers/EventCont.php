@@ -488,29 +488,54 @@ class EventCont extends Controller
                     // })
                     ->addColumn('joblist', function($data){
                         
+                        // $joblist = Joblist::where('isijurnal_id', $data->id)->with('anggota')
+                        //         ->select('anggota_id')->distinct()->get();
+                        // foreach ($joblist as $key => $value) {
+                        //     # code...
+                            
+                        //     $x = Anggota::where('id', $value->anggota_id)->first();
+                        //     foreach ($x->joblist as $key => $job) {
+                        //         # code...
+                        //         $desk = '';
+                        //         $stat = '';
+                        //         if ($job->deskripsi !== null) {
+                        //             # code...
+                        //             $desk = ' ( <span style="color: blue">'.$job->deskripsi.'</span> ) ';
+                        //         }
+                        //         if ($job->status == 'selesai') {
+                        //             # code...
+                        //             $stat = ' -> <span class="text-success">'.$job->status.'</span>';
+                        //         }else {
+                        //             # code...
+                        //             $stat = ' x <span class="text-danger">'.$job->status.'</span>';
+                        //         }
+                        //         $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
+                        //     }
+                        //     $y[] = $x->nama;
+                        // }
+                        // $hasil =  implode(" <br> ", $jobs);
                         $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->get();
                         foreach ($hasil as $key => $value) {
                             # code...
                             $desk = '';
                             $stats= '';
-                            $x[]  = '';
-                            // if ($value->deskripsi !== null) {
-                            //     # code...
-                            //     $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
-                            // }
-                            // if ($value->status == 'selesai') {
-                            //     # code...
-                            //     $stats = ' -> <span class="text-success">'.$value->status.'</span>';
-                            // }else {
-                            //     # code...
-                            //     $stats = ' x <span class="text-danger">'.$value->status.'</span>';
-                            // }
 
-                            // $x[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
-                            $x[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
-                            
+                            if ($value->deskripsi !== null) {
+                                # code...
+                                $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
+                            }
+                            if ($value->status == 'selesai') {
+                                # code...
+                                $stats = ' -> <span class="text-success">'.$value->status.'</span>';
+                            }else {
+                                # code...
+                                $stats = ' x <span class="text-danger">'.$value->status.'</span>';
+                            }
+
+                            $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                         }
-                        return  implode(" <br> ", $x);
+                        $results =  implode(" <br> ", $result);
+                        return $results;
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
