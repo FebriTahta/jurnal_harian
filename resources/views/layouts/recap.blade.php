@@ -208,7 +208,7 @@
                                                 </div>
                                                 </a>
                                             @endforeach
-                                            {{ $joblist->links() }}
+                                            {{-- {{ $joblist->links() }} --}}
                                             @endif
                                             
                                         @else
