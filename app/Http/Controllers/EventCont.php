@@ -423,8 +423,10 @@ class EventCont extends Controller
             $sekarang   = date("Y-m-d");
             if(request()->ajax())
             {
+                // $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
+                // whereDate('start', $sekarang)->get();
                 $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
-                whereDate('start', $sekarang)->get();
+                paginate(5)->get();
                 return response()->json($datas,200);
             }
         }
