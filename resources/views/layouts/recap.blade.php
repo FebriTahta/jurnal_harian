@@ -42,7 +42,7 @@
                     
                     <ul class="nav nav-tabs profile_tab">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#overview">Tabel Daftar Pekerjaan</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#schedule">Mengisi Jurnal</a></li>
+                        <li class="nav-item"><a class="nav-link" @auth data-toggle="tab" href="#schedule" @else data-toggle="modal" data-target="#user" @endauth>Mengisi Jurnal</a></li>
                     </ul>
                 </div>
                 <div class="tab-content">
