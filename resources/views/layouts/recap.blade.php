@@ -165,6 +165,25 @@
                                                     </div>
                                                 </div>
                                             </a>
+                                            {{$joblist->count()}}
+                                            @foreach ($joblist as $item)
+                                            <a href="#">
+                                                <div class="card">
+                                                    <div class="body m-b-10">
+                                                        <div class="event-name b-lightred row">
+                                                            <div class="col-3 text-center">
+                                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                                            </div>
+                                                            <div class="col-9 text-danger">
+                                                                <h6>{{$item->jenis->jenis}}</h6>
+                                                                <span>{{$item->deskripsi}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            @endforeach
                                             @endif
                                             
                                         @else

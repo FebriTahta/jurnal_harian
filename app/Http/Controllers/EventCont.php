@@ -467,7 +467,7 @@ class EventCont extends Controller
         // }
 
         if ($request->ajax()) {
-            $data = Isijurnal::select('*')->with('joblist')->orderBy('id','desc');
+            $data = Isijurnal::select('*')->with('joblist')->orderBy('start','desc');
             return  Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('tanggal', function($row){
@@ -533,11 +533,17 @@ class EventCont extends Controller
                                 # code...
                                 $stats = ' x <span class="text-danger">'.$value->status.'</span>';
                             }
-
+                            
                             $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                         }
-                        $results =  implode(" <br> ", $result);
-                        return $results;
+                        if ($hasil->count() > 0) {
+                            # code...
+                            $results =  implode(" <br> ", $result);
+                            return $results;
+                        }else {
+                            # code...
+                            return '-';
+                        }
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
@@ -549,11 +555,10 @@ class EventCont extends Controller
         if (Auth::user()) {
             # code...
             $joblist    = Joblist::where('anggota_id', Auth::user()->anggota_id)->orderBy('id','desc')
-                                 ->whereDate('start', $sekarang )->get();
+                                 ->paginate(5);
             return view('layouts.recap',compact('bidang','jenis','joblist'));
         } else {
             # code...
-            
             return view('layouts.recap',compact('bidang','jenis'));
         }
     }
