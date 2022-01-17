@@ -41,11 +41,28 @@
                     </a> --}}
                     
                     <ul class="nav nav-tabs profile_tab">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#overview">Tabel Daftar Pekerjaan</a></li>
-                        <li class="nav-item"><a class="nav-link" @auth data-toggle="tab" href="#schedule" @else data-toggle="modal" data-target="#user" @endauth>Mengisi Jurnal</a></li>
+                        <li class="nav-item" style="text-align: center; margin-bottom: 10px"><a class="nav-link active" style="min-width: 200px" data-toggle="tab" href="#overview">Tabel Daftar Pekerjaan</a></li>
+                        <li class="nav-item" style="text-align: center; margin-bottom: 10px"><a class="nav-link" style="min-width: 200px" @auth data-toggle="tab" href="#schedule" @else data-toggle="modal" data-target="#user" @endauth>Mengisi Jurnal</a></li>
                     </ul>
                 </div>
                 <div class="tab-content">
+                    <div style="text-align: right; margin-bottom: 20px">
+                        <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(186, 134, 255)">
+                            {{ __('Kalender') }}
+                        </a>
+
+                        @auth
+                        <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                        </a>
+    
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        @endauth
+                    </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-6">
                             <div class="card text-center">
