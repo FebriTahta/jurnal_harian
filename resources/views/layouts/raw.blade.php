@@ -33,13 +33,13 @@
             
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
                 <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
-                    {{ __('Recap Jurnal') }}
+                    {{ __('Recap Jurnal / Mengisi Jurnal') }}
                 </a>
                 @auth
 
-                    <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
+                    {{-- <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
                     {{ __('Mengisi Jurnal ?') }}
-                    </a>
+                    </a> --}}
                     
                     <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
