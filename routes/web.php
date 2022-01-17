@@ -31,6 +31,8 @@ Route::get('fullcalender', [EventCont::class, 'index']);
 Route::post('fullcalenderAjax', [EventCont::class, 'ajax']);
 
 Route::post('/new_input', [EventCont::class,'new_input']);
+Route::post('/new_input2', [EventCont::class,'new_input2']);
+
 Route::get('/jurnalku-data',[EventCont::class,'jurnalku']);
 Route::post('/new_update', [EventCont::class,'new_update']);
 Route::get('/show/{start}', [EventCont::class,'show']);
@@ -48,6 +50,7 @@ Route::get('/fetch_username_from_bidang/{bidang_id}', [EventCont::class,'get_use
 Route::get('/total-anggota',[EventCont::class, 'total_anggota']);
 Route::get('/total-bidang',[EventCont::class, 'total_bidang']);
 Route::get('/total-pekerjaan-selesai',[EventCont::class, 'total_pekerjaan_selesai']);
+Route::get('/total-hari',[EventCont::class,'total_hari']);
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

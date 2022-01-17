@@ -290,6 +290,132 @@ class EventCont extends Controller
         }
     }
 
+    public function new_input2(Request $request)
+    {
+        $tgl   = Carbon::parse($request->tanggal)->isoFormat('Y-MM-D 0:0:0');
+        $jurnal     = "@ jurnal";
+        
+
+        $validator  = Validator::make($request->all(), [            
+            'jenis'         => 'required',
+        ]);
+
+        if ($validator->fails()) {
+
+            return response()->json([
+                'status'    => 400,
+                'message'   => 'Ada Kesalahan',
+                'errors'    => $validator->messages(),
+            ]);
+        }
+        else {
+            $isijurnal  =  Isijurnal::whereDate('start', $request->tanggal)->first();
+            $isijurnal_id = '';
+            
+            if ($isijurnal == null) {
+                # code...
+                $jurnals        =   Isijurnal::updateOrCreate(['id'=> $request->id],[
+                    'title'     =>  $jurnal,
+                    'start'     =>  $tgl,
+                    'end'       =>  $tgl
+                ]);
+
+                $isijurnal_id = $jurnals->id;
+            } else {
+                # code...
+                $isijurnal_id = $isijurnal->id;
+            }
+
+            
+            foreach ($request->jenis as $key => $value) {
+                $cek_jenis  = Jenis::where('jenis', $value)->first();
+                if ($cek_jenis == null) {
+                    # code jika belum ada jenis pekerjaan serupa...
+                    $jenis      =   Jenis::updateOrCreate(['id'=> $request->id],[
+                        'jenis' =>  $value
+                    ]);
+    
+                    if ($request->has('status')) {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $jenis->id,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }else {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $jenis->id,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => "belum",
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }  
+                }else {
+                    # code...
+                    if ($request->has('status')) {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $cek_jenis->id,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => $request->status[$key],
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }else {
+                        # code...
+                        $joblist    =   Joblist::updateOrCreate(['id'=> $request->id],[
+                            'anggota_id'    => Auth::id(),
+                            'jenis_id'      => $cek_jenis->id,
+                            'isijurnal_id'  => $isijurnal_id,
+                            'title'         => $jurnal,
+                            'deskripsi'     => $request->deskripsi[$key],
+                            'status'        => "belum",
+                            'start'         => $tgl,
+                            'end'           => $tgl,
+                            // 'tanggal'       => $request->tanggal[$key],
+                        ]);
+                        return response()->json([
+                            'datas'   => $joblist,
+                            'status'  => 200,
+                            'message' => 'Jurnal berhasil di tambahkan'
+                        ]);
+                    }
+                }
+            }
+        }
+    }
+
     public function jurnalku(Request $request)
     {
         if (Auth::user()) {
@@ -360,41 +486,67 @@ class EventCont extends Controller
                     //     return implode("<hr>", $y);
                         
                     // })
-                    ->addColumn('joblist', function($row){
+                    ->addColumn('joblist', function($data){
                         
-                        $joblist = Joblist::where('isijurnal_id', $row->id)->with('anggota')
-                                ->select('anggota_id')->distinct()->get();
-                        foreach ($joblist as $key => $value) {
-                            # code...
+                        // $joblist = Joblist::where('isijurnal_id', $data->id)->with('anggota')
+                        //         ->select('anggota_id')->distinct()->get();
+                        // foreach ($joblist as $key => $value) {
+                        //     # code...
                             
-                            $x = Anggota::where('id', $value->anggota_id)->first();
-                            foreach ($x->joblist as $key => $job) {
+                        //     $x = Anggota::where('id', $value->anggota_id)->first();
+                        //     foreach ($x->joblist as $key => $job) {
+                        //         # code...
+                        //         $desk = '';
+                        //         $stat = '';
+                        //         if ($job->deskripsi !== null) {
+                        //             # code...
+                        //             $desk = ' ( <span style="color: blue">'.$job->deskripsi.'</span> ) ';
+                        //         }
+                        //         if ($job->status == 'selesai') {
+                        //             # code...
+                        //             $stat = ' -> <span class="text-success">'.$job->status.'</span>';
+                        //         }else {
+                        //             # code...
+                        //             $stat = ' x <span class="text-danger">'.$job->status.'</span>';
+                        //         }
+                        //         $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
+                        //     }
+                        //     $y[] = $x->nama;
+                        // }
+                        // $hasil =  implode(" <br> ", $jobs);
+                        $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->get();
+                        foreach ($hasil as $key => $value) {
+                            # code...
+                            $desk = '';
+                            $stats= '';
+
+                            if ($value->deskripsi !== null) {
                                 # code...
-                                $desk = '';
-                                $stat = '';
-                                if ($job->deskripsi !== null) {
-                                    # code...
-                                    $desk = ' ( <span style="color: blue">'.$job->deskripsi.'</span> ) ';
-                                }
-                                if ($job->status == 'selesai') {
-                                    # code...
-                                    $stat = ' -> <span class="text-success">'.$job->status.'</span>';
-                                }else {
-                                    # code...
-                                    $stat = ' x <span class="text-danger">'.$job->status.'</span>';
-                                }
-                                $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
+                                $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
                             }
-                            $y[] = $x->nama;
+                            if ($value->status == 'selesai') {
+                                # code...
+                                $stats = ' -> <span class="text-success">'.$value->status.'</span>';
+                            }else {
+                                # code...
+                                $stats = ' x <span class="text-danger">'.$value->status.'</span>';
+                            }
+
+                            $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                         }
-                        $hasil =  implode(" <br> ", $jobs);
-                        return ucfirst($hasil);
+                        $results =  implode(" <br> ", $result);
+                        return $results;
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
                     ->make(true);
         }
-        return view('layouts.recap');
+        $bidang = Bidang::all();
+        $jenis  = Jenis::all();
+        $sekarang = date("Y-m-d");
+        $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)->orderBy('id','desc')
+                                 ->whereDate('start', $sekarang )->get();
+        return view('layouts.recap',compact('bidang','jenis','joblist'));
     }
 
     public function get_username_from_bidang(Request $request, $bidang_id)
@@ -441,6 +593,14 @@ class EventCont extends Controller
         if ($request->ajax()) {
             $job = Joblist::all()->count();
             return response()->json($job,200);
+        }
+    }
+
+    public function total_hari(Request $request)
+    {
+        if ($request->ajax()) {
+            $hari = Isijurnal::all()->count();
+            return response()->json($hari,200);
         }
     }
     

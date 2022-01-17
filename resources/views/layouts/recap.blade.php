@@ -30,114 +30,222 @@
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12">
                 <div class="card">
+                    {{-- <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(186, 134, 255)">
+                        {{ __('Kalender') }}
+                    </a>
+    
+                    <button type="button" class="btn btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal</button> --}}
+                    
+                    {{-- <a class="btn  btn-sm waves-effect" href="#overview" data-toggle="tab" style="background-color: rgb(255, 178, 134)">
+                        {{ __('Tabel joblist') }}
+                    </a> --}}
                     
                     <ul class="nav nav-tabs profile_tab">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#overview">Ringkasan</a></li>
-                        {{-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#usersettings">Mengisi Jurnal</a></li> --}}
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#overview">Tabel Daftar Pekerjaan</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#schedule">Mengisi Jurnal</a></li>
                     </ul>
                 </div>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="overview">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">                            
-                                        <i class="zmdi zmdi-account zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" id="total_anggota">-</h5>
-                                        <small>Anggota</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-home zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700" id="total_bidang">-</h5>
-                                        <small>Bidang</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-calendar zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">52</h5>
-                                        <small>Attachment</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" id="total_pekerjaan_selesai" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">-</h5>
-                                        <small>Pekerjaan Selesai</small>
-                                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-6">
+                            <div class="card text-center">
+                                <div class="body">                            
+                                    <i class="zmdi zmdi-account zmdi-hc-2x"></i>
+                                    <h5 class="m-b-0 number" id="total_anggota" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">-</h5>
+                                    <small>Anggota</small>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-6 col-6">
+                            <div class="card text-center">
+                                <div class="body">
+                                    <i class="zmdi zmdi-home zmdi-hc-2x"></i>
+                                    <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700" id="total_bidang">-</h5>
+                                    <small>Bidang</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-6">
+                            <div class="card text-center">
+                                <div class="body">
+                                    <i class="zmdi zmdi-calendar zmdi-hc-2x"></i>
+                                    <h5 class="m-b-0 number" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700" id="total_hari">-</h5>
+                                    <small>Hari Kerja</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-6">
+                            <div class="card text-center">
+                                <div class="body">
+                                    <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
+                                    <h5 class="m-b-0 number" id="total_pekerjaan_selesai" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">-</h5>
+                                    <small>Pekerjaan Selesai</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane active" id="overview">
+                        <div class="card">
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table data-table table-bordered table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 15%">ID</th>
+                                                {{-- <th>Name</th> --}}
+                                                <th>JOBLIST</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+    
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="width: 15%">ID</th>
+                                                {{-- <th>Name</th> --}}
+                                                <th>JOBLIST</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="schedule">
                         <div class="row">
-                            <div class="col-lg-3 col-md-12">
-                                <div class="card">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card" id="card_jurnal">
                                     <div class="header">
                                         <h2><strong>Info</strong></h2>
                                     </div>
-                                    <div class="">
+                                    <div id="isi_jurnal">
+                                        @auth
+                                            @if ($joblist->count() > 0)
+                                                @foreach ($joblist as $jlist)
+                                                <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-tanggal="{{$jlist->start}}" data-status="{{$jlist->status}}">
+                                                <div class="card">
+                                                    <div class="body m-b-10">
+                                                        <div class="event-name b-lightred row">
+                                                            <div class="col-3 text-center">
+                                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <h6>{{$jlist->jenis->jenis}}</h6>
+                                                                <span>
+                                                                    @if ($jlist->deskripsi == null)
+                                                                        -
+                                                                    @else
+                                                                        {{$jlist->deskripsi}}
+                                                                    @endif
+                                                                </span>
+                                                                <address><i class="zmdi zmdi-check"></i> {{$jlist->status}}</address>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                                </a>
+                                                @endforeach
+                                            @else
+                                            <a href="#">
+                                                <div class="card">
+                                                    <div class="body m-b-10">
+                                                        <div class="event-name b-lightred row">
+                                                            <div class="col-3 text-center">
+                                                                <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
+                                                            </div>
+                                                            <div class="col-9 text-danger">
+                                                                <h6>Jurnal Hari Ini KOSONG</h6>
+                                                                <span>Anda belum mengisi jurnal hari ini</span>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            @endif
+                                            
+                                        @else
                                         <a href="#">
                                             <div class="card">
-                                                <div class="body l-red">
-                                                    <div class="event-name row">
+                                                <div class="body m-b-10">
+                                                    <div class="event-name b-lightred row">
                                                         <div class="col-3 text-center">
-                                                            <h4>{{date("d")}}<span>{{date("M")}}</span><span>{{date("Y")}}</span></h4>
+                                                            <h4>{{date('d')}}<span>{{date('M')}}</span><span>{{date('Y')}}</span></h4>
                                                         </div>
-                                                        <div class="col-9">
-                                                            <h6>Jurnal Hari Ini Kosong</h6>
-                                                            <p>Belum ada satupun anggota yang mengisi jurnal</p>
-                                                            <address><i class="zmdi zmdi-check"></i> -</address>
+                                                        <div class="col-9 text-danger">
+                                                            <h6>Daftar Jurnal Hari Ini</h6>
+                                                            <span>masuk untuk mengisi jurnal harian anda</span>
                                                         </div>
                                                     </div>
+                                                    <hr>
                                                 </div>
                                             </div>
                                         </a>
+                                        @endauth
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9 col-md-12">
+                            <div class="col-lg-8 col-md-12">
                                 <div class="card">
                                     <div class="header">
+                                        @auth
                                         <h2><strong>Mengisi</strong> jurnal</h2>
+                                        @else
+                                        <h2><strong>Detail</strong> Pekerjaan</h2>
+                                        @endauth
                                     </div>
-                                    <div class="body m-b-10">
-                                        <div class="form-group">
-                                            <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                    @auth
+                                    <form id="formaddjob">@csrf
+                                        <div class="body" style="margin-bottom: 20px">
+                                            <h2 class="card-inside-title">Jenis Pekerjaan ..</h2>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            @auth
+                                                            @endauth
+                                                            <input list="listjenis" type="text" name="jenis[]" class="form-control" placeholder="..." required>
+                                                            <datalist id="listjenis">
+                                                            @foreach ($jenis as $item)
+                                                                <option value="{{$item->jenis}}">{{$item->jenis}}</option>
+                                                            @endforeach
+                                                            </datalist>
+                                                            <label class="container" style="margin-top: 10px;">Selesai
+                                                                <input type="checkbox" value="selesai" name="status[]" id="status" style="margin-top: 10px;" >
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="date" class="form-control" name="tanggal" required>
+                                                    </div>
+                                                </div>
+                                            </div>                        
                                         </div>
-                                        <div class="post-toolbar-b">
-                                            <button class="btn btn-primary btn-round">Post</button>
+                                        <div class="body" style="margin-bottom: 20px">
+                                            <h2 class="card-inside-title">Deskripsi ..</h2>
+                                            <div class="row clearfix">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <textarea rows="4" name="deskripsi[]" class="form-control no-resize" placeholder="Tulis kendala / proses yang perlu menjadi catatan..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
                                         </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="table-responsive">
-                                            <table class="table data-table table-bordered table-hover js-basic-example dataTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 15%">ID</th>
-                                                        {{-- <th>Name</th> --}}
-                                                        <th>JOBLIST</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-        
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th style="width: 15%">ID</th>
-                                                        {{-- <th>Name</th> --}}
-                                                        <th>JOBLIST</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
+                                        @auth
+                                        <input type="submit" class="btn btn-info btn-round waves-effect" id="btnadd" style="margin-bottom: 50px" value="SUBMIT">
+                                            @else
+                                        <button type="button" data-toggle="modal" data-target="#user" class="btn btn-danger btn-round waves-effect">MASUK UNTUK MENGISI JURNAL</button>
+                                        @endauth
+                                    </form>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -214,6 +322,140 @@
             </div> --}}
         </div>        
     </div>
+    <div class="modal fade" id="user" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title" id="defaultModalLabel">MASUK SEBAGAI</h4>
+                    </div>
+                    <div class="modal-body clearfix" >
+                        <div class="form-group" id="dynamicTable">
+                            <div class="form-group" style="margin-bottom: 50px">
+                                <select class="form-control show-tick" name="bidang" style="text-transform: uppercase" required>
+                                    <option value="">Bidang ..</option>
+                                    @foreach ($bidang as $item)
+                                        <option style="text-transform: uppercase" value="{{$item->id}}">{{$item->namabidang}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+    
+                            <div class="form-group" style="display: none" id="block_username">
+                                <div class="body">
+                                    {{-- <div class="form-group">
+                                        <div class="radio inlineblock m-r-20">
+                                            <input type="radio" name="gender" id="male" class="with-gap" value="option1">
+                                            <label for="male">Male</label>
+                                        </div>                                
+                                        <div class="radio inlineblock">
+                                            <input type="radio" name="gender" id="Female" class="with-gap" value="option2">
+                                            <label for="Female">Female</label>
+                                        </div>
+                                    </div> --}}
+                                    <div class="table-responsive">
+                                        <table id="table-anggota" class="table table-bordered table-stripped table-hover js-basic-example dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 15%">No</th>
+                                                    {{-- <th style="width: 15%">PILIH</th> --}}
+                                                    <th>NAMA</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+    
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th style="width: 15%">No</th>
+                                                    {{-- <th style="width: 15%">PILIH</th> --}}
+                                                    <th>NAMA</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{-- <select class="form-control show-tick" name="username" id="username" style="text-transform: uppercase;" required>
+                                    <option value="">Nama ..</option>
+                                    @foreach ($semuaanggota as $item)
+                                        <option style="text-transform: uppercase" value="{{$item->nama}}">{{$item->nama}}</option>
+                                    @endforeach
+                                </select> --}}
+                                <input type="password" value="adm" name="password" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn modal-col-pink btn-round waves-effect" value="Submit">
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalupdate" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="formupdatejob">@csrf    
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title" id="defaultModalLabel">UPDATE JOB</h4>
+                    </div>
+                    <div class="modal-body clearfix" >
+                            <div class="body" style="margin-bottom: 20px">
+                                <h4 class="title">Jenis Pekerjaan ..</h4>
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="hidden" name="id" id="id" class="form-control" required>
+                                                @auth
+                                                    
+                                                @endauth
+                                                <input list="listjenis" id="jenis" type="text" name="jenis" class="form-control" placeholder="..." required>
+                                                <datalist id="listjenis">
+                                                @foreach ($jenis as $item)
+                                                    <option value="{{$item->jenis}}">{{$item->jenis}}</option>
+                                                @endforeach
+                                                </datalist>
+                                                <label class="container" style="margin-top: 10px;">Selesai
+                                                    <input type="checkbox" value="selesai" name="status" style="margin-top: 10px;" >
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <hr>
+                            <div class="body" style="margin-bottom: 20px">
+                                <h4 class="title">Deskripsi ..</h4>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" id="deskripsi" name="deskripsi" class="form-control no-resize" placeholder="Tulis kendala / proses yang perlu menjadi catatan..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info btn-round waves-effect" id="btnadd1" value="UPDATE">
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                        {{-- <button type="button" class="btn btn-danger btn-round waves-effect" data-dismiss="modal" disabled>HAPUS</button> --}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     @auth
         <input type="hidden" id="stat" value="masuk">
@@ -239,7 +481,14 @@
 
 <script>
     $(document).ready(function(){
-                
+                            var stat = $('#stat').val();
+                            
+                            if (stat !== 'masuk') {
+                                console.log(stat);
+                                $("#user").modal('show');       
+                            }else{
+                                console.log(stat);
+                            }
                             // total anggota keseluruhan
                             $.ajax({
                                 contentType: false,
@@ -272,6 +521,16 @@
                                     $('#total_pekerjaan_selesai').html(response);
                                 }
                             });
+                            $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: '/total-hari',
+                                type: "GET",
+                                success: function (response) {
+                                    console.log(response);
+                                    $('#total_hari').html(response);
+                                }
+                            });
                 // table
                 $('.data-table').DataTable({
                 //karena memakai yajra dan template maka di destroy dulu biar ga dobel initialization
@@ -299,5 +558,238 @@
                 ]
                 });
             })
+</script>
+<script>
+    $('#modalupdate').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var jenis = button.data('jenis')
+                    var deskripsi = button.data('deskripsi')
+                    var status = button.data('status')
+                    var tanggal = button.data('tanggal')
+                    var modal = $(this)
+                    $('#id').val(id);
+                    $('#jenis').val(jenis);
+                    $('#deskripsi').text(deskripsi);
+                    $('#status').text(status);
+                    $('#tanggal').text(tanggal);
+                    console.log(tanggal);
+                })
+    </script>
+<script>
+    $('select[name="bidang"]').on('change', function() {
+	var bidang_id = $(this).val();
+	document.getElementById('block_username').style.display="";
+    $('.check').click(function() {
+                $('.check').not(this).prop('checked', false);
+                console.log('yaaa');
+            });
+	if(bidang_id) {
+        console.log(bidang_id);
+		// $.ajax({
+		// 	url: '/fetch_username_from_bidang/' + bidang_id,
+		// 	type: "GET",
+		// 	dataType: "json",
+		// 	success:function(response) {                      
+        //         // $.each(data, function(id, nama) {
+        //         //     console.log(data);
+                    
+		// 		// });
+        //         $('#block_username a').remove();
+        //         for (let index = 0; index < response.length; index++) {
+        //                             console.log(response[index].id);
+        //                             var nomor = index+1;
+        //                             var card_jurnal='<a href="#">'
+        //                                                 +'<div class="card">'
+        //                                                     +'  <div class="body l-red">'
+        //                                                         +'  <div class="event-name row">'
+                                                                    
+        //                                                             +'  <div class="col-12">'
+        //                                                                 +'<div class="checkbox"><input id="remember_me'+nomor+'" name="username" class="check" type="checkbox"><label for="remember_me'+nomor+'">Remember Me</label></div>'
+        //                                                                 +'<p></p>'
+        //                                                                 +'<address><i class="zmdi zmdi-check"></i></address>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</div>'
+        //                                                                 +'</a>'
+        //                             $('#block_username').append(card_jurnal);
+        //                             }
+        //     // $('.check').click(function() {
+        //     //     $('.check').not(this).prop('checked', false);
+        //     //     console.log('yaaa');
+        //     // });
+		// 	}
+		// });
+        
+        $('#table-anggota').DataTable({
+                //karena memakai yajra dan template maka di destroy dulu biar ga dobel initialization
+                destroy: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url:'/fetch_username_from_bidang/'+bidang_id,
+                },
+                columns: [
+                    {
+                        "data": "id",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                    data:'check',
+                    name:'nama'
+                    },
+                    // {
+                    // data:'nama',
+                    // name:'nama'
+                    // },
+                    
+                ]
+            });
+            $('.check .data-table').click(function() {
+                $('.check').not(this).prop('checked', false);
+                console.log('yaaa');
+            });
+            
+	}else{
+		// $('select[name="username"]').empty().disabled();
+	}
+})
+</script>
+<script>
+    $('#formupdatejob').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_update",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnadd1').attr('disabled','disabled');
+                $('#btnadd1').val('Process');
+            },
+            success: function(response){
+                if(response.status == 200)
+                {
+                    $('#btnadd1').val('UPDATE');
+                    $('#btnadd1').attr('disabled',false);
+                    $("#formupdatejob")[0].reset();
+                    $("#modalupdate").hide();
+                    // toastr.success('Success', 'Mengisi Jurnal');
+                    toastr.success(response.message);
+                    // $('#errList').removeClass('alert alert-danger');
+                    $('#isi_jurnal div').remove();
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                    $.ajax({
+                        url:"jurnalku-data",
+                        type: 'get',
+                        dataType: 'json',
+                            success:function(datas) {
+                                for (let index = 0; index < datas.length; index++) {
+                                    var tgl = new Date(datas[index].start);
+                                    $('.wewewe').remove();
+                                    card_jurnalku = '<a style="text-black;" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'" data-tanggal="'+datas[index].start+'">'
+                                                    +'<div class="card">'
+                                                        +'<div class="body m-b-10">'
+                                                            +'<div class="event-name row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
+                                                                        +'<hr>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>';
+                                    $('#isi_jurnal').append(card_jurnalku);
+                                    $('#belum_mengisi').remove();
+                                }
+                            }
+                    });
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
+</script>
+<script>
+    $('#formaddjob').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_input2",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnadd').attr('disabled','disabled');
+                $('#btnadd').val('Process');
+            },
+            success: function(response){
+                console.log(response.datas);
+                if(response.status == 200)
+                {
+                    
+                    $('#btnadd').val('SUBMIT');
+                    $('#btnadd').attr('disabled',false);
+                    $("#formaddjob")[0].reset();
+                    // toastr.success('Success', 'Mengisi Jurnal');
+                    toastr.success(response.message);
+                    $('#errList').removeClass('alert alert-danger');
+                    $('#isi_jurnal a').remove();
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                    $.ajax({
+                        url:"jurnalku-data",
+                        type: 'get',
+                        dataType: 'json',
+                            success:function(datas) {
+                                for (let index = 0; index < datas.length; index++) {
+                                    var tgl = new Date(datas[index].start);
+                                    card_jurnalku = '<a style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'" data-tanggal="'+datas[index].start+'">'
+                                                    +'<div class="card wewewe">'
+                                                        +'<div class="body m-b-10">'
+                                                            +'<div class="event-name row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
+                                                                        +'<hr>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>';
+                                    $('#isi_jurnal').append(card_jurnalku);
+                                    $('#belum_mengisi').remove();
+                                }
+                            }
+                    });
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
 </script>
 @endsection
