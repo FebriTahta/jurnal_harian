@@ -493,7 +493,7 @@ class EventCont extends Controller
                             # code...
                             $desk = '';
                             $stats= '';
-                            $x[] = '';
+                            $x[]  = '';
                             // if ($value->deskripsi !== null) {
                             //     # code...
                             //     $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
