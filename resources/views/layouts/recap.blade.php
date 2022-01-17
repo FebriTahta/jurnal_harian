@@ -176,7 +176,7 @@
                                                             </div>
                                                             <div class="col-9 text-danger">
                                                                 <h6>{{$item->jenis->jenis}}</h6>
-                                                                <span>{{$item->deskripsi}}</span>
+                                                                <p>{{$item->deskripsi}}</p>
                                                             </div>
                                                         </div>
                                                         <hr>
