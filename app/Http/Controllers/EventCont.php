@@ -532,10 +532,9 @@ class EventCont extends Controller
                                 $stats = ' x <span class="text-danger">'.$value->status.'</span>';
                             }
 
-                            $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
+                            $x[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                         }
-                        // $results =  implode(" <br> ", $result);
-                        return $result;
+                        return  implode(" <br> ", $x);
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
