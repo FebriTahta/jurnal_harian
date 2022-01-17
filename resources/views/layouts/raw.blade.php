@@ -51,7 +51,7 @@
                         @csrf
                     </form>
                     @else
-                    <button type="button" class="btn btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal ?</button>
+                    <button type="button" class="btn btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Masuk ?</button>
                 @endauth
             </div>
             {{-- <div class="header col-md-12 col-12 m-b-10" >
