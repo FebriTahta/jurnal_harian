@@ -44,5 +44,10 @@ Route::post('/autocomplete',[IndexCOnt::class,'fetch'])->name('autocomplete.fetc
 // login
 Route::get('/fetch_username_from_bidang/{bidang_id}', [EventCont::class,'get_username_from_bidang']);
 
+// total
+Route::get('/total-anggota',[EventCont::class, 'total_anggota']);
+Route::get('/total-bidang',[EventCont::class, 'total_bidang']);
+Route::get('/total-pekerjaan-selesai',[EventCont::class, 'total_pekerjaan_selesai']);
+
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

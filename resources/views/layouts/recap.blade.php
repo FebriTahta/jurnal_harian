@@ -41,37 +41,37 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-6">
                                 <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">1203</h5>
-                                        <small>Likes</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
                                     <div class="body">                            
-                                        <i class="zmdi zmdi-comment-text zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="324" data-speed="1000" data-fresh-interval="700">324</h5>
-                                        <small>Comments</small>
+                                        <i class="zmdi zmdi-account zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number" id="total_anggota">-</h5>
+                                        <small>Anggota</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-6">
                                 <div class="card text-center">
                                     <div class="body">
-                                        <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">1980</h5>
-                                        <small>Views</small>
+                                        <i class="zmdi zmdi-home zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700" id="total_bidang">-</h5>
+                                        <small>Bidang</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-6">
                                 <div class="card text-center">
                                     <div class="body">
-                                        <i class="zmdi zmdi-attachment zmdi-hc-2x"></i>
+                                        <i class="zmdi zmdi-calendar zmdi-hc-2x"></i>
                                         <h5 class="m-b-0 number count-to" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">52</h5>
                                         <small>Attachment</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card text-center">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number" id="total_pekerjaan_selesai" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">-</h5>
+                                        <small>Pekerjaan Selesai</small>
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +239,40 @@
 
 <script>
     $(document).ready(function(){
-
+                
+                            // total anggota keseluruhan
+                            $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: '/total-anggota',
+                                type: "GET",
+                                success: function (response) {
+                                    console.log(response);
+                                    $('#total_anggota').html(response);
+                                }
+                            });
+                            // total anggota keseluruhan
+                            $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: '/total-bidang',
+                                type: "GET",
+                                success: function (response) {
+                                    console.log(response);
+                                    $('#total_bidang').html(response);
+                                }
+                            });
+                            $.ajax({
+                                contentType: false,
+                                processData: false,
+                                url: '/total-pekerjaan-selesai',
+                                type: "GET",
+                                success: function (response) {
+                                    console.log(response);
+                                    $('#total_pekerjaan_selesai').html(response);
+                                }
+                            });
+                // table
                 $('.data-table').DataTable({
                 //karena memakai yajra dan template maka di destroy dulu biar ga dobel initialization
                 destroy: true,

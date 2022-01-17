@@ -5,6 +5,7 @@ use App\Models\Event;
 use App\Models\Jenis;
 use App\Models\Joblist;
 use App\Models\Anggota;
+use App\Models\Bidang;
 use App\Models\Isijurnal;
 use Illuminate\Http\Request;
 use Validator;
@@ -320,9 +321,6 @@ class EventCont extends Controller
         return response()->json($joblist1,200);
     }
 
-
-
-
     // RECAP DATA
     public function recap(Request $request)
     {
@@ -421,6 +419,30 @@ class EventCont extends Controller
         }
     }
 
+    // total
+    public function total_anggota(Request $request)
+    {
+        if ($request->ajax()) {
+            $anggota = Anggota::all()->count();
+            return response()->json($anggota,200);
+        }
+    }
+
+    public function total_bidang(Request $request)
+    {
+        if ($request->ajax()) {
+            $bidang = Bidang::all()->count();
+            return response()->json($bidang,200);
+        }
+    }
+
+    public function total_pekerjaan_selesai(Request $request)
+    {
+        if ($request->ajax()) {
+            $job = Joblist::all()->count();
+            return response()->json($job,200);
+        }
+    }
     
 
 
