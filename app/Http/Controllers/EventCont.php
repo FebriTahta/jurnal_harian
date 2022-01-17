@@ -544,9 +544,16 @@ class EventCont extends Controller
         $bidang = Bidang::all();
         $jenis  = Jenis::all();
         $sekarang = date("Y-m-d");
-        $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)->orderBy('id','desc')
+        if (Auth::user()) {
+            # code...
+            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota_id)->orderBy('id','desc')
                                  ->whereDate('start', $sekarang )->get();
-        return view('layouts.recap',compact('bidang','jenis','joblist'));
+            return view('layouts.recap',compact('bidang','jenis','joblist'));
+        } else {
+            # code...
+            
+            return view('layouts.recap',compact('bidang','jenis'));
+        }
     }
 
     public function get_username_from_bidang(Request $request, $bidang_id)
