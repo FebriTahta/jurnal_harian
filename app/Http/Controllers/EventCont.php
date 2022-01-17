@@ -514,7 +514,6 @@ class EventCont extends Controller
                         //     $y[] = $x->nama;
                         // }
                         // $hasil =  implode(" <br> ", $jobs);
-                        $result= '';
                         $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->get();
                         foreach ($hasil as $key => $value) {
                             # code...
@@ -535,8 +534,8 @@ class EventCont extends Controller
 
                             $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                         }
-                        $results =  implode(" <br> ", $result);
-                        return $results;
+                        // $results =  implode(" <br> ", $result);
+                        return $result;
                         
                     })
                     ->rawColumns(['tanggal','nama','joblist'])
