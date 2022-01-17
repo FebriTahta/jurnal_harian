@@ -27,9 +27,127 @@
                 </div>            
             </div>
         </div>
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    
+                    <ul class="nav nav-tabs profile_tab">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#overview">Ringkasan</a></li>
+                        {{-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#usersettings">Mengisi Jurnal</a></li> --}}
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="overview">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card text-center">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">1203</h5>
+                                        <small>Likes</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card text-center">
+                                    <div class="body">                            
+                                        <i class="zmdi zmdi-comment-text zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="324" data-speed="1000" data-fresh-interval="700">324</h5>
+                                        <small>Comments</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card text-center">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">1980</h5>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card text-center">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-attachment zmdi-hc-2x"></i>
+                                        <h5 class="m-b-0 number count-to" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">52</h5>
+                                        <small>Attachment</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2><strong>Info</strong></h2>
+                                    </div>
+                                    <div class="">
+                                        <a href="#">
+                                            <div class="card">
+                                                <div class="body l-red">
+                                                    <div class="event-name row">
+                                                        <div class="col-3 text-center">
+                                                            <h4>{{date("d")}}<span>{{date("M")}}</span><span>{{date("Y")}}</span></h4>
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <h6>Jurnal Hari Ini Kosong</h6>
+                                                            <p>Belum ada satupun anggota yang mengisi jurnal</p>
+                                                            <address><i class="zmdi zmdi-check"></i> -</address>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2><strong>Mengisi</strong> jurnal</h2>
+                                    </div>
+                                    <div class="body m-b-10">
+                                        <div class="form-group">
+                                            <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
+                                        </div>
+                                        <div class="post-toolbar-b">
+                                            <button class="btn btn-primary btn-round">Post</button>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="table-responsive">
+                                            <table class="table data-table table-bordered table-hover js-basic-example dataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 15%">ID</th>
+                                                        {{-- <th>Name</th> --}}
+                                                        <th>JOBLIST</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+        
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th style="width: 15%">ID</th>
+                                                        {{-- <th>Name</th> --}}
+                                                        <th>JOBLIST</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             
-            <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
+            {{-- <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
                     <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(186, 134, 255)">
                     {{ __('Kalender') }}
                     </a>
@@ -48,47 +166,12 @@
                         @csrf
                     </form>
                     @else
-                    {{-- <button type="button" class="btn btn-sm btn-info waves-effect" data-toggle="modal" data-target="#user">Mengisi Jurnal ?</button> --}}
                 @endauth
-            </div>
+            </div> --}}
             {{-- <div class="header col-md-12 col-12 m-b-10" >
                 <h5><strong>Pekerjaan </strong></h5>
             </div> --}}
-            <div class="col-md-12 col-lg-12">
-                <div class="row clearfix">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="header">
-                                {{--  --}}
-                            </div>
-                            <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table data-table table-bordered table-hover js-basic-example dataTable">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 15%">ID</th>
-                                                {{-- <th>Name</th> --}}
-                                                <th>JOBLIST</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th style="width: 15%">ID</th>
-                                                {{-- <th>Name</th> --}}
-                                                <th>JOBLIST</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- #END# Basic Examples --> 
-            </div>
+            
             
             {{-- <div class="col-lg-4 col-md-6" id="card_jurnal_kalender">
                 @if ($joblist->count() > 0)
@@ -135,7 +218,7 @@
     @auth
         <input type="hidden" id="stat" value="masuk">
         <input type="hidden" id="user_id" value="{{auth()->user()->anggota_id}}">        
-            @else
+    @else
         <input type="hidden" id="stat" value="non">
     @endauth
 </section>
