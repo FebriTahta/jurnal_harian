@@ -165,7 +165,7 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                            {{$joblist->count()}}
+                                            
                                             @foreach ($joblist as $item)
                                             <a href="#">
                                                 <div class="card">
@@ -184,6 +184,7 @@
                                                 </div>
                                             </a>
                                             @endforeach
+                                            {{ $joblist->links() }}
                                             @endif
                                             
                                         @else
