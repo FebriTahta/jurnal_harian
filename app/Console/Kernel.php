@@ -14,14 +14,14 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
-    protected $commands = [
-        Commands\Reminder::class,
-    ];
+    // protected $commands = [
+    //     Commands\Reminder::class,
+    // ];
 
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('reminder:cron')->everyMinute();
+        $schedule->command('reminderjurnal')->everyMinute();
         // $schedule->command('reminder:cron')
         //          ->everyMinute();
     }
