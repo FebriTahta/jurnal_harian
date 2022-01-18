@@ -132,16 +132,15 @@
 
                     <div role="tabpanel" class="tab-pane" id="schedule">
                         <div class="row">
-                            <div class="col-lg-4 col-md-12">
-                                <div class="card" id="card_jurnal">
+                            <div class="col-lg-4 col-md-12" id="card_jurnal">
+                                <div class="card" id="isi_jurnal">
                                     <div class="header">
                                         <h2><strong>Info</strong></h2>
                                     </div>
-                                    <div id="isi_jurnal">
-                                        @auth
-                                            @if ($jobhariini > 0)
-                                                @foreach ($joblist as $jlist)
-                                                <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-tanggal="{{$jlist->start}}" data-status="{{$jlist->status}}">
+                                    @auth
+                                        @if ($jobhariini > 0)
+                                            @foreach ($joblist as $jlist)
+                                            <a href="#" data-toggle="modal" data-target="#modalupdate" data-id="{{$jlist->id}}" data-jenis="{{$jlist->jenis->jenis}}" data-deskripsi="{{$jlist->deskripsi}}" data-tanggal="{{$jlist->start}}" data-status="{{$jlist->status}}">
                                                 <div class="card">
                                                     <div class="body m-b-10">
                                                         <div class="event-name b-lightred row">
@@ -163,9 +162,9 @@
                                                         <hr>
                                                     </div>
                                                 </div>
-                                                </a>
-                                                @endforeach
-                                            @else
+                                            </a>
+                                            @endforeach
+                                        @else
                                             <a href="#">
                                                 <div class="card">
                                                     <div class="body m-b-10">
@@ -228,8 +227,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        @endauth
-                                    </div>
+                                    @endauth
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-12">
@@ -703,6 +701,77 @@
 })
 </script>
 <script>
+    
+</script>
+<script>
+    $('#formaddjob').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_input2",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnadd').attr('disabled','disabled');
+                $('#btnadd').val('Process');
+            },
+            success: function(response){
+                if(response.status == 200)
+                {
+                    
+                    $('#btnadd').val('SUBMIT');
+                    $('#btnadd').attr('disabled',false);
+                    $("#formaddjob")[0].reset();
+                    // toastr.success('Success', 'Mengisi Jurnal');
+                    toastr.success(response.message);
+                    $('#isi_jurnal a').remove();
+                    $('.wewewe').remove();
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+                        ];
+                    $.ajax({
+                        url:"jurnalku-data",
+                        type: 'get',
+                        dataType: 'json',
+                            success:function(datas) {
+                                console.log(datas.length);
+                                for (let index = 0; index < datas.length; index++) {
+                                    var tgl = new Date(datas[index].start);
+                                    
+                                    card_jurnalku = '<a style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'" data-tanggal="'+datas[index].start+'">'
+                                                    +'<div class="card wewewe">'
+                                                        +'<div class="body m-b-10">'
+                                                            +'<div class="event-name row">'
+                                                                +'<div class="col-3 text-center">'
+                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
+                                                                    +'</div>'
+                                                                    +'<div class="col-9">'
+                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
+                                                                        +'<p>'+datas[index].deskripsi+'</p>'
+                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
+                                                                        +'<hr>'
+                                                                        +'</div>'
+                                                                        +'</div>'
+                                                                        +'</a>';
+                                    $('#isi_jurnal').append(card_jurnalku);
+                                    // $('#belum_mengisi').remove();                                    
+                                }
+                            }
+                    });
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
+
+
     $('#formupdatejob').submit(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
@@ -728,7 +797,8 @@
                     // toastr.success('Success', 'Mengisi Jurnal');
                     toastr.success(response.message);
                     // $('#errList').removeClass('alert alert-danger');
-                    $('#isi_jurnal a').remove();
+                    // $('#isi_jurnal a').remove();
+                    $('#isi_jurnal div').remove();
                     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "July", "Aug", "Sep", "Oct", "Nov", "Dec"
                         ];
@@ -742,73 +812,6 @@
                                     $('.wewewe').remove();
                                     card_jurnalku = '<a style="text-black;" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'" data-tanggal="'+datas[index].start+'">'
                                                     +'<div class="card">'
-                                                        +'<div class="body m-b-10">'
-                                                            +'<div class="event-name row">'
-                                                                +'<div class="col-3 text-center">'
-                                                                    +'<h4>'+tgl.getDate()+'<span>'+monthNames[tgl.getMonth()]+'</span><span>'+tgl.getFullYear()+'</span></h4>'
-                                                                    +'</div>'
-                                                                    +'<div class="col-9">'
-                                                                        +'<h6>'+datas[index].jenis.jenis+'</h6>'
-                                                                        +'<p>'+datas[index].deskripsi+'</p>'
-                                                                        +'<address><i class="zmdi zmdi-check"></i> '+datas[index].status+'</address>'
-                                                                        +'<hr>'
-                                                                        +'</div>'
-                                                                        +'</div>'
-                                                                        +'</a>';
-                                    $('#isi_jurnal').append(card_jurnalku);
-                                    // $('#belum_mengisi').remove();
-                                }
-                            }
-                    });
-                }
-            },
-            error: function(data)
-            {   
-                console.log(data);
-            }
-        });
-    });
-</script>
-<script>
-    $('#formaddjob').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        var card_jurnalku = '';
-        $.ajax({
-            type:'POST',
-            url: "/new_input2",
-            data: formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            beforeSend:function(){
-                $('#btnadd').attr('disabled','disabled');
-                $('#btnadd').val('Process');
-            },
-            success: function(response){
-                console.log(response.datas);
-                if(response.status == 200)
-                {
-                    
-                    $('#btnadd').val('SUBMIT');
-                    $('#btnadd').attr('disabled',false);
-                    $("#formaddjob")[0].reset();
-                    // toastr.success('Success', 'Mengisi Jurnal');
-                    toastr.success(response.message);
-                    $('#errList').removeClass('alert alert-danger');
-                    $('#isi_jurnal a').remove();
-                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "July", "Aug", "Sep", "Oct", "Nov", "Dec"
-                        ];
-                    $.ajax({
-                        url:"jurnalku-data",
-                        type: 'get',
-                        dataType: 'json',
-                            success:function(datas) {
-                                for (let index = 0; index < datas.length; index++) {
-                                    var tgl = new Date(datas[index].start);
-                                    card_jurnalku = '<a style="text-black" data-toggle="modal" data-target="#modalupdate" data-id="'+datas[index].id+'" data-jenis="'+datas[index].jenis.jenis+'" data-deskripsi="'+datas[index].deskripsi+'" data-status="'+datas[index].status+'" data-tanggal="'+datas[index].start+'">'
-                                                    +'<div class="card wewewe">'
                                                         +'<div class="body m-b-10">'
                                                             +'<div class="event-name row">'
                                                                 +'<div class="col-3 text-center">'

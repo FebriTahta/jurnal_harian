@@ -425,8 +425,8 @@ class EventCont extends Controller
             {
                 // $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
                 // whereDate('start', $sekarang)->get();
-                $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
-                paginate(5);
+                $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('start','desc')->
+                limit(5)->get();
                 return response()->json($datas,200);
             }
         }
