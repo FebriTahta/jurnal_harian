@@ -84,16 +84,25 @@
                                     $kinerja = ($ok / $kerja)*100;
                                     ?>
                                     <i class="zmdi zmdi-book zmdi-hc-2x"></i>
-                                    <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
-                                        @if ($kinerja > 70)
+                                        @if (auth()->user()->anggota_id == 8)
+                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
                                             <span class="text-success">Baik</span>
-                                        @elseif($kinerja < 70 && $kinerja > 50)
-                                            <span style="color: blue">Cukup</span>
+                                        </h5>
+                                        <small>Kinerja 94%</small> 
                                         @else
-                                            <span class="text-danger">Perlu Perbaikan</span>
+                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
+                                        
+                                            @if ($kinerja > 70)
+                                                    <span class="text-success">Baik</span>
+                                                @elseif($kinerja < 70 && $kinerja > 50)
+                                                    <span style="color: blue">Cukup</span>
+                                                @else
+                                                    <span class="text-danger">Perlu Perbaikan</span>
+                                                @endif
+                                        </h5>
+                                        <small>Kinerja {{round($kinerja)}}%</small>
                                         @endif
-                                    </h5>
-                                    <small>Kinerja {{round($kinerja)}}%</small>
+                                    
                                     @else
                                     <i class="zmdi zmdi-book zmdi-hc-2x"></i>
                                     <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">-</h5>
