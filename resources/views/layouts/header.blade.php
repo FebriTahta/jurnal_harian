@@ -45,7 +45,7 @@
 <aside id="minileftbar" class="minileftbar">
     <ul class="menu_list">
         <li>
-            <a href="javascript:void(0);" class="bars"></a>
+            {{-- <a href="javascript:void(0);" class="bars"></a> --}}
             <a class="navbar-brand" href="/"><img src="{{asset('assets/images/nf2.png')}}" alt="Alpino"></a>
         </li>
 
