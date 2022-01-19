@@ -452,116 +452,120 @@ class EventCont extends Controller
     // RECAP DATA
     public function recap(Request $request)
     {
-        // if ($request->ajax()) {
-        //     $data = Joblist::select('*')
-        //             ->with('jenis')
-        //             ->with('anggota');
-        //     return Datatables::of($data)
-        //             ->addIndexColumn()
-        //             ->addColumn('tanggal', function($row){
-        //                 $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
-        //                 return $btn;
-        //             })
-        //             ->rawColumns(['tanggal'])
-        //             ->make(true);
-        // }
-
-        if ($request->ajax()) {
-            $data = Isijurnal::select('*')->with('joblist')->orderBy('start','desc');
-            return  Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('tanggal', function($row){
-                        $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
-                        return $btn;
-                    })
-                    // ->addColumn('nama', function($row){
-                        
-                    //     $joblist = Joblist::where('isijurnal_id', $row->id)
-                    //             ->select('anggota_id')->distinct()->get();
-                    //     foreach ($joblist as $key => $value) {
-                    //         # code...
-                            
-                    //         $x = Anggota::where('id', $value->anggota_id)->first();
-                    //         $y[] = $x->nama;
-
-                    //     }
-                    //     return implode("<hr>", $y);
-                        
-                    // })
-                    ->addColumn('joblist', function($data){
-                        
-                        // $joblist = Joblist::where('isijurnal_id', $data->id)->with('anggota')
-                        //         ->select('anggota_id')->distinct()->get();
-                        // foreach ($joblist as $key => $value) {
-                        //     # code...
-                            
-                        //     $x = Anggota::where('id', $value->anggota_id)->first();
-                        //     foreach ($x->joblist as $key => $job) {
-                        //         # code...
-                        //         $desk = '';
-                        //         $stat = '';
-                        //         if ($job->deskripsi !== null) {
-                        //             # code...
-                        //             $desk = ' ( <span style="color: blue">'.$job->deskripsi.'</span> ) ';
-                        //         }
-                        //         if ($job->status == 'selesai') {
-                        //             # code...
-                        //             $stat = ' -> <span class="text-success">'.$job->status.'</span>';
-                        //         }else {
-                        //             # code...
-                        //             $stat = ' x <span class="text-danger">'.$job->status.'</span>';
-                        //         }
-                        //         $jobs[] = $job->anggota->nama.' - '.$job->jenis->jenis. $desk. $stat;
-                        //     }
-                        //     $y[] = $x->nama;
-                        // }
-                        // $hasil =  implode(" <br> ", $jobs);
-                        $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->orderBy('anggota_id','asc')->get();
-                        foreach ($hasil as $key => $value) {
-                            # code...
-                            $desk = '';
-                            $stats= '';
-
-                            if ($value->deskripsi !== null) {
-                                # code...
-                                $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
-                            }
-                            if ($value->status == 'selesai') {
-                                # code...
-                                $stats = ' -> <span class="text-success">'.$value->status.'</span>';
-                            }else {
-                                # code...
-                                $stats = ' x <span class="text-danger">'.$value->status.'</span>';
-                            }
-                            
-                            $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
-                        }
-                        if ($hasil->count() > 0) {
-                            # code...
-                            $results =  implode(" <br> ", $result);
-                            return $results;
-                        }else {
-                            # code...
-                            return '-';
-                        }
-                        
-                    })
-                    ->rawColumns(['tanggal','nama','joblist'])
-                    ->make(true);
-        }
-        $bidang = Bidang::all();
-        $jenis  = Jenis::all();
-        $sekarang = date("Y-m-d");
         if (Auth::user()) {
             # code...
+            if ($request->ajax()) {
+                $data = Isijurnal::select('*')->with('joblist')->orderBy('start','desc');
+                return  Datatables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('tanggal', function($row){
+                            $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
+                            return $btn;
+                        })
+                        ->addColumn('joblist', function($data){
+                            $hasil = Joblist::where('isijurnal_id', $data->id)->where('anggota_id', auth()->user()->anggota_id)->with(['jenis','anggota'])->get();
+                            foreach ($hasil as $key => $value) {
+                                # code...
+                                $desk = '';
+                                $stats= '';
+    
+                                if ($value->deskripsi !== null) {
+                                    # code...
+                                    $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
+                                }
+                                if ($value->status == 'selesai') {
+                                    # code...
+                                    $stats = ' -> <span class="text-success">'.$value->status.'</span>';
+                                }else {
+                                    # code...
+                                    $stats = ' x <span class="text-danger">'.$value->status.'</span>';
+                                }
+                                
+                                $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
+                            }
+                            if ($hasil->count() > 0) {
+                                # code...
+                                $results =  implode(" <br> ", $result);
+                                return $results;
+                            }else {
+                                # code...
+                                return '-';
+                            }
+                            
+                        })
+                        ->rawColumns(['tanggal','nama','joblist'])
+                        ->make(true);
+            }
+            $bidang = Bidang::all();
+            $jenis  = Jenis::all();
+            $sekarang = date("Y-m-d");
             $joblist    = Joblist::where('anggota_id', Auth::user()->anggota_id)->orderBy('start','desc')
                                  ->paginate(5);
             $jobhariini = Joblist::where('anggota_id', Auth::user()->anggota_id)
                                  ->whereDate('start',$sekarang)->get()->count();
             return view('layouts.recap',compact('bidang','jenis','joblist','jobhariini'));
+
         } else {
             # code...
+            if ($request->ajax()) {
+                $data = Isijurnal::select('*')->with('joblist')->orderBy('start','desc');
+                return  Datatables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('tanggal', function($row){
+                            $btn = Carbon::parse($row->start)->isoFormat('D MMMM Y');
+                            return $btn;
+                        })
+                        ->addColumn('joblist', function($data){
+                            $hasil = Joblist::where('isijurnal_id', $data->id)->with('jenis')->orderBy('anggota_id','asc')->get();
+                            foreach ($hasil as $key => $value) {
+                                # code...
+                                $desk = '';
+                                $stats= '';
+    
+                                if ($value->deskripsi !== null) {
+                                    # code...
+                                    $desk = '<span style="color: blue"> ( '.$value->deskripsi.' )</span>';
+                                }
+                                if ($value->status == 'selesai') {
+                                    # code...
+                                    $stats = ' -> <span class="text-success">'.$value->status.'</span>';
+                                }else {
+                                    # code...
+                                    $stats = ' x <span class="text-danger">'.$value->status.'</span>';
+                                }
+                                
+                                $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
+                            }
+                            if ($hasil->count() > 0) {
+                                # code...
+                                $results =  implode(" <br> ", $result);
+                                return $results;
+                            }else {
+                                # code...
+                                return '-';
+                            }
+                            
+                        })
+                        ->rawColumns(['tanggal','nama','joblist'])
+                        ->make(true);
+            }
+            $bidang = Bidang::all();
+            $jenis  = Jenis::all();
+            $sekarang = date("Y-m-d");
             return view('layouts.recap',compact('bidang','jenis'));
+        }
+        
+        
+        
+
+
+
+        if (Auth::user()) {
+            # code...
+            
+        } else {
+            # code...
+            
         }
     }
 
