@@ -579,7 +579,6 @@
                             var stat = $('#stat').val();
                             
                             if (stat == 'masuk') {
-                                $("#user").modal('show');
                                 console.log(stat);
                                 var user = $('#user_id').val();
                                 console.log(user);
@@ -614,7 +613,7 @@
                                     }
                                 });
                             }else{
-
+                                $("#user").modal('show');
                                 console.log(stat);
                                 // total anggota keseluruhan
 
