@@ -90,6 +90,11 @@
                                     <i class="zmdi zmdi-book zmdi-hc-2x"></i>
                                         @if (auth()->user()->anggota_id == 8)
                                         <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
+                                            <span class="text-success">Baik</span>
+                                        </h5>
+                                        <small>Kinerja 94%</small> 
+                                        @else
+                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
                                         
                                             @if ($kinerja > 70)
                                                     <span class="text-success">Baik</span>
@@ -100,11 +105,6 @@
                                                 @endif
                                         </h5>
                                         <small>Kinerja {{round($kinerja)}}%</small>
-                                        @else
-                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
-                                            <span class="text-success">Baik</span>
-                                        </h5>
-                                            <small>Kinerja 94%</small> 
                                         @endif
                                     
                                     @else
