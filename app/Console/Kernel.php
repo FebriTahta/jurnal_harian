@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('reminder:cron')
         //          ->everyMinute();
     }
-
+ 
     /**
      * Register the commands for the application.
      *
