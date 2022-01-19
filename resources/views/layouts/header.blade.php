@@ -35,7 +35,7 @@
 <!-- Page Loader -->
 <div class="page-loader-wrapper">
     <div class="loader">
-        <div class="m-t-30"><img src="{{asset('assets/images/nf.png')}}" width="48" height="48" alt="Alpino"></div>
+        <div class="m-t-30"><img src="{{asset('assets/images/nf2.png')}}" width="48" height="48" alt="Alpino"></div>
         <p>Please wait...</p>        
     </div>
 </div>
@@ -46,7 +46,7 @@
     <ul class="menu_list">
         <li>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="/"><img src="{{asset('assets/images/nf.png')}}" alt="Alpino"></a>
+            <a class="navbar-brand" href="/"><img src="{{asset('assets/images/nf2.png')}}" alt="Alpino"></a>
         </li>
 
         <li style="display: none" class="menuapp-btn badgebit">
