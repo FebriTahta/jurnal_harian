@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('reminderjurnal')->dailyAt('15:00');
-        $schedule->command('reminder:cron')
+        $schedule->command('jurnal:cron')
                  ->everyMinute();
     }
  
