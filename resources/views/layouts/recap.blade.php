@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
                             </div>
-                            </a>
+                            </a> 
                         @endauth
                     </div>
 
