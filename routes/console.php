@@ -27,7 +27,7 @@ Artisan::command('reminderjurnal', function(){
         $curl = curl_init();
                 $token = "dyr07JcBSmVsb1YrVBTB2A5zNKor0BZ9krv2WnQsjWHG1CRhSktdqazkfuOSY9qh";
                 $datas = [
-                    'phone' => '081329146514',
+                    'phone' => $value->phone,
                     'message' => $value->nama.' - Jangan lupa mengisi jurnal kegiatan harian anda pada . *https://jurnal.tilawatipusat.com*',
                     'secret' => false, // or true
                     'priority' => false, // or true
