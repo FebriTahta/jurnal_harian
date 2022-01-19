@@ -17,7 +17,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2>JURNAL HARIAN ADM & IT</h2>
+                    <h2>JURNAL HARIAN ADM & IT</h2>{{App\Models\Anggota::where('id',8)->select('phone')->first();}}
                     <ul class="breadcrumb padding-0">
                         <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">App</a></li>
