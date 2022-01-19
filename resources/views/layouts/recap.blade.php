@@ -97,7 +97,7 @@
                                                 @elseif($kinerja < 70 && $kinerja > 50)
                                                     <span style="color: blue">Cukup</span>
                                                 @else
-                                                    <span class="text-danger">Perlu Perbaikan</span>
+                                                    <span class="text-danger">Perlu Perhatian</span>
                                                 @endif
                                         </h5>
                                         <small>Kinerja {{round($kinerja)}}%</small>
