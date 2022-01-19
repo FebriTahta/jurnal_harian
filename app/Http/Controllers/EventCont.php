@@ -619,7 +619,7 @@ class EventCont extends Controller
     public function total_pekerjaan_selesai_anggota(Request $request, $anggota_id)
     {
         if ($request->ajax()) {
-            $job = Joblist::where('anggota_id', $anggota_id)->count();
+            $job = Joblist::where('anggota_id', $anggota_id)->where('status','selesai')->count();
             return response()->json($job,200);
         }
     }
