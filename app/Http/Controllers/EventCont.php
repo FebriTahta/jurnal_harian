@@ -426,7 +426,7 @@ class EventCont extends Controller
                 // $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('id','desc')->
                 // whereDate('start', $sekarang)->get();
                 $datas = Joblist::where('anggota_id', Auth::user()->anggota->id)->with('jenis')->orderBy('start','desc')->
-                limit(5)->get();
+                limit(3)->get();
                 return response()->json($datas,200);
             }
         }
@@ -612,6 +612,14 @@ class EventCont extends Controller
         }
     }
 
+    public function total_pekerjaan_selesai_anggota(Request $request, $anggota_id)
+    {
+        if ($request->ajax()) {
+            $job = Joblist::where('anggota_id', $anggota_id)->count();
+            return response()->json($job,200);
+        }
+    }
+
     public function total_hari(Request $request)
     {
         if ($request->ajax()) {
@@ -620,6 +628,15 @@ class EventCont extends Controller
         }
     }
     
-
+    public function total_hari_anggota(Request $request, $anggota_id)
+    {
+        if ($request->ajax()) {
+            # code...
+            
+            $y = Joblist::where('anggota_id', $anggota_id)->select('isijurnal_id')->distinct()->get();
+            $x = Isijurnal::select('id')->whereIn('id',$y)->count();
+            return response()->json($x,200);
+        }
+    }
 
 }

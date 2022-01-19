@@ -18,7 +18,8 @@ use App\Http\Controllers\IndexCont;
 Route::get('/', function () {
     // return view('welcome');
     // return view('layouts.raw');
-    return redirect('/agenda-jurnal');
+    // return redirect('/agenda-jurnal');
+    return redirect('/jurnal-harian');
 });
 
 Route::get('/agenda-jurnal',[IndexCont::class,'index'])->name('/utama');
@@ -51,6 +52,10 @@ Route::get('/total-anggota',[EventCont::class, 'total_anggota']);
 Route::get('/total-bidang',[EventCont::class, 'total_bidang']);
 Route::get('/total-pekerjaan-selesai',[EventCont::class, 'total_pekerjaan_selesai']);
 Route::get('/total-hari',[EventCont::class,'total_hari']);
+
+// total milik anggota
+Route::get('/total-pekerjaan-selesai/{anggota_id}',[EventCont::class, 'total_pekerjaan_selesai_anggota']);
+Route::get('/total-hari/{anggota_id}',[EventCont::class,'total_hari_anggota']);
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

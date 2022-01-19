@@ -48,13 +48,47 @@
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="/"><img src="{{asset('assets/images/logo.svg')}}" alt="Alpino"></a>
         </li>
-        <li style="display: none" class="menuapp-btn badgebit"><a href="javascript:void(0);"><i class="zmdi zmdi-apps"></i>
+
+        <li style="display: none" class="menuapp-btn badgebit">
+            <a href="javascript:void(0);"><i class="zmdi zmdi-apps"></i>
             <div class="notify">
                 <span class="heartbit"></span>
                 <span class="point"></span>
             </div>
-        </a></li>
-        <li><a href="/" title="Events"><i class="zmdi zmdi-calendar"></i></a></li>    
+            </a>
+        </li>
+        {{-- <li><a href="/" title="Events"><i class="zmdi zmdi-calendar"></i></a></li> --}}
+        
+        <li class="task badgebit">
+            <a href="/agenda-jurnal">
+                <i class="zmdi zmdi-calendar"></i>
+                <div class="notify">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            </a>
+        </li>
+
+        <li class="task badgebit">
+            <a href="/jurnal-harian">
+                <i class="zmdi zmdi-flag"></i>
+                <div class="notify">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            </a>
+        </li>
+
+        <li class="task badgebit">
+            <a href="/recap-jurnal">
+                <i class="zmdi zmdi-book"></i>
+                <div class="notify">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            </a>
+        </li>
+
         <li><a href="javascript:void(0);" class="fullscreen" data-provide="fullscreen"><i class="zmdi zmdi-fullscreen"></i></a></li>
         <li class="power">
             <a href="javascript:void(0);" class="js-right-sidebar"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a>            

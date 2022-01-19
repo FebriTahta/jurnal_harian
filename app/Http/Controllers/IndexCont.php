@@ -64,10 +64,12 @@ class IndexCont extends Controller
             # code...
             $anggota    = Anggota::all();
             $bidang     = Bidang::all();
-            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota->id)->orderBy('id','desc')
-                                 ->whereDate('start', $sekarang )->get();
             $jenis      = Jenis::all();
-            return view('layouts.absen',compact('anggota','bidang','joblist','jenis'));
+            $joblist    = Joblist::where('anggota_id', Auth::user()->anggota_id)->orderBy('start','desc')
+                                 ->paginate(3);
+            $jobhariini = Joblist::where('anggota_id', Auth::user()->anggota_id)
+                                 ->whereDate('start',$sekarang)->get()->count();
+            return view('layouts.absen',compact('bidang','jenis','joblist','jobhariini'));
         }else{
             $anggota    = Anggota::all();
             $bidang     = Bidang::all();

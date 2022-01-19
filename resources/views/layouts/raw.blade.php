@@ -33,14 +33,12 @@
             
             <div class="body col-md-12 col-12 m-b-10" style="text-align: right">
                 <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
-                    {{ __('Recap Jurnal / Mengisi Jurnal') }}
+                    {{ __('Recap Jurnal') }}
+                </a>
+                <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
+                    {{ __('Mengisi Jurnal ?') }}
                 </a>
                 @auth
-
-                    {{-- <a class="btn  btn-sm waves-effect" href="/jurnal-harian" style="background-color: rgb(255, 134, 150)">
-                    {{ __('Mengisi Jurnal ?') }}
-                    </a> --}}
-                    
                     <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -125,7 +123,7 @@
                 </div>
                 <div class="modal-body clearfix" >
                     <div class="form-group" id="dynamicTable">
-                        <div class="form-group" style="margin-bottom: 50px">
+                        <div class="form-group" style="margin-bottom: 20px">
                             <select class="form-control show-tick" name="bidang" style="text-transform: uppercase" required>
                                 <option value="">Bidang ..</option>
                                 @foreach ($bidang as $item)
