@@ -184,7 +184,7 @@
                                     
                                     <form id="formaddjob">@csrf
                                         <div class="row">
-                                            <div class="col-xl-6 m-b-20">
+                                            {{-- <div class="col-xl-6 m-b-20">
                                                 <div class="body">
                                                     <p style="text-transform: uppercase">TANGGAL</p>
                                                     <div class="form-group">
@@ -197,9 +197,9 @@
                                                         </label>       
                                                     </div>
                                                 </div> 
-                                            </div>
+                                            </div> --}}
 
-                                            <div class="col-xl-6 m-b-20">
+                                            <div class="col-xl-12 m-b-20">
                                                 <div class="body" style="">
                                                     {{-- <h2 class="card-inside-title">Jenis Pekerjaan ..</h2> --}}
                                                     <div class="form-group">

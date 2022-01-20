@@ -292,8 +292,9 @@ class EventCont extends Controller
 
     public function new_input2(Request $request)
     {
-        $tgl   = Carbon::parse($request->tanggal)->isoFormat('Y-MM-D 0:0:0');
-        $jurnal     = "@ jurnal";
+        // $tgl   = Carbon::parse($request->tanggal)->isoFormat('Y-MM-D 0:0:0');
+        $tgl   = date("Y-m-d H:i:s");
+        // $jurnal     = "@ jurnal";
         
 
         $validator  = Validator::make($request->all(), [            
