@@ -771,7 +771,7 @@
         var card_jurnalku = '';
         $.ajax({
             type:'POST',
-            url: "/new_input2",
+            url: "/new_input",
             data: formData,
             cache:false,
             contentType: false,
