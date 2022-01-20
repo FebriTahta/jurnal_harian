@@ -310,7 +310,7 @@ class EventCont extends Controller
             ]);
         }
         else {
-            $isijurnal  =  Isijurnal::whereDate('start', $request->tanggal)->first();
+            $isijurnal  =  Isijurnal::whereDate('start', $tgl)->first();
             $isijurnal_id = '';
             
             if ($isijurnal == null) {
