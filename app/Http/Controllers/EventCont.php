@@ -294,7 +294,7 @@ class EventCont extends Controller
     {
         // $tgl   = Carbon::parse($request->tanggal)->isoFormat('Y-MM-D 0:0:0');
         $tgl   = date("Y-m-d H:i:s");
-        // $jurnal     = "@ jurnal";
+        $jurnal     = "@ jurnal";
         
 
         $validator  = Validator::make($request->all(), [            
