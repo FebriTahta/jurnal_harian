@@ -120,8 +120,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#@">
-                            <div class="col-lg-3 col-md-6 col-6">
+                            
+                            <a href="#0" class="col-lg-3 col-md-6 col-6">
                                 <div class="card text-center">
                                     <div class="body">
                                         <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
@@ -129,8 +129,8 @@
                                         <small>Pekerjaan Selesai</small>
                                     </div>
                                 </div>
-                            </div>
                             </a>
+                            
                         @else
                             <div class="col-lg-3 col-md-6 col-6">
                                 <div class="card text-center">
