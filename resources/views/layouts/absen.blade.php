@@ -49,7 +49,7 @@
                         <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(255, 134, 150)">
                             {{ __('Kalender') }}
                         </a>
-                        <a class="btn  btn-sm waves-effect" href="/agenda-jurnal" style="background-color: rgb(186, 134, 255)">
+                        <a class="btn  btn-sm waves-effect" href="/recap-jurnal" style="background-color: rgb(186, 134, 255)">
                             {{ __('Rekap Jurnal') }}
                         </a>
                         @auth
