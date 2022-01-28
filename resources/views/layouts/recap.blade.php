@@ -458,6 +458,21 @@
 
 
 <script>
+    $('#modalupdate').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var jenis = button.data('jenis')
+                    var deskripsi = button.data('deskripsi')
+                    var status = button.data('status')
+                    var tanggal = button.data('tanggal')
+                    var modal = $(this)
+                    $('#id').val(id);
+                    $('#jenis').val(jenis);
+                    $('#deskripsi').text(deskripsi);
+                    $('#status').text(status);
+                    $('#tanggal').text(tanggal);
+                    console.log(tanggal);
+                })
     $('#modal_hapus').on('show.bs.modal', function(event) {
                     var button = $(event.relatedTarget)
                     var id = button.data('id')
@@ -679,62 +694,36 @@
     });
 
     // update
-    <div class="modal fade" id="modalupdate" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
-        <div class="modal-dialog modal-lg" role="document">
-            <form id="formupdatejob">@csrf    
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="title" id="defaultModalLabel">UPDATE JOB</h4>
-                    </div>
-                    <div class="modal-body clearfix" >
-                            <div class="body" style="margin-bottom: 20px">
-                                <h4 class="title">Jenis Pekerjaan ..</h4>
-                                <div class="row clearfix">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input type="hidden" name="id" id="id" class="form-control" required>
-                                                @auth
-                                                    
-                                                @endauth
-                                                <input list="listjenis" id="jenis" type="text" name="jenis" class="form-control" placeholder="..." required>
-                                                <datalist id="listjenis">
-                                                @foreach ($jenis as $item)
-                                                    <option value="{{$item->jenis}}">{{$item->jenis}}</option>
-                                                @endforeach
-                                                </datalist>
-                                                <label class="container" style="margin-top: 10px;">Selesai
-                                                    <input type="checkbox" value="selesai" name="status" style="margin-top: 10px;" >
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </div>
-                            <hr>
-                            <div class="body" style="margin-bottom: 20px">
-                                <h4 class="title">Deskripsi ..</h4>
-                                <div class="row clearfix">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <textarea rows="4" id="deskripsi" name="deskripsi" class="form-control no-resize" placeholder="Tulis kendala / proses yang perlu menjadi catatan..."></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div>
-                            
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-info btn-round waves-effect" id="btnadd1" value="UPDATE">
-                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
-                        {{-- <button type="button" class="btn btn-danger btn-round waves-effect" data-dismiss="modal" disabled>HAPUS</button> --}}
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    $('#formupdatejob').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_update",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnadd1').attr('disabled','disabled');
+                $('#btnadd1').val('Process');
+            },
+            success: function(response){
+                if(response.status == 200)
+                {
+                    $('#btnadd1').val('UPDATE');
+                    $('#btnadd1').attr('disabled',false);
+                    $("#formupdatejob")[0].reset();
+                    $("#modalupdate").hide();
+                    toastr.success(response.message);
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
 </script>
 @endsection
