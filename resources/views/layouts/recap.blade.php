@@ -665,7 +665,7 @@
             success: function(response){
                 if(response.status == 200)
                 {
-                    
+                    $('#modal_hapus').modal('hide');
                     $('#btnhapus').val('HAPUS');
                     $('#btnhapus').attr('disabled',false);
                     $("#formaddjob")[0].reset();
