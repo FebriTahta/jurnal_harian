@@ -668,8 +668,7 @@
                     $('#modal_hapus').modal('hide');
                     $('#btnhapus').val('HAPUS');
                     $('#btnhapus').attr('disabled',false);
-                    toastr.success('Success', 'Pekerjaan telah dihapus');
-                    // toastr.success(response.message);
+                    toastr.success(response.message);
                 }
             },
             error: function(data)

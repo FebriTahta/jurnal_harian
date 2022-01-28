@@ -649,7 +649,11 @@ class EventCont extends Controller
         if ($request->ajax()) {
             # code...
             $x = Joblist::where('id', $request->id)->delete();
-            return response()->json($x,200);
+            return response()->json([
+                'datas'   => $x,
+                'status'  => 200,
+                'message' => 'Jurnal berhasil di tambahkan'
+            ]);
         }
     }
 
