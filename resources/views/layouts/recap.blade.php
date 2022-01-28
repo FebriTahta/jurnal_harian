@@ -347,8 +347,8 @@
 
 
     <div class="modal fade" id="modal_hapus" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
-        <div class="modal-dialog modal-lg" role="document">
-            {{-- <form method="POST" action="{{ route('login') }}"> --}}
+        <div class="modal-dialog" role="document">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header" >
@@ -357,19 +357,21 @@
                     <div class="modal-body clearfix" >
                         <div class="form-group">
                             <div class="form-group">
+                                <input type="text" id="id_job">
                                 <p>Yakin akan menghapus Pekerjaan ini ?</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger btn-round waves-effect" data-dismiss="modal">HAPUS</button>
                         <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="modalupdate" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog modal-lg" role="document">
             <form id="formupdatejob">@csrf    
@@ -456,6 +458,14 @@
 
 
 <script>
+    $('#modal_hapus').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget)
+                    var id = button.data('id')
+                    var modal = $(this)
+                    $('#id_job').val(id);
+                    console.log(id);
+                })
+
     $(document).ready(function(){
         var stat = $('#stat').val();
                             
