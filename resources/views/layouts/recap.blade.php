@@ -383,7 +383,7 @@
                             <div class="body" style="margin-bottom: 20px">
                                 <h4 class="title">Jenis Pekerjaan ..</h4>
                                 <div class="row clearfix">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <input type="hidden" name="id" id="id" class="form-control" required>
@@ -401,11 +401,6 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                                         </div>
                                     </div>
                                 </div>                        
