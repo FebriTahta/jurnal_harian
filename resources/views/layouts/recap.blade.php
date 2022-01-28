@@ -348,7 +348,7 @@
 
     <div class="modal fade" id="modal_hapus" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog" role="document">
-            <form id="formhapus" method="POST" action="{{ route('login') }}">
+            <form id="formhapus" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header" >
@@ -363,7 +363,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-danger btn-round waves-effect" value="HAPUS">
+                        <input type="submit" id="btnhapus" class="btn btn-danger btn-round waves-effect" value="HAPUS">
                         <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
