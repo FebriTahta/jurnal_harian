@@ -345,6 +345,31 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="modal_hapus" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            {{-- <form method="POST" action="{{ route('login') }}"> --}}
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header" >
+                        <h4 class="title">PEKERJAAN</h4>
+                    </div>
+                    <div class="modal-body clearfix" >
+                        <div class="form-group">
+                            <div class="form-group">
+                                <p>Yakin akan menghapus Pekerjaan ini ?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            {{-- </form> --}}
+        </div>
+    </div>
+
+    
     <div class="modal fade" id="modalupdate" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog modal-lg" role="document">
             <form id="formupdatejob">@csrf    
