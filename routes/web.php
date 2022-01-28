@@ -36,6 +36,9 @@ Route::post('/new_input2', [EventCont::class,'new_input2']);
 
 Route::get('/jurnalku-data',[EventCont::class,'jurnalku']);
 Route::post('/new_update', [EventCont::class,'new_update']);
+
+Route::post('/new_hapus', [EventCont::class, 'new_hapus']);
+
 Route::get('/show/{start}', [EventCont::class,'show']);
 Route::get('/show-my-job/{anggota_id}/{tanggal}',[EventCont::class,'show_my_job']);
 

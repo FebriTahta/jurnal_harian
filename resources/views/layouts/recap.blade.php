@@ -357,7 +357,7 @@
                     <div class="modal-body clearfix" >
                         <div class="form-group">
                             <div class="form-group">
-                                <input type="hidden" id="id_job">
+                                <input type="hidden" id="id_job" name="id">
                                 <p>Yakin akan menghapus Pekerjaan ini ?</p>
                             </div>
                         </div>

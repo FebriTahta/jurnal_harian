@@ -644,4 +644,14 @@ class EventCont extends Controller
         }
     }
 
+    public function new_hapus(Request $request)
+    {
+        if ($request->ajax()) {
+            # code...
+            
+            $y = Joblist::find('id', $request->id)->delete();
+            return response()->json($x,200);
+        }
+    }
+
 }
