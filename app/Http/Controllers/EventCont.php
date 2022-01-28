@@ -482,7 +482,7 @@ class EventCont extends Controller
                                     $stats = ' x <span class="text-danger">'.$value->status.'</span>';
                                 }
                                 
-                                $result[] = '<a class="text-danger" href="#" data-toggle="modal" data-target="#modal_hapus" data-id="'.$value->id.'">hapus_<a> '.'<a href="#" class="text-primary" data-toggle="modal" data-target="#modal_hapus" data-id="'.$value->id.'">edit_<a> '.$value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
+                                $result[] = '<a class="text-danger" href="#" data-toggle="modal" data-target="#modal_hapus" data-id="'.$value->id.'">hapus_<a> '.'<a style="color: blue" class="text-primary" data-toggle="modal" data-target="#modal_hapus" data-id="'.$value->id.'">edit_<a> '.$value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                             }
                             if ($hasil->count() > 0) {
                                 # code...

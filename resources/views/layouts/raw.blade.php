@@ -39,7 +39,7 @@
                     {{ __('Mengisi Jurnal ?') }}
                 </a>
                 @auth
-                    <a class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
+                    <a  class="btn  btn-sm btn-primary waves-effect" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
