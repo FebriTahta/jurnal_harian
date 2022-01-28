@@ -482,7 +482,7 @@ class EventCont extends Controller
                                     $stats = ' x <span class="text-danger">'.$value->status.'</span>';
                                 }
                                 
-                                $result[] = $value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
+                                $result[] = 'hapus_ '.'edit_ '.$value->anggota->nama.' - '.$value->jenis->jenis.$desk.$stats;
                             }
                             if ($hasil->count() > 0) {
                                 # code...
