@@ -178,7 +178,7 @@
                         <div class="card">
                             <div class="body">
                                 <div class="table-responsive">
-                                    <table class="table data-table table-bordered table-hover js-basic-example dataTable">
+                                    <table id="table1" class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
                                                 <th style="width: 15%">ID</th>
@@ -679,6 +679,8 @@
                     $('#btnhapus').val('HAPUS');
                     $('#btnhapus').attr('disabled',false);
                     toastr.success(response.message);
+                    var oTable = $('#table1').dataTable();
+                    oTable.fnDraw(false);
                 }
             },
             error: function(data)
@@ -709,7 +711,8 @@
                 {
                     $('#btnadd1').val('UPDATE');
                     $('#btnadd1').attr('disabled',false);
-                    $("#formupdatejob")[0].reset();
+                    var oTable = $('#table1').dataTable();
+                    oTable.fnDraw(false);
                     $("#modalupdate").hide();
                     toastr.success(response.message);
                 }
