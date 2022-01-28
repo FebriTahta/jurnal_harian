@@ -649,7 +649,7 @@ class EventCont extends Controller
         if ($request->ajax()) {
             # code...
             
-            $y = Joblist::find('id', $request->id)->delete();
+            $x = Joblist::where('id', $request->id)->delete();
             return response()->json($x,200);
         }
     }
