@@ -348,7 +348,7 @@
 
     <div class="modal fade" id="modal_hapus" tabindex="" role="dialog" data-backdrop="false" data-keyboard="false">
         <div class="modal-dialog" role="document">
-            <form method="POST" action="{{ route('login') }}">
+            <form id="formhapus" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header" >
@@ -357,13 +357,13 @@
                     <div class="modal-body clearfix" >
                         <div class="form-group">
                             <div class="form-group">
-                                <input type="text" id="id_job">
+                                <input type="hidden" id="id_job">
                                 <p>Yakin akan menghapus Pekerjaan ini ?</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-round waves-effect" data-dismiss="modal">HAPUS</button>
+                        <input type="submit" class="btn btn-danger btn-round waves-effect" value="HAPUS">
                         <button type="button" class="btn btn-simple btn-round waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
                 </div>
@@ -643,5 +643,41 @@
 		// $('select[name="username"]').empty().disabled();
 	}
 })
+</script>
+
+<script>
+    // hapus
+    $('#formhapus').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        var card_jurnalku = '';
+        $.ajax({
+            type:'POST',
+            url: "/new_hapus",
+            data: formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#btnhapus').attr('disabled','disabled');
+                $('#btnhapus').val('Process');
+            },
+            success: function(response){
+                if(response.status == 200)
+                {
+                    
+                    $('#btnhapus').val('HAPUS');
+                    $('#btnhapus').attr('disabled',false);
+                    $("#formaddjob")[0].reset();
+                    toastr.success('Success', 'Pekerjaan telah dihapus');
+                    // toastr.success(response.message);
+                }
+            },
+            error: function(data)
+            {   
+                console.log(data);
+            }
+        });
+    });
 </script>
 @endsection
