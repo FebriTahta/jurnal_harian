@@ -668,7 +668,6 @@
                     $('#modal_hapus').modal('hide');
                     $('#btnhapus').val('HAPUS');
                     $('#btnhapus').attr('disabled',false);
-                    $("#formaddjob")[0].reset();
                     toastr.success('Success', 'Pekerjaan telah dihapus');
                     // toastr.success(response.message);
                 }
