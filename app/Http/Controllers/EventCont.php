@@ -652,7 +652,7 @@ class EventCont extends Controller
             return response()->json([
                 'datas'   => $x,
                 'status'  => 200,
-                'message' => 'Jurnal berhasil di tambahkan'
+                'message' => 'Jurnal berhasil dihapus'
             ]);
         }
     }
