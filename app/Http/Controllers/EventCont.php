@@ -670,8 +670,9 @@ class EventCont extends Controller
             ->select('jenis_id', \DB::raw('count(*) as count'))
             ->groupBy('jenis_id')
             ->get();
+        $bidang = Bidang::all();
         
-        return view('layouts.detail',compact('job'));
+        return view('layouts.detail',compact('job','bidang'));
     }
 
 }
