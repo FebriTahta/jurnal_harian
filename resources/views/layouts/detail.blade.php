@@ -375,7 +375,7 @@
                     
                     {
                     data:'jenis',
-                    name:'jenis'
+                    name:'jenis.jenis'
                     },
                     {
                     data:'total',
