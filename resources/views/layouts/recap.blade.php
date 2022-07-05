@@ -178,7 +178,9 @@
                         <div class="card">
                             
                             <div class="body">
-                                <a href="/download-recap-jurnal/{{Auth::user()->anggota_id}}" class="btn btn-sm btn-primary"> Detail Daftar Pekerjaan </a>
+                                @auth
+                                    <a href="/download-recap-jurnal/{{Auth::user()->anggota_id}}" class="btn btn-sm btn-primary"> Detail Daftar Pekerjaan </a>
+                                @endauth
                                 <div class="table-responsive">
                                     <table id="table1" class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
