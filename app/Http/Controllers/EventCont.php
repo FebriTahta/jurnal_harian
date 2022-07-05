@@ -663,7 +663,7 @@ class EventCont extends Controller
     public function download_recap_jurnal(Request $request, $anggota_id)
     {
 
-        $job = DB::table('joblists')->where('anggota_id', $anggota_id)->distinct('jenis_id')->count('jenis_id');
+        $job = DB::table('joblists')->where('anggota_id', $anggota_id)->distinct('jenis_id')->get();
         return $job;
     }
 
