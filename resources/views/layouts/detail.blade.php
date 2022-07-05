@@ -89,22 +89,27 @@
                                     <table id="table1" class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th style="width: 15%">ID</th>
+                                                <th style="width: 5%">No</th>
                                                 <th>Jenis</th>
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            
                                             @foreach ($job as $key=>$item)
+                                            <tr>
                                                 <td>{{$key+1}}</td>
-                                                <td>{{$item}}</td>    
-                                            @endforeach
+                                                <td>{{$item->jenis->jenis}}</td>
+                                                <td>{{$item->count()}}<td>
                                             </tr>
+                                            @endforeach
+                                            
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th style="width: 15%">ID</th>
+                                                <th style="width: 5%">No</th>
                                                 <th>Jenis</th>
+                                                <th>Total</th>
                                             </tr>
                                         </tfoot>
                                     </table>
