@@ -177,6 +177,9 @@
                     <div role="tabpanel" class="tab-pane active" id="overview">
                         <div class="card">
                             <div class="body">
+                                <a href="/download-recap-jurnal/{{Auth::user()->anggota_id}}" class="btn btn-sm btn-primary"> Download </a>
+                            </div>
+                            <div class="body">
                                 <div class="table-responsive">
                                     <table id="table1" class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
