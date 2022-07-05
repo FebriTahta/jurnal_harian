@@ -666,10 +666,9 @@ class EventCont extends Controller
         // $job = DB::table('joblists')->where('anggota_id', $anggota_id)->distinct('jenis_id')->get();
         // return $job;
 
-        $job = Joblist::where('anggota_id', $anggota_id)
-            ->join('jenis','joblists.jenis_id','jenis.id')
-            ->select('jenis_id','jenis.jenis', \DB::raw('count(*) as count'))
-            // ->groupBy('jenis_id')
+        $job = Joblist::where('anggota_id', $anggota_id)->with('jenis')
+            ->select('jenis_id', \DB::raw('count(*) as count'))
+            ->groupBy('jenis_id')
             ->get();
         return $job;
     }
