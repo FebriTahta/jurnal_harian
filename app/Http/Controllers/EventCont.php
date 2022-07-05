@@ -667,7 +667,7 @@ class EventCont extends Controller
         // return $job;
 
         $job = DB::table('joblists')
-            ->select('jenis_id.*',DB::raw('COUNT(jenis_id) as count'))
+            ->select('jenis_id.*',DB::raw('COUNT(jenis) as count'))
             ->groupBy('jenis_id')
             ->orderBy('count')
             ->get();
