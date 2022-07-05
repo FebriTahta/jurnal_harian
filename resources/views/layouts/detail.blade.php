@@ -100,7 +100,7 @@
                                             <tr>
                                                 <td>{{$key+1}}</td>
                                                 <td>{{$item->jenis->jenis}}</td>
-                                                <td>{{$item}}<td>
+                                                <td>{{$item->count}}<td>
                                             </tr>
                                             @endforeach
                                             
