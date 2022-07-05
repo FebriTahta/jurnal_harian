@@ -61,7 +61,7 @@ Route::get('/total-pekerjaan-selesai/{anggota_id}',[EventCont::class, 'total_pek
 Route::get('/total-hari/{anggota_id}',[EventCont::class,'total_hari_anggota']);
 
 // download recap jurnal 
-Route::get('/download-recap-jurnal/{anggota_id}',EventCont::class,'download_recap_jurnal');
+Route::get('/download-recap-jurnal/{anggota_id}',[EventCont::class,'download_recap_jurnal']);
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
