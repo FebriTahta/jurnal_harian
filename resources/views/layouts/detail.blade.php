@@ -15,7 +15,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h2>RECAP JURNAL ADM & IT</h2>
+                    <h2>DETAIL JOBLIST</h2>
                     <ul class="breadcrumb padding-0">
                         <li class="breadcrumb-item"><a href="#"><i class="zmdi zmdi-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">App</a></li>
@@ -454,7 +454,7 @@
 
 
 
-<script>
+{{-- <script>
     $('#modalupdate').on('show.bs.modal', function(event) {
                     var button = $(event.relatedTarget)
                     var id = button.data('id')
@@ -655,75 +655,75 @@
 		// $('select[name="username"]').empty().disabled();
 	}
 })
-</script>
+</script> --}}
 
 <script>
     // hapus
-    $('#formhapus').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        var card_jurnalku = '';
-        $.ajax({
-            type:'POST',
-            url: "/new_hapus",
-            data: formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            beforeSend:function(){
-                $('#btnhapus').attr('disabled','disabled');
-                $('#btnhapus').val('Process');
-            },
-            success: function(response){
-                if(response.status == 200)
-                {
-                    $('#modal_hapus').modal('hide');
-                    $('#btnhapus').val('HAPUS');
-                    $('#btnhapus').attr('disabled',false);
-                    toastr.success(response.message);
-                    var oTable = $('#table1').dataTable();
-                    oTable.fnDraw(false);
-                }
-            },
-            error: function(data)
-            {   
-                console.log(data);
-            }
-        });
-    });
+    // $('#formhapus').submit(function(e) {
+    //     e.preventDefault();
+    //     var formData = new FormData(this);
+    //     var card_jurnalku = '';
+    //     $.ajax({
+    //         type:'POST',
+    //         url: "/new_hapus",
+    //         data: formData,
+    //         cache:false,
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend:function(){
+    //             $('#btnhapus').attr('disabled','disabled');
+    //             $('#btnhapus').val('Process');
+    //         },
+    //         success: function(response){
+    //             if(response.status == 200)
+    //             {
+    //                 $('#modal_hapus').modal('hide');
+    //                 $('#btnhapus').val('HAPUS');
+    //                 $('#btnhapus').attr('disabled',false);
+    //                 toastr.success(response.message);
+    //                 var oTable = $('#table1').dataTable();
+    //                 oTable.fnDraw(false);
+    //             }
+    //         },
+    //         error: function(data)
+    //         {   
+    //             console.log(data);
+    //         }
+    //     });
+    // });
 
-    // update
-    $('#formupdatejob').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        var card_jurnalku = '';
-        $.ajax({
-            type:'POST',
-            url: "/new_update",
-            data: formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            beforeSend:function(){
-                $('#btnadd1').attr('disabled','disabled');
-                $('#btnadd1').val('Process');
-            },
-            success: function(response){
-                if(response.status == 200)
-                {
-                    $('#btnadd1').val('UPDATE');
-                    $('#btnadd1').attr('disabled',false);
-                    var oTable = $('#table1').dataTable();
-                    oTable.fnDraw(false);
-                    $("#modalupdate").hide();
-                    toastr.success(response.message);
-                }
-            },
-            error: function(data)
-            {   
-                console.log(data);
-            }
-        });
-    });
+    // // update
+    // $('#formupdatejob').submit(function(e) {
+    //     e.preventDefault();
+    //     var formData = new FormData(this);
+    //     var card_jurnalku = '';
+    //     $.ajax({
+    //         type:'POST',
+    //         url: "/new_update",
+    //         data: formData,
+    //         cache:false,
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend:function(){
+    //             $('#btnadd1').attr('disabled','disabled');
+    //             $('#btnadd1').val('Process');
+    //         },
+    //         success: function(response){
+    //             if(response.status == 200)
+    //             {
+    //                 $('#btnadd1').val('UPDATE');
+    //                 $('#btnadd1').attr('disabled',false);
+    //                 var oTable = $('#table1').dataTable();
+    //                 oTable.fnDraw(false);
+    //                 $("#modalupdate").hide();
+    //                 toastr.success(response.message);
+    //             }
+    //         },
+    //         error: function(data)
+    //         {   
+    //             console.log(data);
+    //         }
+    //     });
+    // });
 </script>
 @endsection
