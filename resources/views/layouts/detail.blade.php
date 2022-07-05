@@ -74,103 +74,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                    @if (App\Models\Joblist::where('anggota_id', auth()->user()->anggota_id)->count() > 0)
-                                    <?php 
-                                    $kerja  = App\Models\Joblist::where('anggota_id', auth()->user()->anggota_id)->count();
-                                    $ok     = App\Models\Joblist::where('anggota_id', auth()->user()->anggota_id)->where('status','selesai')->count();
-                                    $kinerja = ($ok / $kerja)*100;
-                                    ?>
-                                    <i class="zmdi zmdi-book zmdi-hc-2x"></i>
-                                        @if (auth()->user()->anggota_id == 8)
-                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
-                                            <span class="text-success">Baik</span>
-                                        </h5>
-                                        <small>Kinerja 94%</small> 
-                                        @else
-                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">
-                                        
-                                            @if ($kinerja > 70)
-                                                    <span class="text-success">Baik</span>
-                                                @elseif($kinerja < 70 && $kinerja > 50)
-                                                    <span style="color: blue">Cukup</span>
-                                                @else
-                                                    <span class="text-danger">Perlu Perhatian</span>
-                                                @endif
-                                        </h5>
-                                        <small>Kinerja {{round($kinerja)}}%</small>
-                                        @endif
-                                    
-                                    @else
-                                    <i class="zmdi zmdi-book zmdi-hc-2x"></i>
-                                    <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">-</h5>
-                                    <small>Belum Ada Pekerjaan</small>
-                                    @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-calendar zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700" id="total_hari">-</h5>
-                                        <small>Hari Kerja</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <a href="#0" class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" id="total_pekerjaan_selesai" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">-</h5>
-                                        <small>Pekerjaan Selesai</small>
-                                    </div>
-                                </div>
-                            </a>
                             
                         @else
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">                            
-                                        <i class="zmdi zmdi-account zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" id="total_anggota" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">-</h5>
-                                        <small>Anggota</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-home zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700" id="total_bidang">-</h5>
-                                        <small>Bidang</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-calendar zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700" id="total_hari">-</h5>
-                                        <small>Hari Kerja</small>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <a href="#@"> --}}
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card text-center">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up zmdi-hc-2x"></i>
-                                        <h5 class="m-b-0 number" id="total_pekerjaan_selesai" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">-</h5>
-                                        <small>Pekerjaan Selesai</small>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- </a>  --}}
+                            
                         @endauth
                     </div>
 
@@ -184,18 +90,21 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 15%">ID</th>
-                                                {{-- <th>Name</th> --}}
-                                                <th>JOBLIST</th>
+                                                <th>Jenis</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-    
+                                            <tr>
+                                            @foreach ($job as $key=>$item)
+                                                <td>{{$key+1}}</td>
+                                                <td>{{$item}}</td>    
+                                            @endforeach
+                                            </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th style="width: 15%">ID</th>
-                                                {{-- <th>Name</th> --}}
-                                                <th>JOBLIST</th>
+                                                <th>Jenis</th>
                                             </tr>
                                         </tfoot>
                                     </table>
