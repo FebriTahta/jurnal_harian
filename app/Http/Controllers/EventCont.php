@@ -671,8 +671,9 @@ class EventCont extends Controller
             ->groupBy('jenis_id')
             ->get();
         $bidang = Bidang::all();
+        $jenis = Jenis::all();
         
-        return view('layouts.detail',compact('job','bidang'));
+        return view('layouts.detail',compact('job','bidang','jenis'));
     }
 
 }
