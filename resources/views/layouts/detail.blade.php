@@ -79,7 +79,7 @@
                             
                         @endauth
                     </div>
-
+                    <input type="hidden" id="anggota_id" value="{{Auth::user()->anggota_id}}">
                     <div role="tabpanel" class="tab-pane active" id="overview">
                         <div class="card">
                             
@@ -89,25 +89,19 @@
                                     <table id="table1" class="table data-table table-bordered table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%">No</th>
+                                                {{-- <th style="width: 5%">No</th> --}}
                                                 <th>Jenis</th>
                                                 <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             
-                                            @foreach ($job as $key=>$item)
-                                            <tr>
-                                                <td>{{$key+1}}</td>
-                                                <td>{{$item->jenis->jenis}}</td>
-                                                <td>{{$item->count}}<td>
-                                            </tr>
-                                            @endforeach
+                                           
                                             
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th style="width: 5%">No</th>
+                                                {{-- <th style="width: 5%">No</th> --}}
                                                 <th>Jenis</th>
                                                 <th>Total</th>
                                             </tr>
@@ -366,7 +360,32 @@
 <script src="{{asset('assets/bundles/mainscripts.bundle.js')}}"></script><!-- Custom Js --> 
 <script src="{{asset('assets/js/pages/tables/jquery-datatable.js')}}"></script>
 
-
+<script>
+    $(document).ready(function(){
+        var anggota_id = $('#anggota_id').val();
+        $('.data-table').DataTable({
+                //karena memakai yajra dan template maka di destroy dulu biar ga dobel initialization
+                destroy: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url:'/download-recap-jurnal/'+anggota_id,
+                },
+                columns: [
+                    
+                    {
+                    data:'jenis',
+                    name:'jenis'
+                    },
+                    {
+                    data:'total',
+                    name:'total'
+                    },
+                    
+                ]
+                });
+    })
+</script>
 
 {{-- <script>
     $('#modalupdate').on('show.bs.modal', function(event) {
