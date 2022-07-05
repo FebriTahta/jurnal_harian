@@ -10,6 +10,7 @@ use App\Models\Isijurnal;
 use Illuminate\Http\Request;
 use Validator;
 use Redirect,Response;
+use DB;
 use DataTables;
 use Carbon\Carbon;
 use Auth;
@@ -661,7 +662,8 @@ class EventCont extends Controller
 
     public function download_recap_jurnal(Request $request, $anggota_id)
     {
-        $job = Joblist::where('anggota_id', $anggota_id)->distinct('jenis_id')->get();
+
+        $job = DB::table('joblists')->where('anggota_id', $anggota_id)->distinct('jenis_id')->count('jenis_id');
         return $job;
     }
 
