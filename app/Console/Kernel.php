@@ -20,10 +20,8 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('reminderjurnal')->dailyAt('16:50');
-        // $schedule->command('jurnal:cron')
-        //          ->everyMinute();
+        // SORE JAM 4 (SERVER KOCAK)
+        $schedule->command('reminderjurnal')->dailyAt('08:50');
     }
 
     /**
